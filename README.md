@@ -1,2 +1,2 @@
-# Smart-Aid---QT
+# SmartAid-QT
 A C++ desktop application

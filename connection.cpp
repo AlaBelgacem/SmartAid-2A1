@@ -14,11 +14,8 @@ db.setPassword("cycy");//inserer mot de passe de cet utilisateur
 if (db.open())
 test=true;
 
-
-
-
-
     return  test;
+
 }
 
 void Connection::closeconnection(){db.close();}

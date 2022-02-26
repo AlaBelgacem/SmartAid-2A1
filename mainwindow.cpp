@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);
+      ui->setupUi(this);
 
     QPixmap pix(":/images/images/copy.jpg");
     //ui->user_pic->setPixmap(pix.scaled(501,451,Qt::KeepAspectRatio));
@@ -177,4 +177,5 @@ void MainWindow::on_Ajouter_event_4_clicked()
             QMessageBox::information(this,"Supprimer Event","Suppression Effectué Avec Sucess.");
         else
             QMessageBox::information(this,"Supprimer Event","Echec De La Suppression.");
+
 }

@@ -70,6 +70,7 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
     //--------------------------------------------
     //Afficher les Employe dés que le programe commence
     connection c;
+
     bool test = c.createconnection();
     if (test)
     ui->conect->setText("Connection: Connecté ✓");

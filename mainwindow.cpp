@@ -75,6 +75,7 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
     ui->conect->setText("Connection: Connecté ✓");
     else
          ui->conect->setText("Connection: Echoué X");
+
     Employes e;
 
     ui->table2->setModel(e.Afficher_em());

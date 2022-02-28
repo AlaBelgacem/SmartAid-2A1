@@ -78,7 +78,8 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
     Employes e;
 
     ui->table2->setModel(e.Afficher_em());
-     ui->table1->setModel(e.Afficher_em());
+
+    ui->table1->setModel(e.Afficher_em());
      //--------------------------------------------
 }
 

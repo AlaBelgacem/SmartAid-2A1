@@ -6,7 +6,7 @@
 #include <QMovie>
 #include <QDebug>
 #include<QMessageBox>
-
+int q=0;
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -73,9 +73,9 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
 
     bool test = c.createconnection();
     if (test)
-    ui->conect->setText("Connection: Connecté ✓");
+    ui->conect->setText("Connecté ✓");
     else
-         ui->conect->setText("Connection: Echoué X");
+         ui->conect->setText("Echec X");
 
     Employes e;
 
@@ -83,6 +83,9 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
 
     ui->table1->setModel(e.Afficher_em());
      //--------------------------------------------
+if(q==0){
+    ui->stackedWidget->hide();
+    ui->listWidget->hide();}
 }
 
 //la liste en gauche
@@ -118,7 +121,8 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item)
 void MainWindow::on_Ajouter_clicked()
 {
 //recuperer donnes
-    Employes e(NULL,ui->lineEdit_nom->text(),ui->lineEdit_pre->text(),ui->dateEdit_date->date().toString(),ui->lineEdit_em->text(),ui->lineEdit_ad->text(),ui->lineEdit_tele->text().toInt(),ui->lineEdit_image->text());
+
+    Employes e(NULL,ui->Champs_Nom->text(),ui->Champs_Prenom->text(),ui->Champs_Date->date().toString("ddd MMM M yyyy"),ui->Champs_Email->text(),ui->Champ_Adresse->text(),ui->Champ_Telephone->text().toInt(),ui->Champs_Image->text());
 
     bool check=e.Ajouter_em();
     if(check)
@@ -200,6 +204,9 @@ void MainWindow::on_table1_activated(const QModelIndex &index)
           //QDate date= QDate::currentDate();
           //QString date_string_on_db = "20/12/2015";
           //QDate Date = QDate::fromString(date_string_on_db,"dd/MM/yyyy");
+
+          //QMessageBox::information(this,"titrre",dates);
+
           QDate date = QDate::fromString(dates,"ddd MMM M yyyy");
           ui->dateEdit_date->setDate(date);
           ui->lineEdit_ad->setText(qry.value(5).toString());
@@ -219,7 +226,7 @@ void MainWindow::on_Actualiser_clicked()
     ui->table1->setModel(e.Afficher_em());
 }
 
-//Vidde les champs aprés les CRUD
+//Vide les champs aprés les CRUD
 void MainWindow::clear()
 {
     ui->lineEdit_id->clear();
@@ -294,4 +301,48 @@ void MainWindow::on_radioButton_2_clicked()
          ui->table2->setModel(e.Trier_em(type,ui->comboBox->currentText()));
 
     else  ui->table2->setModel(e.Afficher_em());
+}
+//Les Boutons Menu
+
+
+void MainWindow::on_Menu_modi_supp_employe_clicked()
+{
+    ui->tab_ge->setCurrentIndex (ui->tab_ge->currentIndex()+2);
+}
+
+void MainWindow::on_Menu_afficher_employe_clicked()
+{
+    ui->tab_ge->setCurrentIndex (ui->tab_ge->currentIndex()+3);
+}
+
+void MainWindow::on_Menu_ajouter_employe_clicked()
+{
+    ui->tab_ge->setCurrentIndex (ui->tab_ge->currentIndex()+1);
+}
+//Les Boutons Home
+void MainWindow::on_Ajouter_Emp_HOME_clicked()
+{
+
+    ui->tab_ge->setCurrentIndex (ui->tab_ge->currentIndex()-1);
+}
+
+void MainWindow::on_modifier_Emp_HOME_clicked()
+{
+     ui->tab_ge->setCurrentIndex (ui->tab_ge->currentIndex()-2);
+}
+
+void MainWindow::on_Afficher_Emp_HOME_clicked()
+{
+     ui->tab_ge->setCurrentIndex (ui->tab_ge->currentIndex()-3);
+}
+
+void MainWindow::on_bo_3_clicked()
+{
+    q=1;
+    ui->stackedWidget->show();
+    ui->listWidget->show();
+    //ui->box->move(0,-150);
+    ui->box->hide();
+
+
 }

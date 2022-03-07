@@ -9,6 +9,9 @@
         <file>icons/necessiteux128.png</file>
         <file>icons/icone.png</file>
         <file>icons/identity-card.png</file>
+        <file>icons/parametres.png</file>
+        <file>icons/accueil.png</file>
+        <file>icons/logo.png</file>
     </qresource>
     <qresource prefix="/images">
         <file>images/copy.jpg</file>

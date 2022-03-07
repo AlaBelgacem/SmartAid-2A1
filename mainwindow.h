@@ -44,6 +44,20 @@ private slots:
 
     void on_radioButton_2_clicked();
 
+    void on_Menu_modi_supp_employe_clicked();
+
+    void on_Menu_afficher_employe_clicked();
+
+    void on_Menu_ajouter_employe_clicked();
+
+    void on_Ajouter_Emp_HOME_clicked();
+
+    void on_modifier_Emp_HOME_clicked();
+
+    void on_Afficher_Emp_HOME_clicked();
+
+    void on_bo_3_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

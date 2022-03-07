@@ -14,3 +14,4 @@ bool connection::createconnection()
 }
 
 void connection::closeconnection(){db.close();}
+

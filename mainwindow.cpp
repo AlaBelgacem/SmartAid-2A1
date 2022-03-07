@@ -6,6 +6,11 @@
 #include <QMovie>
 #include <QDebug>
 #include<QMessageBox>
+#include <QRegExpValidator>
+
+#define chars_rx "[A-Za-z]{3,10}"
+#define email_rx "[A-Za-z0-9]{4,15}\\@+[a-z]{4,7}\\.+[a-z]{2,3}"
+#define file_rx "[A-z0-9]+(\\.(jpg|png|gif|jpeg|jfif))"
 int q=0;
 MainWindow::~MainWindow()
 {
@@ -47,71 +52,79 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
 
     QListWidgetItem *item6= new QListWidgetItem(QIcon(":/icons/icons/benevoles128.png"),"Gestion Bénévoles");
     ui->listWidget->addItem(item6);
-
-
     ui->listWidget->setCurrentItem(item0);
 
-  /*  connection c;
-    QSqlQueryModel *modal=new QSqlQueryModel();
+    //controle de saisie en temp reel
+    //ajouter
+    ui->Champ_Telephone->setValidator(new QIntValidator (2000000,99999999,this));
+    ui->Champs_Nom->setValidator(new QRegExpValidator( QRegExp(chars_rx),this));
+    ui->Champs_Prenom->setValidator(new QRegExpValidator( QRegExp(chars_rx),this));
+    ui->Champs_Email->setValidator(new QRegExpValidator( QRegExp(email_rx),this));
+    ui->Champs_Image->setValidator(new QRegExpValidator( QRegExp(file_rx),this));
+    //modifier
+    ui->lineEdit_tele->setValidator(new QIntValidator (2000000,99999999,this));
+    ui->lineEdit_nom->setValidator(new QRegExpValidator( QRegExp(chars_rx),this));
+    ui->lineEdit_pre->setValidator(new QRegExpValidator( QRegExp(chars_rx),this));
+    ui->lineEdit_em->setValidator(new QRegExpValidator( QRegExp(email_rx),this));
+    ui->lineEdit_image->setValidator(new QRegExpValidator( QRegExp(file_rx),this));
 
-    bool test=c.createconnection();
-    if(test)
-        ui->conect->setText("Connection: Connecté");
-    else
-         ui->conect->setText("Connection: Connection échoué");
+    //inti les champs des erreurs
+    init_errors();
+    init_errors_2();
 
-    QSqlQuery *qry=new QSqlQuery(c.getdb());
-
-    qry->prepare("select * from employes");
-
-    qry->exec();
-
-    modal->setQuery(*qry);*/
-    //--------------------------------------------
-    //Afficher les Employe dés que le programe commence
+    //verifi la conection avec db
     connection c;
-
     bool test = c.createconnection();
     if (test)
-    ui->conect->setText("Connecté ✓");
+        ui->conect->setText("Connecté ✓");
     else
-         ui->conect->setText("Echec X");
-
+        ui->conect->setText("Echec X");
+    //--------------------------------------------
+    //Afficher les Employe dés que le programe commence
     Employes e;
-
     ui->table2->setModel(e.Afficher_em());
-
     ui->table1->setModel(e.Afficher_em());
-     //--------------------------------------------
-if(q==0){
-    ui->stackedWidget->hide();
-    ui->listWidget->hide();}
+    //--------------------------------------------
+
+    //prototype login
+    if(q==0)
+    {
+        ui->stackedWidget->hide();
+        ui->listWidget->hide();
+    }
 }
 
 //la liste en gauche
-void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item)
+void MainWindow::on_listWidget_itemClicked()
 {
     QString selectedvalue= ui->listWidget->currentItem()->text();
 
-    if (selectedvalue == "Profil"){
+    if (selectedvalue == "Profil")
+    {
         ui->stackedWidget->setCurrentIndex(0);
     }
-    if (selectedvalue == "Gestion Employés"){
+    if (selectedvalue == "Gestion Employés")
+    {
         ui->stackedWidget->setCurrentIndex(1);
     }
-    if (selectedvalue == "Gestion Dons"){
+    if (selectedvalue == "Gestion Dons")
+    {
         ui->stackedWidget->setCurrentIndex(2);
     }
-    if (selectedvalue == "Gestion Evenements"){
+    if (selectedvalue == "Gestion Evenements")
+    {
         ui->stackedWidget->setCurrentIndex(3);
     }
-    if (selectedvalue == "Gestion Nécessiteux"){
+    if (selectedvalue == "Gestion Nécessiteux")
+    {
         ui->stackedWidget->setCurrentIndex(4);
     }
-    if (selectedvalue == "Gestion Crises"){
+    if (selectedvalue == "Gestion Crises")
+    {
         ui->stackedWidget->setCurrentIndex(5);
     }
-    if (selectedvalue == "Gestion Bénévoles"){
+    if (selectedvalue == "Gestion Bénévoles")
+    {
         ui->stackedWidget->setCurrentIndex(6);
     }
 }
@@ -120,32 +133,35 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item)
 //Bouton Ajouter
 void MainWindow::on_Ajouter_clicked()
 {
-//recuperer donnes
-
-    Employes e(NULL,ui->Champs_Nom->text(),ui->Champs_Prenom->text(),ui->Champs_Date->date().toString("ddd MMM M yyyy"),ui->Champs_Email->text(),ui->Champ_Adresse->text(),ui->Champ_Telephone->text().toInt(),ui->Champs_Image->text());
-
-    bool check=e.Ajouter_em();
-    if(check)
+    //Control assure le control de saisie
+    if(control())
     {
-        //Afficher apres l'insertion
-         ui->table1->setModel(e.Afficher_em());
-         ui->table2->setModel(e.Afficher_em());
-         clear();
-        QMessageBox::information(nullptr,QObject::tr("Insertion"),
-            QObject::tr("inserer avec succes."),QMessageBox::Cancel);
+        QString image="C:/Users/louay/Desktop/smart_aid/images/";
+        image= image + ui->Champs_Image->text();
+        //recuperer donnes
+        Employes e(0,ui->Champs_Nom->text(),ui->Champs_Prenom->text(),ui->Champs_Date->date().toString("ddd MMM M yyyy"),ui->Champs_Email->text(),ui->Champ_Adresse->text(),ui->Champ_Telephone->text().toInt(),image);
+        bool check=e.Ajouter_em();
+        if(check)
+        {
+            //Afficher apres l'insertion
+            ui->table1->setModel(e.Afficher_em());
+            ui->table2->setModel(e.Afficher_em());
+            clear();
+            ui->ajout->setText("Ajouter Avec Success !");
+        }
+        else
+        {
+            QMessageBox::information(nullptr,QObject::tr("Insertion"),
+                                     QObject::tr("insertion echoué."),QMessageBox::Cancel);
+        }
     }
-else {
-        QMessageBox::information(nullptr,QObject::tr("Insertion"),
-            QObject::tr("insertion echoué."),QMessageBox::Cancel);
-    }
-
-
 }
 
 //Bouton Modifier
 void MainWindow::on_Modifier_clicked()
 {
     //recuperer donnes
+    if(control_2()){
     Employes e( ui->lineEdit_id->text().toInt(),ui->lineEdit_nom->text(),ui->lineEdit_pre->text(),ui->dateEdit_date->date().toString(),ui->lineEdit_em->text(),ui->lineEdit_ad->text(),ui->lineEdit_tele->text().toInt(),ui->lineEdit_image->text());
     bool check=e.Modifier_em();
     if(check)
@@ -153,34 +169,35 @@ void MainWindow::on_Modifier_clicked()
         ui->table1->setModel(e.Afficher_em());
         ui->table2->setModel(e.Afficher_em());
         clear();
-        QMessageBox::information(nullptr,QObject::tr("Modification"),
-            QObject::tr("Modification avec succes."),QMessageBox::Cancel);
+      ui->modifi->setText("Modifier Avec Success !");
     }
     else
     {
         QMessageBox::information(nullptr,QObject::tr("Modification"),
-            QObject::tr("Modification echoué."),QMessageBox::Cancel);
+                                 QObject::tr("Modification echoué."),QMessageBox::Cancel);
+    }
     }
 }
 
 //Bouton Supprimer
 void MainWindow::on_Supprimer_clicked()
 {
+    init_errors_2();
     Employes e;
     e.setID_em(ui->lineEdit_id->text().toInt());
     bool check=e.Supprimer_em();
     if(check)
     {
-         ui->table1->setModel(e.Afficher_em());
-         ui->table2->setModel(e.Afficher_em());
-         clear();
-        QMessageBox::information(nullptr,QObject::tr("Suppression"),
-            QObject::tr("Suppression avec succes."),QMessageBox::Cancel);
+        ui->table1->setModel(e.Afficher_em());
+        ui->table2->setModel(e.Afficher_em());
+        clear();
+        ui->suprim->setText("Supprimer Avec Success !");
+
     }
     else
     {
         QMessageBox::information(nullptr,QObject::tr("Suppression"),
-            QObject::tr("Suppression echoué."),QMessageBox::Cancel);
+                                 QObject::tr("Suppression echoué."),QMessageBox::Cancel);
     }
 
 }
@@ -193,32 +210,34 @@ void MainWindow::on_table1_activated(const QModelIndex &index)
     c.closeconnection();
     QSqlQuery qry;
 
-     qry.prepare("select * from employes where id_em='"+value+"'");
-     if(qry.exec())
-     {
-          while(qry.next()){
-          ui->lineEdit_id->setText(qry.value(0).toString());
-          ui->lineEdit_nom->setText(qry.value(1).toString());
-          ui->lineEdit_pre->setText(qry.value(2).toString());
-          QString dates =qry.value(3).toString();
-          //QDate date= QDate::currentDate();
-          //QString date_string_on_db = "20/12/2015";
-          //QDate Date = QDate::fromString(date_string_on_db,"dd/MM/yyyy");
+    qry.prepare("select * from employes where id_em='"+value+"'");
+    if(qry.exec())
+    {
+        while(qry.next())
+        {
+            ui->lineEdit_id->setText(qry.value(0).toString());
+            ui->lineEdit_nom->setText(qry.value(1).toString());
+            ui->lineEdit_pre->setText(qry.value(2).toString());
+            QString dates =qry.value(3).toString();
+            //QDate date= QDate::currentDate();
+            //QString date_string_on_db = "20/12/2015";
+            //QDate Date = QDate::fromString(date_string_on_db,"dd/MM/yyyy");
 
-          //QMessageBox::information(this,"titrre",dates);
+            //QMessageBox::information(this,"titrre",dates);
 
-          QDate date = QDate::fromString(dates,"ddd MMM M yyyy");
-          ui->dateEdit_date->setDate(date);
-          ui->lineEdit_ad->setText(qry.value(5).toString());
-          ui->lineEdit_tele->setText(qry.value(4).toString());
-          ui->lineEdit_em->setText(qry.value(6).toString());
-          ui->lineEdit_image->setText(qry.value(8).toString());
-          QPixmap pix(qry.value(8).toString());
-          ui->label_pic->setPixmap(pix.scaled(100,100,Qt::KeepAspectRatio));
+            QDate date = QDate::fromString(dates,"ddd MMM M yyyy");
+            ui->dateEdit_date->setDate(date);
+            ui->lineEdit_ad->setText(qry.value(5).toString());
+            ui->lineEdit_tele->setText(qry.value(4).toString());
+            ui->lineEdit_em->setText(qry.value(6).toString());
+            ui->lineEdit_image->setText(qry.value(8).toString());
+            QPixmap pix(qry.value(8).toString());
+            ui->label_pic->setPixmap(pix.scaled(100,100,Qt::KeepAspectRatio));
 
-         }
-     }
+        }
+    }
 }
+
 //Bouton Actualiser
 void MainWindow::on_Actualiser_clicked()
 {
@@ -238,6 +257,15 @@ void MainWindow::clear()
     ui->lineEdit_em->clear();
     ui->lineEdit_image->clear();
     ui->label_pic->clear();
+
+    ui->Champs_Nom->clear();
+    ui->Champs_Prenom->clear();
+    ui->Champs_Date->clear();
+    ui->Champ_Adresse->clear();
+    ui->Champ_Telephone->clear();
+    ui->Champs_Email->clear();
+    ui->Champs_Image->clear();
+
 }
 //-----------------------------------------------------------------
 
@@ -262,7 +290,7 @@ void MainWindow::on_comboBox_highlighted(const QString &arg1)
         type="DESC";
 
     if(arg1 != "Choisir")
-         ui->table2->setModel(e.Trier_em(type,arg1));
+        ui->table2->setModel(e.Trier_em(type,arg1));
 
     else  ui->table2->setModel(e.Afficher_em());
 
@@ -280,7 +308,7 @@ void MainWindow::on_radioButton_clicked()
         type="DESC";
 
     if(ui->comboBox->currentText() != "Choisir")
-         ui->table2->setModel(e.Trier_em(type,ui->comboBox->currentText()));
+        ui->table2->setModel(e.Trier_em(type,ui->comboBox->currentText()));
 
     else  ui->table2->setModel(e.Afficher_em());
 }
@@ -298,13 +326,129 @@ void MainWindow::on_radioButton_2_clicked()
         type="DESC";
 
     if(ui->comboBox->currentText() != "Choisir")
-         ui->table2->setModel(e.Trier_em(type,ui->comboBox->currentText()));
+        ui->table2->setModel(e.Trier_em(type,ui->comboBox->currentText()));
 
     else  ui->table2->setModel(e.Afficher_em());
 }
+
+//initialise les champs des erreurs
+void MainWindow::init_errors()
+{
+    ui->er_nom->setText("");
+    ui->er_pr->setText("");
+    ui->er_ad->setText("");
+    ui->er_em->setText("");
+    ui->er_tel->setText("");
+    ui->er_im->setText("");
+    ui->ajout->setText("");
+
+    ui->er_nom->hide();
+    ui->er_pr->hide();
+    ui->er_ad->hide();
+    ui->er_em->hide();
+    ui->er_tel->hide();
+    ui->er_im->hide();
+}
+void MainWindow::init_errors_2()
+{
+    ui->erm_nom->setText("");
+    ui->erm_pr->setText("");
+    ui->erm_ad->setText("");
+    ui->erm_em->setText("");
+    ui->erm_tel->setText("");
+    ui->erm_im->setText("");
+    ui->modifi->setText("");
+    ui->suprim->setText("");
+
+
+    ui->erm_nom->hide();
+    ui->erm_pr->hide();
+    ui->erm_ad->hide();
+    ui->erm_em->hide();
+    ui->erm_tel->hide();
+    ui->erm_im->hide();
+
+}
+
+//controle les erreurs et les affiches
+bool MainWindow::control()
+{
+    init_errors();
+    if((ui->Champs_Nom->text()=="")||(ui->Champs_Prenom->text()=="")||(ui->Champs_Image->text()=="")||(ui->Champ_Telephone->text()=="")||(ui->Champ_Adresse->text()=="")||(ui->Champs_Email->text()==""))
+    {
+        if((ui->Champs_Nom->text()=="")){ui->er_nom->show(); ui->er_nom->setText("Champs Obligatoire !"); }
+
+        if(ui->Champs_Prenom->text()==""){ui->er_pr->show();ui->er_pr->setText("Champs Obligatoire !");}
+
+        if(ui->Champs_Image->text()==""){ui->er_im->show(); ui->er_im->setText("Champs Obligatoire !");}
+
+        if(ui->Champ_Telephone->text()==""){ui->er_tel->show();ui->er_tel->setText("Champs Obligatoire !");}
+
+        if(ui->Champ_Adresse->text()==""){ui->er_ad->show();ui->er_ad->setText("Champs Obligatoire !");}
+
+        if(ui->Champs_Email->text()==""){ui->er_em->show(); ui->er_em->setText("Champs Obligatoire !");}
+
+        return 0;
+    }
+    else if(!(ui->Champs_Image->text().contains("."))||(ui->Champ_Telephone->text().length() < 8 )||!(ui->Champs_Email->text().contains("@"))||!(ui->Champs_Email->text().contains("."))||(ui->Champs_Nom->text().length() < 3 )||(ui->Champs_Prenom->text().length() < 2 )||(ui->Champ_Adresse->text().length() < 10 ))
+    {
+        if(!(ui->Champs_Image->text().contains("."))){ui->er_im->show();ui->er_im->setText("Forme Invalide ! (manque l'extension du fichier)");}
+
+        if(ui->Champ_Telephone->text().length() < 8 ){ui->er_tel->show(); ui->er_tel->setText("Doit Contenir 8 chiffres !");}
+
+        if(ui->Champ_Adresse->text().length() < 10 ){ui->er_ad->show(); ui->er_ad->setText("Doit Contenir 10 chiffres !");}
+
+        if(ui->Champs_Nom->text().length() < 3 ){ui->er_nom->show(); ui->er_nom->setText("Doit Contenir 3 chiffres !");}
+
+        if(ui->Champs_Prenom->text().length() < 3 ){ui->er_pr->show();ui->er_pr->setText("Doit Contenir 3 chiffres !");}
+
+        if(!(ui->Champs_Email->text().contains("@"))||!(ui->Champs_Email->text().contains("."))){ui->er_em->show();ui->er_em->setText("Forme Invalide ! (manque @ ou . )");}
+
+        return 0;
+    }
+    else
+        return 1;
+}
+bool MainWindow::control_2()
+{
+    init_errors_2();
+    if((ui->lineEdit_nom->text()=="")||(ui->lineEdit_pre->text()=="")||(ui->lineEdit_image->text()=="")||(ui->lineEdit_tele->text()=="")||(ui->lineEdit_ad->text()=="")||(ui->lineEdit_em->text()==""))
+    {
+        if((ui->lineEdit_nom->text()=="")){ui->erm_nom->show(); ui->erm_nom->setText("Champs Obligatoire !"); }
+
+        if(ui->lineEdit_pre->text()==""){ui->erm_pr->show();ui->erm_pr->setText("Champs Obligatoire !");}
+
+        if(ui->lineEdit_image->text()==""){ui->erm_im->show(); ui->erm_im->setText("Champs Obligatoire !");}
+
+        if(ui->lineEdit_tele->text()==""){ui->erm_tel->show();ui->erm_tel->setText("Champs Obligatoire !");}
+
+        if(ui->lineEdit_ad->text()==""){ui->erm_ad->show();ui->erm_ad->setText("Champs Obligatoire !");}
+
+        if(ui->lineEdit_em->text()==""){ui->erm_em->show(); ui->erm_em->setText("Champs Obligatoire !");}
+
+        return 0;
+    }
+    else if(!(ui->lineEdit_image->text().contains("."))||(ui->lineEdit_tele->text().length() < 8 )||!(ui->lineEdit_em->text().contains("@"))||!(ui->lineEdit_em->text().contains("."))||(ui->lineEdit_nom->text().length() < 3 )||(ui->lineEdit_pre->text().length() < 2 )||(ui->lineEdit_ad->text().length() < 10 ))
+    {
+        if(!(ui->lineEdit_image->text().contains("."))){ui->erm_im->show();ui->erm_im->setText("Forme Invalide ! (manque l'extension du fichier)");}
+
+        if(ui->lineEdit_tele->text().length() < 8 ){ui->erm_tel->show(); ui->erm_tel->setText("Doit Contenir 8 chiffres !");}
+
+        if(ui->lineEdit_ad->text().length() < 10 ){ui->erm_ad->show(); ui->erm_ad->setText("Doit Contenir 10 chiffres !");}
+
+        if(ui->lineEdit_nom->text().length() < 3 ){ui->erm_nom->show(); ui->erm_nom->setText("Doit Contenir 3 chiffres !");}
+
+        if(ui->lineEdit_pre->text().length() < 3 ){ui->erm_pr->show();ui->erm_pr->setText("Doit Contenir 3 chiffres !");}
+
+        if(!(ui->lineEdit_em->text().contains("@"))||!(ui->lineEdit_em->text().contains("."))){ui->erm_em->show();ui->erm_em->setText("Forme Invalide ! (manque @ ou . )");}
+
+        return 0;
+    }
+    else
+        return 1;
+}
+
 //Les Boutons Menu
-
-
 void MainWindow::on_Menu_modi_supp_employe_clicked()
 {
     ui->tab_ge->setCurrentIndex (ui->tab_ge->currentIndex()+2);
@@ -328,12 +472,12 @@ void MainWindow::on_Ajouter_Emp_HOME_clicked()
 
 void MainWindow::on_modifier_Emp_HOME_clicked()
 {
-     ui->tab_ge->setCurrentIndex (ui->tab_ge->currentIndex()-2);
+    ui->tab_ge->setCurrentIndex (ui->tab_ge->currentIndex()-2);
 }
 
 void MainWindow::on_Afficher_Emp_HOME_clicked()
 {
-     ui->tab_ge->setCurrentIndex (ui->tab_ge->currentIndex()-3);
+    ui->tab_ge->setCurrentIndex (ui->tab_ge->currentIndex()-3);
 }
 
 void MainWindow::on_bo_3_clicked()
@@ -346,3 +490,5 @@ void MainWindow::on_bo_3_clicked()
 
 
 }
+
+

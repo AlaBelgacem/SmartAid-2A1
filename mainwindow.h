@@ -22,7 +22,7 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_listWidget_itemClicked(QListWidgetItem *item);
+    void on_listWidget_itemClicked();
 
     void on_Ajouter_clicked();
 
@@ -35,6 +35,12 @@ private slots:
     void on_Supprimer_clicked();
 
     void clear();
+
+    bool control();
+    void init_errors();
+
+    bool control_2();
+    void init_errors_2();
 
     void on_rechercher_returnPressed();
 
@@ -57,6 +63,7 @@ private slots:
     void on_Afficher_Emp_HOME_clicked();
 
     void on_bo_3_clicked();
+
 
 private:
     Ui::MainWindow *ui;

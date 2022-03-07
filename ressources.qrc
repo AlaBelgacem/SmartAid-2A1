@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/icons">
         <file>icons/benevoles128.png</file>
+	<file>icons/batata.png</file>
         <file>icons/crises128.png</file>
         <file>icons/customer-service128.png</file>
         <file>icons/don128.png</file>

@@ -18,6 +18,10 @@ MainWindow::MainWindow(QWidget *parent)
      ui->tableN->setModel(N.afficher());
      ui->telephoneN->setValidator(new QIntValidator (0,99999999,this));
      ui->id_Necessiteux->setValidator(new QIntValidator (0,99999999,this));
+     ui->emailN->setValidator(new QRegExpValidator(  QRegExp("[a-z]{1,20}@[a-z]{1,8}.[a-z]{1,8}")));
+     ui->nomN->setValidator(new QRegExpValidator(QRegExp("[A-z]*")));
+     ui->prenomN->setValidator(new QRegExpValidator(QRegExp("[A-z]*")));
+
 
     QPixmap pix(":/images/images/copy.jpg");
     //ui->user_pic->setPixmap(pix.scaled(501,451,Qt::KeepAspectRatio));

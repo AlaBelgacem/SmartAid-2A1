@@ -15,18 +15,20 @@ private:
     QString nom;
     QString prenom;
     QString date_nais;
-    int telephone;
+    QString telephone;
     int code_postal;
     QString Adresse;
     QString ville;
     QString email;
-    int type;
+    QString type;
     QString password;
     QString image;
+    QString sexe;
+
 public:
     //costructeurs
     Employes(){};
-    Employes(int id,QString nom,QString prenom,QString date,QString email,QString ad,int telephone,QString im)
+    Employes(int id,QString nom,QString prenom,QString date,QString email,QString ad,QString telephone,QString im,QString type,QString sexe)
    {
        this->id_em=id;
        this->nom=nom;
@@ -36,6 +38,8 @@ public:
        this->telephone=telephone;
        this->Adresse=ad;
        this->image=im;
+       this->type=type;
+        this->sexe=sexe;
 
    }
 
@@ -44,18 +48,18 @@ public:
     void setNom(QString n){nom=n;}
     void setPrenom(QString n){prenom=n;}
     void setDate_nais(QString n){date_nais=n;}
-    void setTelephone(int n){telephone=n;}
+    void setTelephone(QString n){telephone=n;}
     void setAdresse(QString n){Adresse=n;}
     void setCode_postal(int n){code_postal=n;}
     void setVille(QString n){ville=n;}
     void setEmail(QString n){email=n;}
-    void setType(int n){type=n;}
     void setPass(QString n){password=n;}
     void setImage(QString n){image=n;}
+    void setType(QString n){type=n;}
+    void setSexe(QString n){sexe=n;}
     //getters
     int getID_em(){return id_em;}
-    int getType(){return type;}
-    int getTelephone(){return telephone;}
+    QString getTelephone(){return telephone;}
     int getCode_postal(){return code_postal;}
     QString getNom(){return nom;}
     QString getAdresse(){return Adresse;}
@@ -65,6 +69,8 @@ public:
     QString getEmail(){return email;}
     QString getPass(){return password;}
     QString getImage(){return image;}
+    QString getType(){return type;}
+    QString getSexe(){return sexe;}
 
     //functions
     bool Ajouter_em();

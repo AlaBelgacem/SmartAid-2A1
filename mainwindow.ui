@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -784,8 +787,8 @@ font-family : century gothic;
        <widget class="QPushButton" name="Ajouter">
         <property name="geometry">
          <rect>
-          <x>613</x>
-          <y>510</y>
+          <x>690</x>
+          <y>30</y>
           <width>221</width>
           <height>31</height>
          </rect>
@@ -810,16 +813,36 @@ border: 1px solid grey;
        <widget class="QGroupBox" name="groupBox_3">
         <property name="geometry">
          <rect>
-          <x>210</x>
-          <y>30</y>
+          <x>120</x>
+          <y>10</y>
           <width>561</width>
-          <height>411</height>
+          <height>571</height>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">QLineEdit {  
-border: 0.5px solid grey;
-background-color:white;
+         <string notr="true">
+QLabel{
+color: #2C3E50;
+font-size:14px;
+font:bold;
+font-family : century gothic;
+}
+
+QLineEdit{
+background:transparent;
+border:none;
+color:#717072;
+border-bottom:1px solid #717072;
+}
+
+QDateEdit
+{
+    background-color: white;
+	border:none;
+    spacing: 5px; 
+	font-size:18px;
+font-weight: normal;
+	font-family:century gothic;
 }</string>
         </property>
         <property name="title">
@@ -831,7 +854,7 @@ background-color:white;
            <x>70</x>
            <y>40</y>
            <width>431</width>
-           <height>351</height>
+           <height>502</height>
           </rect>
          </property>
          <layout class="QFormLayout" name="formLayout_4">
@@ -839,11 +862,11 @@ background-color:white;
            <widget class="QLabel" name="label_24">
             <property name="font">
              <font>
-              <family>Century Gothic</family>
-              <pointsize>8</pointsize>
-              <weight>50</weight>
+              <family>century gothic</family>
+              <pointsize>-1</pointsize>
+              <weight>75</weight>
               <italic>false</italic>
-              <bold>false</bold>
+              <bold>true</bold>
              </font>
             </property>
             <property name="styleSheet">
@@ -854,7 +877,7 @@ font-size:15px;
 }</string>
             </property>
             <property name="text">
-             <string>Nom</string>
+             <string>Nom:</string>
             </property>
            </widget>
           </item>
@@ -866,160 +889,6 @@ font-size:15px;
 border-radius:15px;
 background-color:white;
 }</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_28">
-            <property name="font">
-             <font>
-              <family>Century Gothic</family>
-              <pointsize>8</pointsize>
-              <weight>50</weight>
-              <italic>false</italic>
-              <bold>false</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>Prenom</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QLineEdit" name="Champs_Prenom">
-            <property name="styleSheet">
-             <string notr="true">QLineEdit
-{
-border-radius:15px;
-background-color:white;
-}</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="0">
-           <widget class="QLabel" name="label_30">
-            <property name="font">
-             <font>
-              <family>Century Gothic</family>
-              <pointsize>8</pointsize>
-              <weight>50</weight>
-              <italic>false</italic>
-              <bold>false</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>Date_Naiss</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="1">
-           <widget class="QDateEdit" name="Champs_Date"/>
-          </item>
-          <item row="5" column="0">
-           <widget class="QLabel" name="label_32">
-            <property name="font">
-             <font>
-              <family>Century Gothic</family>
-              <pointsize>8</pointsize>
-              <weight>50</weight>
-              <italic>false</italic>
-              <bold>false</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>Image</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="1">
-           <widget class="QLineEdit" name="Champs_Image">
-            <property name="styleSheet">
-             <string notr="true">QLineEdit
-{
-border-radius:15px;
-background-color:white;
-}</string>
-            </property>
-           </widget>
-          </item>
-          <item row="7" column="0">
-           <widget class="QLabel" name="label_31">
-            <property name="font">
-             <font>
-              <family>Century Gothic</family>
-              <pointsize>8</pointsize>
-              <weight>50</weight>
-              <italic>false</italic>
-              <bold>false</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>Telephone</string>
-            </property>
-           </widget>
-          </item>
-          <item row="7" column="1">
-           <widget class="QLineEdit" name="Champ_Telephone">
-            <property name="styleSheet">
-             <string notr="true">QLineEdit
-{
-border-radius:15px;
-background-color:white;
-}</string>
-            </property>
-           </widget>
-          </item>
-          <item row="9" column="0">
-           <widget class="QLabel" name="label_29">
-            <property name="font">
-             <font>
-              <family>Century Gothic</family>
-              <pointsize>8</pointsize>
-              <weight>50</weight>
-              <italic>false</italic>
-              <bold>false</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>Adresse</string>
-            </property>
-           </widget>
-          </item>
-          <item row="9" column="1">
-           <widget class="QLineEdit" name="Champ_Adresse">
-            <property name="styleSheet">
-             <string notr="true">QLineEdit
-{
-border-radius:15px;
-background-color:white;
-}</string>
-            </property>
-           </widget>
-          </item>
-          <item row="11" column="1">
-           <widget class="QLineEdit" name="Champs_Email">
-            <property name="styleSheet">
-             <string notr="true">QLineEdit
-{
-border-radius:15px;
-background-color:white;
-}</string>
-            </property>
-           </widget>
-          </item>
-          <item row="11" column="0">
-           <widget class="QLabel" name="label_33">
-            <property name="font">
-             <font>
-              <family>Century Gothic</family>
-              <pointsize>8</pointsize>
-              <weight>50</weight>
-              <italic>false</italic>
-              <bold>false</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>Email</string>
             </property>
            </widget>
           </item>
@@ -1037,6 +906,33 @@ font-family : century gothic;
             </property>
            </widget>
           </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_28">
+            <property name="font">
+             <font>
+              <family>century gothic</family>
+              <pointsize>-1</pointsize>
+              <weight>75</weight>
+              <italic>false</italic>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Prenom:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="Champs_Prenom">
+            <property name="styleSheet">
+             <string notr="true">QLineEdit
+{
+border-radius:15px;
+background-color:white;
+}</string>
+            </property>
+           </widget>
+          </item>
           <item row="3" column="1">
            <widget class="QLabel" name="er_pr">
             <property name="styleSheet">
@@ -1048,6 +944,56 @@ font-family : century gothic;
             </property>
             <property name="text">
              <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_30">
+            <property name="font">
+             <font>
+              <family>century gothic</family>
+              <pointsize>-1</pointsize>
+              <weight>75</weight>
+              <italic>false</italic>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Date_Nai:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QDateEdit" name="Champs_Date">
+            <property name="calendarPopup">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLabel" name="label_32">
+            <property name="font">
+             <font>
+              <family>century gothic</family>
+              <pointsize>-1</pointsize>
+              <weight>75</weight>
+              <italic>false</italic>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Image:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QLineEdit" name="Champs_Image">
+            <property name="styleSheet">
+             <string notr="true">QLineEdit
+{
+border-radius:15px;
+background-color:white;
+}</string>
             </property>
            </widget>
           </item>
@@ -1065,6 +1011,33 @@ font-family : century gothic;
             </property>
            </widget>
           </item>
+          <item row="7" column="0">
+           <widget class="QLabel" name="label_31">
+            <property name="font">
+             <font>
+              <family>century gothic</family>
+              <pointsize>-1</pointsize>
+              <weight>75</weight>
+              <italic>false</italic>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Telephone:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="1">
+           <widget class="QLineEdit" name="Champ_Telephone">
+            <property name="styleSheet">
+             <string notr="true">QLineEdit
+{
+border-radius:15px;
+background-color:white;
+}</string>
+            </property>
+           </widget>
+          </item>
           <item row="8" column="1">
            <widget class="QLabel" name="er_tel">
             <property name="styleSheet">
@@ -1076,6 +1049,33 @@ font-family : century gothic;
             </property>
             <property name="text">
              <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="0">
+           <widget class="QLabel" name="label_29">
+            <property name="font">
+             <font>
+              <family>century gothic</family>
+              <pointsize>-1</pointsize>
+              <weight>75</weight>
+              <italic>false</italic>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Adresse:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="1">
+           <widget class="QLineEdit" name="Champ_Adresse">
+            <property name="styleSheet">
+             <string notr="true">QLineEdit
+{
+border-radius:15px;
+background-color:white;
+}</string>
             </property>
            </widget>
           </item>
@@ -1093,6 +1093,33 @@ font-family : century gothic;
             </property>
            </widget>
           </item>
+          <item row="11" column="0">
+           <widget class="QLabel" name="label_33">
+            <property name="font">
+             <font>
+              <family>century gothic</family>
+              <pointsize>-1</pointsize>
+              <weight>75</weight>
+              <italic>false</italic>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Email:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="11" column="1">
+           <widget class="QLineEdit" name="Champs_Email">
+            <property name="styleSheet">
+             <string notr="true">QLineEdit
+{
+border-radius:15px;
+background-color:white;
+}</string>
+            </property>
+           </widget>
+          </item>
           <item row="12" column="1">
            <widget class="QLabel" name="er_em">
             <property name="styleSheet">
@@ -1107,27 +1134,121 @@ font-family : century gothic;
             </property>
            </widget>
           </item>
-         </layout>
-        </widget>
-        <widget class="QLabel" name="ajout">
-         <property name="geometry">
-          <rect>
-           <x>200</x>
-           <y>340</y>
-           <width>271</width>
-           <height>41</height>
-          </rect>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLabel {color : rgb(0, 255, 0); 
-font-size:22px;
-font:bold;
+          <item row="13" column="0">
+           <widget class="QLabel" name="label_19">
+            <property name="text">
+             <string>Sexe:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="14" column="1">
+           <widget class="QLabel" name="er_s">
+            <property name="styleSheet">
+             <string notr="true">QLabel{
+color: rgb(255, 0, 0);
+font-size:11px;
 font-family : century gothic;
 }</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="15" column="0">
+           <widget class="QLabel" name="label_10">
+            <property name="text">
+             <string>Type:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="16" column="1">
+           <widget class="QLabel" name="er_t">
+            <property name="styleSheet">
+             <string notr="true">QLabel{
+color: rgb(255, 0, 0);
+font-size:11px;
+font-family : century gothic;
+}</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="17" column="0">
+           <widget class="QLabel" name="mdp">
+            <property name="text">
+             <string>MDP:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="17" column="1">
+           <widget class="QLineEdit" name="champ_mdp"/>
+          </item>
+          <item row="18" column="1">
+           <widget class="QLabel" name="er_p">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="15" column="1">
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <widget class="QRadioButton" name="emp">
+              <property name="text">
+               <string>Employe</string>
+              </property>
+              <property name="autoExclusive">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="usr">
+              <property name="text">
+               <string>User</string>
+              </property>
+              <property name="autoExclusive">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="13" column="1">
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <item>
+             <widget class="QRadioButton" name="hm">
+              <property name="text">
+               <string>Homme</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="fm">
+              <property name="text">
+               <string>Femme</string>
+              </property>
+              <property name="autoExclusive">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="au">
+              <property name="text">
+               <string>Autre</string>
+              </property>
+              <property name="autoExclusive">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
         </widget>
        </widget>
        <widget class="QPushButton" name="Ajouter_Emp_HOME">
@@ -1182,334 +1303,37 @@ font-family : century gothic;
          </size>
         </property>
        </widget>
+       <widget class="QLabel" name="ajout">
+        <property name="geometry">
+         <rect>
+          <x>690</x>
+          <y>70</y>
+          <width>231</width>
+          <height>71</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QLabel {color : rgb(0, 255, 0); 
+font-size:22px;
+font:bold;
+font-family : century gothic;
+}</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="tab1">
        <attribute name="title">
         <string>Modifier/Supprimer Un Employe</string>
        </attribute>
-       <widget class="QGroupBox" name="groupBox">
-        <property name="geometry">
-         <rect>
-          <x>30</x>
-          <y>40</y>
-          <width>901</width>
-          <height>261</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">
-QLineEdit {  
-border: 0.5px solid grey;
-background-color:white;
-}
-
-QDateEdit
-{
-   border: 0.5px solid grey;
-background-color:white;
-}</string>
-        </property>
-        <property name="title">
-         <string>Modifier/Supprimer Employe</string>
-        </property>
-        <widget class="QGroupBox" name="gridGroupBox">
-         <property name="geometry">
-          <rect>
-           <x>190</x>
-           <y>20</y>
-           <width>701</width>
-           <height>231</height>
-          </rect>
-         </property>
-         <layout class="QGridLayout" name="gridLayout">
-          <property name="rightMargin">
-           <number>8</number>
-          </property>
-          <property name="bottomMargin">
-           <number>17</number>
-          </property>
-          <property name="horizontalSpacing">
-           <number>6</number>
-          </property>
-          <property name="verticalSpacing">
-           <number>4</number>
-          </property>
-          <item row="0" column="3">
-           <widget class="QLabel" name="label_16">
-            <property name="text">
-             <string>Téléphone: </string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="2">
-           <widget class="QLabel" name="label_5">
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="3">
-           <widget class="QLabel" name="label_13">
-            <property name="text">
-             <string>Adresse: </string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="0">
-           <widget class="QLabel" name="label_15">
-            <property name="text">
-             <string>Date_Naiss: </string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="4">
-           <widget class="QLineEdit" name="lineEdit_tele"/>
-          </item>
-          <item row="0" column="1">
-           <widget class="QLineEdit" name="lineEdit_nom"/>
-          </item>
-          <item row="4" column="1">
-           <widget class="QDateEdit" name="dateEdit_date">
-            <property name="calendarPopup">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="0">
-           <widget class="QLabel" name="label_18">
-            <property name="text">
-             <string>Image:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QLabel" name="erm_nom">
-            <property name="styleSheet">
-             <string notr="true">QLabel{
-color: rgb(255, 0, 0);
-font-size:11px;
-font-family : century gothic;
-}</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="1">
-           <widget class="QLineEdit" name="lineEdit_image"/>
-          </item>
-          <item row="0" column="5">
-           <widget class="QLabel" name="label_6">
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="3">
-           <widget class="QLabel" name="label_17">
-            <property name="text">
-             <string>Email: </string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_14">
-            <property name="text">
-             <string>Prénom: </string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="4">
-           <widget class="QLineEdit" name="lineEdit_ad"/>
-          </item>
-          <item row="2" column="1">
-           <widget class="QLineEdit" name="lineEdit_pre"/>
-          </item>
-          <item row="3" column="1">
-           <widget class="QLabel" name="erm_pr">
-            <property name="styleSheet">
-             <string notr="true">QLabel{
-color: rgb(255, 0, 0);
-font-size:11px;
-font-family : century gothic;
-}</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_12">
-            <property name="text">
-             <string>Nom:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="4">
-           <widget class="QLineEdit" name="lineEdit_em"/>
-          </item>
-          <item row="1" column="4">
-           <widget class="QLabel" name="erm_tel">
-            <property name="styleSheet">
-             <string notr="true">QLabel{
-color: rgb(255, 0, 0);
-font-size:11px;
-font-family : century gothic;
-}</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="4">
-           <widget class="QLabel" name="erm_ad">
-            <property name="styleSheet">
-             <string notr="true">QLabel{
-color: rgb(255, 0, 0);
-font-size:11px;
-font-family : century gothic;
-}</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="4">
-           <widget class="QLabel" name="erm_em">
-            <property name="styleSheet">
-             <string notr="true">QLabel{
-color: rgb(255, 0, 0);
-font-size:11px;
-font-family : century gothic;
-}</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="4" rowspan="2">
-           <layout class="QHBoxLayout" name="horizontalLayout_2">
-            <item>
-             <widget class="QPushButton" name="Supprimer">
-              <property name="styleSheet">
-               <string notr="true">QPushButton { 
-background-color:	#962D3E;
-	font: 10pt &quot;Century Gothic&quot;;
-border: 1px solid grey;
- }</string>
-              </property>
-              <property name="text">
-               <string>Supprimer</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="Modifier">
-              <property name="styleSheet">
-               <string notr="true">QPushButton { 
-background-color:	#962D3E;
-	font: 10pt &quot;Century Gothic&quot;;
-border: 1px solid grey;
- }</string>
-              </property>
-              <property name="text">
-               <string>Modifier</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item row="7" column="1">
-           <widget class="QLabel" name="erm_im">
-            <property name="styleSheet">
-             <string notr="true">QLabel{
-color: rgb(255, 0, 0);
-font-size:11px;
-font-family : century gothic;
-}</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-        <widget class="QLabel" name="label_pic">
-         <property name="geometry">
-          <rect>
-           <x>50</x>
-           <y>60</y>
-           <width>161</width>
-           <height>161</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-        <widget class="QLabel" name="modifi">
-         <property name="geometry">
-          <rect>
-           <x>290</x>
-           <y>170</y>
-           <width>261</width>
-           <height>41</height>
-          </rect>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLabel {color : rgb(0, 255, 0); 
-font-size:22px;
-font:bold;
-font-family : century gothic;
-}</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-        <widget class="QLabel" name="suprim">
-         <property name="geometry">
-          <rect>
-           <x>280</x>
-           <y>150</y>
-           <width>261</width>
-           <height>41</height>
-          </rect>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLabel {color : rgb(0, 255, 0); 
-font-size:20px;
-font:bold;
-font-family : century gothic;
-}</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </widget>
-       <widget class="QLineEdit" name="lineEdit_id">
-        <property name="geometry">
-         <rect>
-          <x>730</x>
-          <y>300</y>
-          <width>113</width>
-          <height>22</height>
-         </rect>
-        </property>
-       </widget>
        <widget class="QTableView" name="table1">
         <property name="geometry">
          <rect>
           <x>30</x>
           <y>300</y>
-          <width>901</width>
+          <width>911</width>
           <height>291</height>
          </rect>
         </property>
@@ -1578,6 +1402,388 @@ QHeaderView::section
           <height>25</height>
          </size>
         </property>
+       </widget>
+       <widget class="QGroupBox" name="groupBox">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>40</y>
+          <width>911</width>
+          <height>261</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">
+QLabel{
+color: #2C3E50;
+font-size:14px;
+font:bold;
+font-family : century gothic;
+}
+
+QLineEdit{
+background:transparent;
+border:none;
+color:#717072;
+border-bottom:1px solid #717072;
+}
+
+QDateEdit
+{
+    background-color: white;
+	border:none;
+    spacing: 5px; 
+	font-size:18px;
+font-weight: normal;
+	font-family:century gothic;
+}</string>
+        </property>
+        <property name="title">
+         <string>Modifier/Supprimer Employe</string>
+        </property>
+        <widget class="QGroupBox" name="gridGroupBox">
+         <property name="geometry">
+          <rect>
+           <x>190</x>
+           <y>20</y>
+           <width>701</width>
+           <height>231</height>
+          </rect>
+         </property>
+         <layout class="QGridLayout" name="gridLayout">
+          <property name="topMargin">
+           <number>14</number>
+          </property>
+          <property name="rightMargin">
+           <number>12</number>
+          </property>
+          <property name="bottomMargin">
+           <number>3</number>
+          </property>
+          <property name="horizontalSpacing">
+           <number>5</number>
+          </property>
+          <property name="verticalSpacing">
+           <number>0</number>
+          </property>
+          <item row="2" column="4">
+           <widget class="QLineEdit" name="lineEdit_ad"/>
+          </item>
+          <item row="0" column="2">
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="4">
+           <widget class="QLabel" name="erm_tel">
+            <property name="styleSheet">
+             <string notr="true">QLabel{
+color: rgb(255, 0, 0);
+font-size:11px;
+font-family : century gothic;
+}</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="1">
+           <widget class="QLineEdit" name="lineEdit_image"/>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_15">
+            <property name="text">
+             <string>Date_Naiss: </string>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="4">
+           <widget class="QLabel" name="erm_s">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="4">
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <item>
+             <widget class="QPushButton" name="Supprimer">
+              <property name="styleSheet">
+               <string notr="true">QPushButton { 
+background-color:	#962D3E;
+	font: 10pt &quot;Century Gothic&quot;;
+border: 1px solid grey;
+ }</string>
+              </property>
+              <property name="text">
+               <string>Supprimer</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="Modifier">
+              <property name="styleSheet">
+               <string notr="true">QPushButton { 
+background-color:	#962D3E;
+	font: 10pt &quot;Century Gothic&quot;;
+border: 1px solid grey;
+ }</string>
+              </property>
+              <property name="text">
+               <string>Modifier</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="6" column="0">
+           <widget class="QLabel" name="label_18">
+            <property name="text">
+             <string>Image:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="lineEdit_pre"/>
+          </item>
+          <item row="4" column="3">
+           <widget class="QLabel" name="label_17">
+            <property name="text">
+             <string>Email: </string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_14">
+            <property name="text">
+             <string>Prénom: </string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLabel" name="erm_nom">
+            <property name="styleSheet">
+             <string notr="true">QLabel{
+color: rgb(255, 0, 0);
+font-size:11px;
+font-family : century gothic;
+}</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="1">
+           <widget class="QLabel" name="erm_im">
+            <property name="styleSheet">
+             <string notr="true">QLabel{
+color: rgb(255, 0, 0);
+font-size:11px;
+font-family : century gothic;
+}</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="3">
+           <widget class="QLabel" name="label_13">
+            <property name="text">
+             <string>Adresse: </string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_12">
+            <property name="text">
+             <string>Nom:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <widget class="QLabel" name="label_16">
+            <property name="text">
+             <string>Téléphone: </string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="4">
+           <widget class="QLabel" name="erm_em">
+            <property name="styleSheet">
+             <string notr="true">QLabel{
+color: rgb(255, 0, 0);
+font-size:11px;
+font-family : century gothic;
+}</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QDateEdit" name="dateEdit_date">
+            <property name="calendarPopup">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="3">
+           <widget class="QLabel" name="label_8">
+            <property name="text">
+             <string>Sexe:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="4">
+           <widget class="QLabel" name="erm_ad">
+            <property name="styleSheet">
+             <string notr="true">QLabel{
+color: rgb(255, 0, 0);
+font-size:11px;
+font-family : century gothic;
+}</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="5">
+           <widget class="QLabel" name="label_6">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLabel" name="erm_pr">
+            <property name="styleSheet">
+             <string notr="true">QLabel{
+color: rgb(255, 0, 0);
+font-size:11px;
+font-family : century gothic;
+}</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="4">
+           <widget class="QLineEdit" name="lineEdit_tele"/>
+          </item>
+          <item row="6" column="4">
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <item>
+             <widget class="QRadioButton" name="hm_m">
+              <property name="text">
+               <string>Homme</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="fm_m">
+              <property name="text">
+               <string>Femme</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="au_m">
+              <property name="text">
+               <string>Autre</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="lineEdit_nom"/>
+          </item>
+          <item row="4" column="4">
+           <widget class="QLineEdit" name="lineEdit_em"/>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QLabel" name="label_pic">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>60</y>
+           <width>161</width>
+           <height>161</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <widget class="QLabel" name="modifi">
+         <property name="geometry">
+          <rect>
+           <x>290</x>
+           <y>170</y>
+           <width>261</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLabel {color : rgb(0, 255, 0); 
+font-size:22px;
+font:bold;
+font-family : century gothic;
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <widget class="QLabel" name="suprim">
+         <property name="geometry">
+          <rect>
+           <x>280</x>
+           <y>150</y>
+           <width>261</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLabel {color : rgb(0, 255, 0); 
+font-size:20px;
+font:bold;
+font-family : century gothic;
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lineEdit">
+         <property name="geometry">
+          <rect>
+           <x>740</x>
+           <y>-20</y>
+           <width>71</width>
+           <height>16</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lineEdit_id">
+         <property name="geometry">
+          <rect>
+           <x>620</x>
+           <y>-20</y>
+           <width>91</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
        </widget>
       </widget>
       <widget class="QWidget" name="tab_2">

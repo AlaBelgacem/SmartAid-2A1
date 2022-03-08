@@ -9,6 +9,7 @@
 #include <QRegExpValidator>
 
 #define chars_rx "[A-Za-z]{3,10}"
+#define tel_rx "\\+[0-9]{11}"
 #define email_rx "[A-Za-z0-9]{4,15}\\@+[a-z]{4,7}\\.+[a-z]{2,3}"
 #define file_rx "[A-z0-9]+(\\.(jpg|png|gif|jpeg|jfif))"
 int q=0;
@@ -54,15 +55,19 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
     ui->listWidget->addItem(item6);
     ui->listWidget->setCurrentItem(item0);
 
+    ui->er_p->hide();
+    ui->mdp->hide();
+    ui->champ_mdp->hide();
+    //ui->lineEdit->hide();
     //controle de saisie en temp reel
     //ajouter
-    ui->Champ_Telephone->setValidator(new QIntValidator (2000000,99999999,this));
+    ui->Champ_Telephone->setValidator(new QRegExpValidator( QRegExp(tel_rx),this));
     ui->Champs_Nom->setValidator(new QRegExpValidator( QRegExp(chars_rx),this));
     ui->Champs_Prenom->setValidator(new QRegExpValidator( QRegExp(chars_rx),this));
     ui->Champs_Email->setValidator(new QRegExpValidator( QRegExp(email_rx),this));
     ui->Champs_Image->setValidator(new QRegExpValidator( QRegExp(file_rx),this));
     //modifier
-    ui->lineEdit_tele->setValidator(new QIntValidator (2000000,99999999,this));
+    ui->lineEdit_tele->setValidator(new QRegExpValidator( QRegExp(tel_rx),this));
     ui->lineEdit_nom->setValidator(new QRegExpValidator( QRegExp(chars_rx),this));
     ui->lineEdit_pre->setValidator(new QRegExpValidator( QRegExp(chars_rx),this));
     ui->lineEdit_em->setValidator(new QRegExpValidator( QRegExp(email_rx),this));
@@ -136,11 +141,26 @@ void MainWindow::on_Ajouter_clicked()
     //Control assure le control de saisie
     if(control())
     {
+        QString type="";
+        QString sexe="";
+        if(ui->emp->isChecked())
+                type="Employe";
+        if(ui->usr->isChecked())
+                type="User";
+        if(ui->hm->isChecked())
+                sexe="Homme";
+        if(ui->fm->isChecked())
+                sexe="Femme";
+        if(ui->au->isChecked())
+                sexe="Autre";
         QString image="C:/Users/louay/Desktop/smart_aid/images/";
         image= image + ui->Champs_Image->text();
         //recuperer donnes
-        Employes e(0,ui->Champs_Nom->text(),ui->Champs_Prenom->text(),ui->Champs_Date->date().toString("ddd MMM M yyyy"),ui->Champs_Email->text(),ui->Champ_Adresse->text(),ui->Champ_Telephone->text().toInt(),image);
+        qDebug() << "1";
+        Employes e(0,ui->Champs_Nom->text(),ui->Champs_Prenom->text(),ui->Champs_Date->date().toString("ddd MMM M yyyy"),ui->Champs_Email->text(),ui->Champ_Adresse->text(),ui->Champ_Telephone->text(),image,type,sexe);
+        qDebug() << "2";
         bool check=e.Ajouter_em();
+        qDebug() << "3";
         if(check)
         {
             //Afficher apres l'insertion
@@ -151,8 +171,8 @@ void MainWindow::on_Ajouter_clicked()
         }
         else
         {
-            QMessageBox::information(nullptr,QObject::tr("Insertion"),
-                                     QObject::tr("insertion echoué."),QMessageBox::Cancel);
+           // QMessageBox::information(nullptr,QObject::tr("Insertion"),
+                     //                QObject::tr("insertion echoué."),QMessageBox::Cancel);
         }
     }
 }
@@ -162,7 +182,14 @@ void MainWindow::on_Modifier_clicked()
 {
     //recuperer donnes
     if(control_2()){
-    Employes e( ui->lineEdit_id->text().toInt(),ui->lineEdit_nom->text(),ui->lineEdit_pre->text(),ui->dateEdit_date->date().toString(),ui->lineEdit_em->text(),ui->lineEdit_ad->text(),ui->lineEdit_tele->text().toInt(),ui->lineEdit_image->text());
+        QString sexe="";
+        if(ui->hm_m->isChecked())
+                sexe="Homme";
+        if(ui->fm_m->isChecked())
+                sexe="Femme";
+        if(ui->au_m->isChecked())
+                sexe="Autre";
+    Employes e( ui->lineEdit_id->text().toInt(),ui->lineEdit_nom->text(),ui->lineEdit_pre->text(),ui->dateEdit_date->date().toString(),ui->lineEdit_em->text(),ui->lineEdit_ad->text(),ui->lineEdit_tele->text(),ui->lineEdit_image->text(),ui->lineEdit->text(),sexe);
     bool check=e.Modifier_em();
     if(check)
     {
@@ -205,6 +232,7 @@ void MainWindow::on_Supprimer_clicked()
 //Selectioner a partir du champ ID
 void MainWindow::on_table1_activated(const QModelIndex &index)
 {
+    init_errors_2();
     QString value=ui->table1->model()->data(index).toString();
     connection c;
     c.closeconnection();
@@ -215,24 +243,35 @@ void MainWindow::on_table1_activated(const QModelIndex &index)
     {
         while(qry.next())
         {
+
             ui->lineEdit_id->setText(qry.value(0).toString());
             ui->lineEdit_nom->setText(qry.value(1).toString());
             ui->lineEdit_pre->setText(qry.value(2).toString());
+
             QString dates =qry.value(3).toString();
-            //QDate date= QDate::currentDate();
-            //QString date_string_on_db = "20/12/2015";
-            //QDate Date = QDate::fromString(date_string_on_db,"dd/MM/yyyy");
-
-            //QMessageBox::information(this,"titrre",dates);
-
             QDate date = QDate::fromString(dates,"ddd MMM M yyyy");
             ui->dateEdit_date->setDate(date);
+
             ui->lineEdit_ad->setText(qry.value(5).toString());
+
             ui->lineEdit_tele->setText(qry.value(4).toString());
             ui->lineEdit_em->setText(qry.value(6).toString());
             ui->lineEdit_image->setText(qry.value(8).toString());
+
             QPixmap pix(qry.value(8).toString());
             ui->label_pic->setPixmap(pix.scaled(100,100,Qt::KeepAspectRatio));
+
+            ui->lineEdit->setText(qry.value(7).toString());
+
+            if(qry.value(9).toString()=="Homme")
+                ui->hm_m->setChecked(true);
+            if(qry.value(9).toString()=="Femme")
+                ui->fm_m->setChecked(true);
+            if(qry.value(9).toString()=="Autre")
+                ui->au_m->setChecked(true);
+
+
+
 
         }
     }
@@ -257,6 +296,14 @@ void MainWindow::clear()
     ui->lineEdit_em->clear();
     ui->lineEdit_image->clear();
     ui->label_pic->clear();
+    ui->fm_m->setChecked(false);
+    ui->au_m->setChecked(false);
+    ui->hm_m->setChecked(false);
+    ui->fm->setChecked(false);
+    ui->au->setChecked(false);
+    ui->hm->setChecked(false);
+    ui->usr->setChecked(false);
+    ui->emp->setChecked(false);
 
     ui->Champs_Nom->clear();
     ui->Champs_Prenom->clear();
@@ -341,6 +388,9 @@ void MainWindow::init_errors()
     ui->er_tel->setText("");
     ui->er_im->setText("");
     ui->ajout->setText("");
+    ui->er_t->setText("");
+    ui->er_s->setText("");
+
 
     ui->er_nom->hide();
     ui->er_pr->hide();
@@ -348,6 +398,9 @@ void MainWindow::init_errors()
     ui->er_em->hide();
     ui->er_tel->hide();
     ui->er_im->hide();
+    //ui->er_p->hide();
+   // ui->mdp->hide();
+   // ui->champ_mdp->hide();
 }
 void MainWindow::init_errors_2()
 {
@@ -359,6 +412,8 @@ void MainWindow::init_errors_2()
     ui->erm_im->setText("");
     ui->modifi->setText("");
     ui->suprim->setText("");
+    ui->erm_s->setText("");
+
 
 
     ui->erm_nom->hide();
@@ -374,7 +429,7 @@ void MainWindow::init_errors_2()
 bool MainWindow::control()
 {
     init_errors();
-    if((ui->Champs_Nom->text()=="")||(ui->Champs_Prenom->text()=="")||(ui->Champs_Image->text()=="")||(ui->Champ_Telephone->text()=="")||(ui->Champ_Adresse->text()=="")||(ui->Champs_Email->text()==""))
+    if((ui->Champs_Nom->text()=="")||(ui->Champs_Prenom->text()=="")||(ui->Champs_Image->text()=="")||(ui->Champ_Telephone->text()=="")||(ui->Champ_Adresse->text()=="")||(ui->Champs_Email->text()=="")||(!(ui->fm->isChecked())&&(!(ui->hm->isChecked()))&&(!(ui->au->isChecked()))&&(!(ui->emp->isChecked()))&&(!(ui->usr->isChecked()))))
     {
         if((ui->Champs_Nom->text()=="")){ui->er_nom->show(); ui->er_nom->setText("Champs Obligatoire !"); }
 
@@ -387,6 +442,10 @@ bool MainWindow::control()
         if(ui->Champ_Adresse->text()==""){ui->er_ad->show();ui->er_ad->setText("Champs Obligatoire !");}
 
         if(ui->Champs_Email->text()==""){ui->er_em->show(); ui->er_em->setText("Champs Obligatoire !");}
+
+        if(!(ui->fm->isChecked())&&(!(ui->hm->isChecked()))&&(!(ui->au->isChecked()))){ui->er_s->show(); ui->er_s->setText("Choisier un Sexe!");}
+
+        if((!(ui->emp->isChecked()))&&(!(ui->usr->isChecked()))){ui->er_t->show(); ui->er_t->setText("Choisier un Type!");}
 
         return 0;
     }
@@ -492,3 +551,10 @@ void MainWindow::on_bo_3_clicked()
 }
 
 
+
+void MainWindow::on_usr_clicked()
+{
+    ui->er_p->show();
+    ui->mdp->show();
+    ui->champ_mdp->show();
+}

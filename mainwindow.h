@@ -65,6 +65,8 @@ private slots:
     void on_bo_3_clicked();
 
 
+    void on_usr_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

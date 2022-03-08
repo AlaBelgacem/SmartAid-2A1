@@ -1,10 +1,11 @@
 #include "employes.h"
+#include <QDebug>
 
 bool Employes::Ajouter_em()
 {
     QSqlQuery query;
-
-    query.prepare("insert into employes (nom,prénom,téléphone,adresse,email,date_nai,image) values (:nom,:prenom,:tele,:adresse,:email,:date,:image)");
+qDebug() << "11";
+    query.prepare("insert into employes (nom,prénom,téléphone,adresse,email,date_nai,image,type,sexe) values (:nom,:prenom,:tele,:adresse,:email,:date,:image,:type,:sexe)");
 
      query.bindValue(":nom",nom);
      query.bindValue(":prenom",prenom);
@@ -13,7 +14,9 @@ bool Employes::Ajouter_em()
      query.bindValue(":adresse",Adresse);
      query.bindValue(":email",email);
      query.bindValue(":image",image);
-     //query.bindValue(":type",type);
+     query.bindValue(":type",type);
+     query.bindValue(":sexe",sexe);
+     qDebug() << "22";
      return query.exec();
 
 }
@@ -30,7 +33,7 @@ QSqlQueryModel *Employes::Afficher_em()
 bool Employes::Modifier_em()
 {
     QSqlQuery query;
-    query.prepare("update employes set nom=:nom,prénom=:prenom,téléphone=:tele,adresse=:ad,email=:email,date_nai=:date,image=:i where id_em=:id");
+    query.prepare("update employes set nom=:nom,prénom=:prenom,téléphone=:tele,adresse=:ad,email=:email,date_nai=:date,image=:i,type=:t,sexe=:s where id_em=:id");
     query.bindValue(":id",id_em);
     query.bindValue(":nom",nom);
     query.bindValue(":prenom",prenom);
@@ -39,6 +42,8 @@ bool Employes::Modifier_em()
     query.bindValue(":ad",Adresse);
     query.bindValue(":email",email);
      query.bindValue(":i",image);
+     query.bindValue(":t",type);
+     query.bindValue(":s",sexe);
     return query.exec();
 }
 

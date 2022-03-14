@@ -4,7 +4,7 @@
 bool Employes::Ajouter_em()
 {
     QSqlQuery query;
-qDebug() << "11";
+
     query.prepare("insert into employes (nom,prénom,téléphone,adresse,email,date_nai,image,type,sexe) values (:nom,:prenom,:tele,:adresse,:email,:date,:image,:type,:sexe)");
 
      query.bindValue(":nom",nom);

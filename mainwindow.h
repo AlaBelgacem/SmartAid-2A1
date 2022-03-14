@@ -37,9 +37,11 @@ private slots:
     void clear();
 
     bool control();
+
     void init_errors();
 
     bool control_2();
+
     void init_errors_2();
 
     void on_rechercher_returnPressed();
@@ -64,8 +66,11 @@ private slots:
 
     void on_bo_3_clicked();
 
+    void profil();
 
     void on_usr_clicked();
+
+    void on_pdf_clicked();
 
 private:
     Ui::MainWindow *ui;

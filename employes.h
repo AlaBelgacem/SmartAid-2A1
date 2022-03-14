@@ -21,7 +21,6 @@ private:
     QString ville;
     QString email;
     QString type;
-    QString password;
     QString image;
     QString sexe;
 
@@ -53,7 +52,6 @@ public:
     void setCode_postal(int n){code_postal=n;}
     void setVille(QString n){ville=n;}
     void setEmail(QString n){email=n;}
-    void setPass(QString n){password=n;}
     void setImage(QString n){image=n;}
     void setType(QString n){type=n;}
     void setSexe(QString n){sexe=n;}
@@ -67,7 +65,6 @@ public:
     QString getDate_nais(){return date_nais;}
     QString getVille(){return ville;}
     QString getEmail(){return email;}
-    QString getPass(){return password;}
     QString getImage(){return image;}
     QString getType(){return type;}
     QString getSexe(){return sexe;}

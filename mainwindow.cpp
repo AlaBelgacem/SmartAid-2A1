@@ -1,18 +1,22 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include"employes.h"
+#include"users.h"
 #include <QLabel>
 #include <QPixmap>
 #include <QMovie>
 #include <QDebug>
 #include<QMessageBox>
 #include <QRegExpValidator>
+#include <QPainter>
+#include <QPdfWriter>
 
 #define chars_rx "[A-Za-z]{3,10}"
 #define tel_rx "\\+[0-9]{11}"
 #define email_rx "[A-Za-z0-9]{4,15}\\@+[a-z]{4,7}\\.+[a-z]{2,3}"
 #define file_rx "[A-z0-9]+(\\.(jpg|png|gif|jpeg|jfif))"
 int q=0;
+users session;
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -96,7 +100,9 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
     {
         ui->stackedWidget->hide();
         ui->listWidget->hide();
+        ui->er_log->hide();
     }
+
 }
 
 //la liste en gauche
@@ -138,6 +144,7 @@ void MainWindow::on_listWidget_itemClicked()
 //Bouton Ajouter
 void MainWindow::on_Ajouter_clicked()
 {
+    bool check;
     //Control assure le control de saisie
     if(control())
     {
@@ -155,12 +162,10 @@ void MainWindow::on_Ajouter_clicked()
                 sexe="Autre";
         QString image="C:/Users/louay/Desktop/smart_aid/images/";
         image= image + ui->Champs_Image->text();
-        //recuperer donnes
-        qDebug() << "1";
+        if(ui->emp->isChecked())
+        {
         Employes e(0,ui->Champs_Nom->text(),ui->Champs_Prenom->text(),ui->Champs_Date->date().toString("ddd MMM M yyyy"),ui->Champs_Email->text(),ui->Champ_Adresse->text(),ui->Champ_Telephone->text(),image,type,sexe);
-        qDebug() << "2";
-        bool check=e.Ajouter_em();
-        qDebug() << "3";
+        check=e.Ajouter_em();
         if(check)
         {
             //Afficher apres l'insertion
@@ -169,6 +174,24 @@ void MainWindow::on_Ajouter_clicked()
             clear();
             ui->ajout->setText("Ajouter Avec Success !");
         }
+        }
+        if(ui->usr->isChecked())
+        {
+            Employes e(0,ui->Champs_Nom->text(),ui->Champs_Prenom->text(),ui->Champs_Date->date().toString("ddd MMM M yyyy"),ui->Champs_Email->text(),ui->Champ_Adresse->text(),ui->Champ_Telephone->text(),image,type,sexe);
+            check=e.Ajouter_em();
+            users u(e,ui->Champs_Email->text(),ui->champ_mdp->text());
+            check=u.Ajouter_user();
+            if(check)
+            {
+                //Afficher apres l'insertion
+                ui->table1->setModel(e.Afficher_em());
+                ui->table2->setModel(e.Afficher_em());
+                clear();
+                ui->ajout->setText("Ajouter Avec Success !");
+            }
+        }
+
+
         else
         {
            // QMessageBox::information(nullptr,QObject::tr("Insertion"),
@@ -541,15 +564,36 @@ void MainWindow::on_Afficher_Emp_HOME_clicked()
 
 void MainWindow::on_bo_3_clicked()
 {
-    q=1;
-    ui->stackedWidget->show();
-    ui->listWidget->show();
-    //ui->box->move(0,-150);
-    ui->box->hide();
+
+    QString email=ui->login->text();
+    QString pass=ui->pass->text();
+    qDebug() << "22";
+    users u;
+    bool check=u.Login(email,pass);
+    if(check)
+    {
+        q=1;
+        ui->er_log->setText("");
+        ui->stackedWidget->show();
+        ui->listWidget->show();
+        //ui->box->move(0,-150);
+        ui->box->hide();
+        ui->er_log->hide();
+        session=u.session(email,pass);
+        profil();
+    }
+    else if(!check)
+    {
+        //QMessageBox::information(nullptr,QObject::tr("Echec"),QObject::tr("Mot de passe ou Email est incorrecte."),QMessageBox::Cancel);
+        ui->er_log->show();
+        ui->er_log->setText("Incorrect !");
+    }
+
+
+
 
 
 }
-
 
 
 void MainWindow::on_usr_clicked()
@@ -557,4 +601,27 @@ void MainWindow::on_usr_clicked()
     ui->er_p->show();
     ui->mdp->show();
     ui->champ_mdp->show();
+}
+
+void MainWindow::on_pdf_clicked()
+{
+    const QString filename("C:/Users/louay/Desktop/smart_aid/test2.pdf");
+    QString testData = "test";
+    QPdfWriter pdfwriter(filename);
+    pdfwriter.setPageSize(QPageSize(QPageSize::A4));
+    QPainter painter(&pdfwriter);
+    painter.drawText(0,0, testData);
+}
+
+void MainWindow::profil()
+{
+    Employes e=session.getEm();
+    ui->profil_nom->setText(e.getNom());
+    ui->profil_pre->setText(e.getPrenom());
+    ui->profil_em->setText(e.getEmail());
+    ui->profil_ad->setText(e.getAdresse());
+    ui->profil_tele->setText(e.getTelephone());
+    QString dates =e.getDate_nais();
+    QDate date = QDate::fromString(dates,"ddd MMM M yyyy");
+    ui->profil_date->setDate(date);
 }

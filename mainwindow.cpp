@@ -6,6 +6,7 @@
 #include <QDebug>
 #include "necessiteux.h"
 #include <QListView>
+#include "qrcodegen.hpp"
 
 
 
@@ -16,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
      ui->tableN->setModel(N.afficher());
+     ui->tableRdv->setModel(rdv.afficher());
+
      ui->telephoneN->setValidator(new QIntValidator (0,99999999,this));
      ui->id_Necessiteux->setValidator(new QIntValidator (0,99999999,this));
      ui->emailN->setValidator(new QRegExpValidator(  QRegExp("[a-z]{1,20}@[a-z]{1,8}.[a-z]{1,8}")));
@@ -30,11 +33,14 @@ MainWindow::MainWindow(QWidget *parent)
     QLabel label;
     QMovie *user_pic = new QMovie(":/images/images/646-walking-walkcycle-person-outline.gif");
     QMovie *gif_necessiteux = new QMovie(":/images/images/20-love-heart-flat.gif");
+    QMovie *gif_rdv = new QMovie(":/images/images/rendez_vous.gif");
 
     ui->user_pic->setMovie(user_pic);
     ui->gif_necessiteux->setMovie(gif_necessiteux);
+    ui->gif_rdv->setMovie(gif_rdv);
     user_pic->start();
     gif_necessiteux->start();
+    gif_rdv->start();
 //SIDE MENU
     QListWidgetItem *item0= new QListWidgetItem(QIcon(":/icons/icons/identity-card.png"),"Profil");
     ui->listWidget->addItem(item0);
@@ -60,8 +66,22 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     ui->listWidget->setCurrentItem(item0);
+/////////////////////////////////////////////////////////// TAB NECE ///////////////////////////////////////////////////
+    QListWidgetItem *consulter= new QListWidgetItem(QIcon(":/icons/icons/crises128.png"),"Consulter");
+    ui->listWidget_Ne->setFlow(QListWidget::LeftToRight);
 
+    ui->listWidget_Ne->addItem(consulter);
 
+    QListWidgetItem *rdv= new QListWidgetItem(QIcon(":/icons/icons/benevoles128.png"),"Rendez-Vous");
+    ui->listWidget_Ne->addItem(rdv);
+
+    QListWidgetItem *stat= new QListWidgetItem(QIcon(":/icons/icons/benevoles128.png"),"QrCode");
+    ui->listWidget_Ne->addItem(stat);
+
+    QListWidgetItem *qr= new QListWidgetItem(QIcon(":/icons/icons/benevoles128.png"),"Statistiques");
+    ui->listWidget_Ne->addItem(qr);
+
+    ui->listWidget_Ne->setCurrentItem(consulter);
 
     //MENU AJOUTER/AFFICHER...
     /*QListWidgetItem *afficher= new QListWidgetItem(QIcon(":/icons/icons/identity-card.png"),"Profil");
@@ -88,7 +108,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item)
 {
-    QString selectedvalue= ui->listWidget->currentItem()->text();
+    QString selectedvalue= item->text();
 
     if (selectedvalue == "Profil"){
         ui->stackedWidget->setCurrentIndex(0);
@@ -113,6 +133,37 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item)
     }
 
 }
+
+
+void MainWindow::on_listWidget_Ne_itemClicked(QListWidgetItem *item)
+{
+    QString selectedvalue= item->text();
+
+    if (selectedvalue == "Consulter"){
+        ui->stackedWidget_Ne->setCurrentIndex(0);
+    }
+    if (selectedvalue == "Rendez-Vous"){
+        ui->stackedWidget_Ne->setCurrentIndex(1);
+    }
+    if (selectedvalue == "QrCode"){
+        ui->stackedWidget_Ne->setCurrentIndex(2);
+    }
+    if (selectedvalue == "Statistiques"){
+        ui->stackedWidget_Ne->setCurrentIndex(3);
+    }
+    /*if (selectedvalue == "Gestion Nécessiteux"){
+        ui->stackedWidget->setCurrentIndex(4);
+    }
+    if (selectedvalue == "Gestion Crises"){
+        ui->stackedWidget->setCurrentIndex(5);
+    }
+    if (selectedvalue == "Gestion Bénévoles"){
+        ui->stackedWidget->setCurrentIndex(6);
+    }*/
+}
+
+
+
 
 void MainWindow::on_ajouterNecessiteux_clicked()
 {
@@ -174,6 +225,7 @@ void MainWindow::on_tableN_activated(const QModelIndex &index)
          {
              while(qry.next()){
                 ui->id_Necessiteux->setText(qry.value(0).toString());
+                ui->id_Ne->setText(qry.value(0).toString());
              ui->nomN->setText(qry.value(1).toString());
               ui->prenomN->setText(qry.value(2).toString());
               ui->emailN->setText(qry.value(3).toString());
@@ -198,6 +250,7 @@ void MainWindow::on_supprimerNecessiteux_clicked()
 
     if(test){
         ui->tableN->setModel(N.afficher());
+        ui->tableRdv->setModel(rdv.afficher());
         QMessageBox::information(nullptr,QObject::tr("OK"),
                                  QObject::tr("Suppression effectuée\n"
                                              "Click Cancel to exit."),QMessageBox::Cancel);
@@ -234,6 +287,7 @@ void MainWindow::on_modifier_Necessiteux_clicked()
 
     if(test){
         ui->tableN->setModel(N.afficher());
+        ui->tableRdv->setModel(rdv.afficher());
         QMessageBox::information(nullptr,QObject::tr("OK"),
                                  QObject::tr("Modification effectuée\n"
                                              "Click Cancel to exit."),QMessageBox::Cancel);
@@ -255,7 +309,7 @@ void MainWindow::on_modifier_Necessiteux_clicked()
 
 void MainWindow::on_lineEdit_textChanged(const QString &arg1)
 {
-    QString search=ui->lineEdit->text();
+    QString search=arg1;
         ui->tableN->setModel(N.rechercher(search));
 }
 
@@ -263,4 +317,147 @@ void MainWindow::on_lineEdit_returnPressed()
 {
     QString search=ui->lineEdit->text();
         ui->tableN->setModel(N.rechercher(search));
+}
+
+void MainWindow::on_qrcode_button_clicked()
+{
+    using namespace qrcodegen;
+    QString text = "Hello";
+      // Create the QR Code object
+      QrCode qr = QrCode::encodeText( text.toUtf8().data(), QrCode::Ecc::MEDIUM );
+      qint32 sz = qr.getSize();
+      QImage im(sz,sz, QImage::Format_RGB32);
+        QRgb black = qRgb(  0,  0,  0);
+        QRgb white = qRgb(255,255,255);
+      for (int y = 0; y < sz; y++)
+        for (int x = 0; x < sz; x++)
+          im.setPixel(x,y,qr.getModule(x, y) ? black : white );
+      ui->qrcode->setPixmap( QPixmap::fromImage(im.scaled(100,100,Qt::KeepAspectRatio,Qt::FastTransformation),Qt::MonoOnly) );
+}
+
+
+void MainWindow::on_comboBox_Ne_currentTextChanged(const QString &arg1)
+{
+    ui->tableN->setModel(N.trier(arg1));
+}
+
+void MainWindow::on_ajouterRdv_clicked()
+{
+    int id_ne= ui->id_Ne->text().toInt();
+    int id_re= ui->id_Re->text().toInt();
+    QString adresse = ui->AdresseRdv->text();
+    QString date = ui->date_Rdv->dateTime().toString("ddd MMM M yyyy hh:mm");
+    //QString date_naissance = ui->calendarWidget->selectedDate().toString("dd/mm/yy");
+    //QDate date = QDate::fromString(dates,"ddd MMM M yyyy");
+
+    qDebug()<<date;
+
+    rendezvous rdv(id_re,adresse,date,id_ne);
+
+
+
+    if( date.isEmpty() || adresse.isEmpty()){
+        QMessageBox::critical(0,qApp->tr("erreur"),qApp->tr("veillez remplir les champs vides."),QMessageBox::Cancel);
+
+    }
+    else{
+        /*QMessageBox::critical(nullptr, QObject::tr("NOT OK"),
+                     QObject::tr("Ajout non effectué\n"
+                                 "Click cancel to exit."),QMessageBox::Cancel);*/
+        //refresh
+
+        rdv.ajouter();
+        ui->tableRdv->setModel(rdv.afficher());
+        QMessageBox::information(nullptr, QObject::tr("OK"),
+                     QObject::tr("Ajout effectué\n"
+                                 "Click cancel to exit."),QMessageBox::Cancel);
+        ui->id_Ne->clear();
+        ui->AdresseRdv->clear();
+        ui->date_Rdv->clear();
+        ui->id_Re->clear();
+
+
+
+    }
+}
+
+void MainWindow::on_tableRdv_activated(const QModelIndex &index)
+{
+    QString value=ui->tableRdv->model()->data(index).toString();
+         connection c;
+         c.closeconnection();
+         QSqlQuery qry;
+
+         qry.prepare("select * from RENDEZ_VOUS where ID_RE='"+value+"'");
+         if(qry.exec())
+         {
+             while(qry.next()){
+                ui->id_Re->setText(qry.value(0).toString());
+                ui->id_Ne->setText(qry.value(3).toString());
+             ui->AdresseRdv->setText(qry.value(1).toString());
+
+              QString dates =qry.value(2).toString();
+              QDate date = QDate::fromString(dates,"ddd MMM M yyyy hh:mm");
+                ui->date_Rdv->setDate(date);
+             }
+
+         }
+}
+
+void MainWindow::on_modifierRdv_clicked()
+{
+    int id_re = ui->id_Re->text().toInt();
+    int id_ne = ui->id_Re->text().toInt();
+    QString adresse = ui->AdresseRdv->text();
+    QString date = ui->date_Rdv->dateTime().toString("ddd MMM M yyyy hh:mm");
+
+
+    rendezvous R(id_re,adresse,date,id_ne);
+
+    bool test = R.modifier(id_re);
+
+    if(test){
+
+        ui->tableRdv->setModel(rdv.afficher());
+        QMessageBox::information(nullptr,QObject::tr("OK"),
+                                 QObject::tr("Modification effectuée\n"
+                                             "Click Cancel to exit."),QMessageBox::Cancel);
+        ui->id_Ne->clear();
+        ui->AdresseRdv->clear();
+        ui->date_Rdv->clear();
+        ui->id_Re->clear();
+    }
+    else {
+        QMessageBox::critical(nullptr,QObject::tr("NOT OK"),
+                                 QObject::tr("Modification non effectuée\n"
+                                             "Click Cancel to exit."),QMessageBox::Cancel);
+    }
+}
+
+void MainWindow::on_supprimerrDV_clicked()
+{
+    int id = ui->id_Re->text().toInt();
+    bool test =rdv.supprimer(id);
+
+    if(test){
+        ui->tableRdv->setModel(rdv.afficher());
+        QMessageBox::information(nullptr,QObject::tr("OK"),
+                                 QObject::tr("Suppression effectuée\n"
+                                             "Click Cancel to exit."),QMessageBox::Cancel);
+        ui->id_Ne->clear();
+        ui->AdresseRdv->clear();
+        ui->date_Rdv->clear();
+        ui->id_Re->clear();
+    }
+    else {
+        QMessageBox::critical(nullptr,QObject::tr("NOT OK"),
+                                 QObject::tr("Suppression non effectuée\n"
+                                             "Click Cancel to exit."),QMessageBox::Cancel);
+    }
+}
+
+void MainWindow::on_recherche_rdv_textChanged(const QString &arg1)
+{
+    QString search=arg1;
+    ui->tableRdv->setModel(rdv.rechercher(search));
 }

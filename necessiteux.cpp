@@ -1,5 +1,5 @@
 #include "necessiteux.h"
-
+#include "qrcodegen.hpp"
 necessiteux::necessiteux()
 {
 
@@ -157,3 +157,21 @@ QSqlQueryModel * necessiteux::rechercher(QString rech)
     return model;
 }
 
+
+
+QSqlQueryModel * necessiteux::trier(QString x)
+{
+    QSqlQueryModel * model= new QSqlQueryModel();
+    qDebug()<<x<<endl;
+    if (x=="Défault")
+        model->setQuery("select * from NÉCESSITEUX");
+    else if(x=="Nom")
+        model->setQuery("select * from NÉCESSITEUX order by NOM");
+    else if(x=="Prénom")
+        model->setQuery("select * from NÉCESSITEUX order by PRENOM");
+    else if (x=="Age")
+        model->setQuery("select * from NÉCESSITEUX order by DATE_NAI DESC");
+
+
+        return model;
+}

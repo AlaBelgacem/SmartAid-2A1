@@ -43,6 +43,7 @@ public:
     ////////////////// METIERS ////////////////////////
 
     QSqlQueryModel * rechercher(QString);
+    QSqlQueryModel * trier(QString);
 
     ////////////////////////////////////////////////////
     //setters

@@ -125,3 +125,25 @@ QSqlQueryModel * rendezvous::rechercher(QString rech)
     return model;
 }
 
+QSqlQueryModel * rendezvous::trier(QString x)
+{
+    QSqlQueryModel * model= new QSqlQueryModel();
+    qDebug()<<x<<endl;
+    if (x=="Défault")
+        model->setQuery("SELECT r.ID_RE, r.ADRESSE, r.DATE_RE, n.NOM,n.PRENOM,n.DATE_NAI,n.EMAIL,n.TELEPHONE,n.ADRESSE,n.BESOIN FROM RENDEZ_VOUS r "
+                        "INNER JOIN NÉCESSITEUX n ON r.ID_NE=n.ID_NE ");
+    else if(x=="Nom")
+        model->setQuery("SELECT r.ID_RE, r.ADRESSE, r.DATE_RE, n.NOM,n.PRENOM,n.DATE_NAI,n.EMAIL,n.TELEPHONE,n.ADRESSE,n.BESOIN FROM RENDEZ_VOUS r "
+                        "INNER JOIN NÉCESSITEUX n ON r.ID_NE=n.ID_NE "
+                        "ORDER BY n.NOM");
+    else if(x=="Prénom")
+        model->setQuery("SELECT r.ID_RE, r.ADRESSE, r.DATE_RE, n.NOM,n.PRENOM,n.DATE_NAI,n.EMAIL,n.TELEPHONE,n.ADRESSE,n.BESOIN FROM RENDEZ_VOUS r "
+                        "INNER JOIN NÉCESSITEUX n ON r.ID_NE=n.ID_NE ");
+    else if (x=="Date Rendez-Vous")
+        model->setQuery("SELECT r.ID_RE, r.ADRESSE, r.DATE_RE, n.NOM,n.PRENOM,n.DATE_NAI,n.EMAIL,n.TELEPHONE,n.ADRESSE,n.BESOIN FROM RENDEZ_VOUS r "
+                        "INNER JOIN NÉCESSITEUX n ON r.ID_NE=n.ID_NE "
+                        "ORDER BY r.DATE_RE");
+
+
+        return model;
+}

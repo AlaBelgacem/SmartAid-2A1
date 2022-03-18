@@ -16,6 +16,22 @@
 #include <QCalendarWidget>
 #include <QTableWidget>
 #include <QTableView>
+#include <QPrinter>
+#include <QPrinterInfo>
+#include <QPrintDialog>
+#include <QTextStream>
+#include <QPainter>
+#include <QTextStream>
+#include <QFileDialog>
+#include <QTextDocument>
+#include <QtPrintSupport/QPrinter>
+#include <QFileDialog>
+#include <QTextDocument>
+//#include <strstream>
+#include <QSystemTrayIcon>
+#include <QRegExpValidator>
+#include <QDesktopServices>
+#include <QUrl>
 #include "connection.h"
 #include "necessiteux.h"
 #include "rendezvous.h"
@@ -62,6 +78,10 @@ private slots:
     void on_supprimerrDV_clicked();
 
     void on_recherche_rdv_textChanged(const QString &arg1);
+
+    void on_comboBox_Rdv_currentTextChanged(const QString &arg1);
+
+    void on_generatepdf_clicked();
 
 private:
     Ui::MainWindow *ui;

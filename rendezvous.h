@@ -40,6 +40,7 @@ public:
     bool modifier(int);
     ///////////////////////////////////////
     QSqlQueryModel * rechercher(QString rech);
+    QSqlQueryModel * trier(QString);
 };
 
 #endif // RENDEZVOUS_H

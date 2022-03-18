@@ -20,5 +20,7 @@
         <file>images/walking man transparent.gif</file>
         <file>images/20-love-heart-flat.gif</file>
         <file>images/rendez_vous.gif</file>
+        <file>images/qrcode.gif</file>
+        <file>images/qrcode300px.gif</file>
     </qresource>
 </RCC>

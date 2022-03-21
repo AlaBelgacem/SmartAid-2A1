@@ -155,12 +155,10 @@ void Employes::Calculer_salaire()
             var = (((nh/10)*0.5) + (ne*0.5) + disc);
             prime = (salaire * var)/100;
             qDebug() << "id: " << id << " | salaire: " << salaire << " | nb heures: " << nh << " | disc : " << disc <<" | nb events: " << ne << " | prime:  " << prime << " | var:  " << var ;
-             qryy.prepare("update salaires set prime=:pr where id=:id");
-             qryy.bindValue(":pr",prime);
-              qryy.bindValue(":id",id);
-              qryy.exec();
-
-
+            qryy.prepare("update salaires set prime=:pr where id=:id");
+            qryy.bindValue(":pr",prime);
+            qryy.bindValue(":id",id);
+            qryy.exec();
         }
     }
 }

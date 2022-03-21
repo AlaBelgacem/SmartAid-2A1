@@ -1,6 +1,4 @@
 #include "users.h"
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
 
 bool users::Ajouter_user(){
     QSqlQuery query;
@@ -70,3 +68,48 @@ users users::session(QString e,QString mdp)
     users u(em,e,mdp);
     return u;
 }
+
+ int users::Envoyer_sms(QString num)
+ {
+     QSqlQuery query;
+     query.prepare("select telephone from recovery where telephone=:num");
+     query.bindValue(":num",num);
+     query.exec();
+     query.next();
+     if(query.value(0).toString()=="")
+     {
+         srand( time(NULL) );
+         int number = rand() % 100000;
+         query.prepare("insert into recovery (telephone,token) values (:tel,:tok)");
+         query.bindValue(":tel",num);
+         query.bindValue(":tok",number);
+         query.exec();
+         QString token = QString::number(number);
+          QProcess::startDetached("C:\\cygwin64\\bin\\mintty.exe", QStringList() << "/home/louay/sms.sh" << num << token );
+         return 0 ;
+     }
+     else return 1 ;
+ }
+  int users::check_token(users u,QString tok)
+  {
+      QSqlQuery query;
+      QString num = u.em.getTelephone();
+      query.prepare("select token from recovery where telephone=:num and token=:tok");
+      query.bindValue(":num",num);
+      query.bindValue(":tok",tok);
+      query.exec();
+      query.next();
+      if(query.value(0).toString()=="")
+          return 0;
+      else
+          return 1;
+  }
+
+ /* bool users::Maj_pass(users u, QString pass)
+  {
+      QSqlQuery query;
+      QString num = u.em.getTelephone();
+      query.prepare("select token from recovery where telephone=:num and token=:tok");
+
+  }*/
+

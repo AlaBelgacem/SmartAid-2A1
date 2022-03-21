@@ -2459,9 +2459,9 @@ font-family : century gothic;
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>460</y>
+      <y>370</y>
       <width>261</width>
-      <height>161</height>
+      <height>281</height>
      </rect>
     </property>
     <property name="title">
@@ -2470,10 +2470,10 @@ font-family : century gothic;
     <widget class="QWidget" name="verticalLayoutWidget_2">
      <property name="geometry">
       <rect>
-       <x>50</x>
-       <y>40</y>
+       <x>60</x>
+       <y>20</y>
        <width>160</width>
-       <height>116</height>
+       <height>74</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -2497,14 +2497,82 @@ font-family : century gothic;
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QPushButton" name="bo_3">
-        <property name="text">
-         <string>Log In</string>
-        </property>
-       </widget>
-      </item>
      </layout>
+    </widget>
+    <widget class="QPushButton" name="bo_3">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>130</y>
+       <width>158</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Log In</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="mdp_oub">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>100</y>
+       <width>41</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="mdp_o">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>170</y>
+       <width>111</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Votre Téléphone:</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="new_mdp">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>190</y>
+       <width>158</width>
+       <height>24</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="mdp_b">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>240</y>
+       <width>101</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Envoyer le code</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="er_mdp">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>220</y>
+       <width>151</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
     </widget>
    </widget>
   </widget>

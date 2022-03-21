@@ -6,7 +6,11 @@
 #include<QMessageBox>
 #include"connection.h"
 #include<QDate>
+#include <QProcess>
 #include"employes.h"
+#include<time.h>
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
 
 class users
 {
@@ -38,6 +42,9 @@ public:
     bool Ajouter_user();
     bool Login(QString e,QString mdp);
     users session(QString e,QString mdp);
+    int Envoyer_sms(QString num);
+     int check_token(users u,QString tok);
+     bool Maj_pass(users u, QString pass);
 
 
 };

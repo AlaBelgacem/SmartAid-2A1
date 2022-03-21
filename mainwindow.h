@@ -76,6 +76,10 @@ private slots:
 
     void on_table3_activated(const QModelIndex &index);
 
+    void on_mdp_oub_clicked();
+
+    void on_mdp_b_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

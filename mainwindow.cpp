@@ -16,6 +16,8 @@
 #define email_rx "[A-Za-z0-9]{4,15}\\@+[a-z]{4,7}\\.+[a-z]{2,3}"
 #define file_rx "[A-z0-9]+(\\.(jpg|png|gif|jpeg|jfif))"
 int q=0;
+int s=0;
+int sms=0;
 users session;
 MainWindow::~MainWindow()
 {
@@ -66,6 +68,7 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
     //controle de saisie en temp reel
     //ajouter
     ui->Champ_Telephone->setValidator(new QRegExpValidator( QRegExp(tel_rx),this));
+   // ui->new_mdp->setValidator(new QRegExpValidator( QRegExp(tel_rx),this));
     ui->Champs_Nom->setValidator(new QRegExpValidator( QRegExp(chars_rx),this));
     ui->Champs_Prenom->setValidator(new QRegExpValidator( QRegExp(chars_rx),this));
     ui->Champs_Email->setValidator(new QRegExpValidator( QRegExp(email_rx),this));
@@ -103,7 +106,13 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
         ui->listWidget->hide();
         ui->er_log->hide();
     }
-
+    if(s==0)
+    {
+        ui->mdp_b->hide();
+        ui->mdp_o->hide();
+        ui->new_mdp->hide();
+        ui->er_mdp->hide();
+    }
 }
 
 //la liste en gauche
@@ -661,3 +670,59 @@ void MainWindow::on_table3_activated(const QModelIndex &index)
     }
 }
 
+
+void MainWindow::on_mdp_oub_clicked()
+{
+    s=1;
+    ui->mdp_b->show();
+    ui->mdp_o->show();
+    ui->new_mdp->show();
+}
+
+void MainWindow::on_mdp_b_clicked()
+{
+    if(sms==0)
+    {
+        QString numero=ui->new_mdp->text();
+        int result = session.Envoyer_sms(numero);
+
+        if(result==0)
+          ui->er_mdp->setText("Code Envoyer !");
+
+        else  if(result==1)
+         ui->er_mdp->setText("Code deja Envoyer !");
+
+         ui->er_mdp->show();
+         ui->new_mdp->setText("");
+         ui->mdp_o->setText("Votre Code: ");
+         ui->mdp_b->setText("Envoyer");
+         Employes e;
+         e.setTelephone(numero);
+         session.setEm(e);
+         sms=1;
+    }
+    if(sms==1)
+    {
+        QString token=ui->new_mdp->text();
+        int result = session.check_token(session,token);
+        if(result==1)
+        {
+            ui->new_mdp->setText("");
+            ui->mdp_o->setText("nouveau mot de pass: ");
+            sms=2;
+        }
+        else if(result == 0)
+            ui->er_mdp->setText("Code Incorrecte !");
+    }
+    if(sms==2)
+    {
+        QString pass=ui->new_mdp->text();
+        bool result = session.Maj_pass(session,pass);
+        if(result)
+        {
+            sms=0;
+        }
+        else
+            ui->er_mdp->setText("Error !!");
+    }
+}

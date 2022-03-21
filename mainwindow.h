@@ -32,6 +32,8 @@
 #include <QRegExpValidator>
 #include <QDesktopServices>
 #include <QUrl>
+#include <vector>
+#include "qcustomplot.h"
 #include "connection.h"
 #include "necessiteux.h"
 #include "rendezvous.h"
@@ -82,6 +84,8 @@ private slots:
     void on_comboBox_Rdv_currentTextChanged(const QString &arg1);
 
     void on_generatepdf_clicked();
+
+    void on_stackedWidget_Ne_currentChanged(int arg1);
 
 private:
     Ui::MainWindow *ui;

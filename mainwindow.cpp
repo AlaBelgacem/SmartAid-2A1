@@ -596,3 +596,113 @@ void MainWindow::on_generatepdf_clicked()
 
 
 }
+
+void MainWindow::on_stackedWidget_Ne_currentChanged(int arg1)
+{
+    QTableView table_necessiteux,table_n2;
+    QSqlQueryModel * Mod=new  QSqlQueryModel();
+    QSqlQueryModel * Mod2=new  QSqlQueryModel();
+         connection c;
+         QSqlQuery qry,q2;
+         qry.prepare("select BESOIN from NÉCESSITEUX group by BESOIN");
+         qry.exec();
+         Mod->setQuery(qry);
+         table_necessiteux.setModel(Mod);
+
+         q2.prepare("select count(*) from NÉCESSITEUX group by BESOIN");
+         q2.exec();
+         Mod2->setQuery(q2);
+         table_n2.setModel(Mod2);
+
+         c.closeconnection();
+
+        qDebug()<<table_necessiteux.model()->data(table_necessiteux.model()->index(0, 0)).toString().simplified();
+        qDebug()<<table_n2.model()->data(table_n2.model()->index(0, 0)).toInt();
+
+        const int rowCount = table_necessiteux.model()->rowCount();
+        const int rowCount2 = table_n2.model()->rowCount();
+
+    if(arg1==3){
+
+       // set dark background gradient:
+        QLinearGradient gradient(0, 0, 0, 400);
+        gradient.setColorAt(0, QColor(90, 90, 90));
+        gradient.setColorAt(0.38, QColor(105, 105, 105));
+        gradient.setColorAt(1, QColor(70, 70, 70));
+        ui->customPlot->setBackground(QBrush("#fff"));
+
+        // create empty bar chart objects:
+        QCPBars *besoin = new QCPBars(ui->customPlot->xAxis, ui->customPlot->yAxis);
+
+        besoin->setAntialiased(false); // gives more crisp, pixel aligned bar borders
+
+        besoin->setStackingGap(1);
+
+        // set names and colors:
+
+        besoin->setName("Besoin");
+        besoin->setPen(QPen(QColor("#D5E7F2").lighter(130)));
+        besoin->setBrush(QColor("#D5E7F2"));
+        // stack bars on top of each other:
+
+
+        // prepare x axis with needs' labels:
+        QVector<double> ticks;
+        QVector<QString> labels;
+
+        for(int i=0; i<rowCount; ++i){
+            ticks.push_back(i);
+            labels.push_back(table_necessiteux.model()->data(table_necessiteux.model()->index(i, 0)).toString().simplified());
+            qDebug()<<ticks[i];
+            qDebug()<<labels[i];
+        }
+        QSharedPointer<QCPAxisTickerText> textTicker(new QCPAxisTickerText);
+        textTicker->addTicks(ticks, labels);
+        ui->customPlot->xAxis->setTicker(textTicker);
+        ui->customPlot->xAxis->setTickLabelRotation(60);
+        ui->customPlot->xAxis->setSubTicks(false);
+        ui->customPlot->xAxis->setTickLength(0, 4);
+        ui->customPlot->xAxis->setRange(0, 8);
+        ui->customPlot->xAxis->setBasePen(QPen(Qt::black));
+        ui->customPlot->xAxis->setTickPen(QPen(Qt::black));
+        ui->customPlot->xAxis->grid()->setVisible(true);
+        ui->customPlot->xAxis->grid()->setPen(QPen(QColor(130, 130, 130), 0, Qt::DotLine));
+        ui->customPlot->xAxis->setTickLabelColor(Qt::black);
+        ui->customPlot->xAxis->setLabelColor(Qt::black);
+
+        // prepare y axis:
+        ui->customPlot->yAxis->setRange(0, 12.1);
+        ui->customPlot->yAxis->setPadding(5); // a bit more space to the left border
+        ui->customPlot->yAxis->setLabel("Nombre de nécessiteux\n par Besoin");
+        ui->customPlot->yAxis->setBasePen(QPen(Qt::black));
+        ui->customPlot->yAxis->setTickPen(QPen(Qt::black));
+        ui->customPlot->yAxis->setSubTickPen(QPen(Qt::black));
+        ui->customPlot->yAxis->grid()->setSubGridVisible(true);
+        ui->customPlot->yAxis->setTickLabelColor(Qt::black);
+        ui->customPlot->yAxis->setLabelColor(Qt::black);
+        ui->customPlot->yAxis->grid()->setPen(QPen(QColor("#000"), 0, Qt::SolidLine));
+        ui->customPlot->yAxis->grid()->setSubGridPen(QPen(QColor("#000"), 0, Qt::DotLine));
+
+        // Add data:
+        QVector<double>besoinData;
+
+        for(int i=0; i<rowCount2; ++i){
+            besoinData.push_back(table_n2.model()->data(table_n2.model()->index(i, 0)).toInt());
+            qDebug()<<besoinData;
+
+        }
+
+        besoin->setData(ticks, besoinData);
+
+        // setup legend:
+        ui->customPlot->legend->setVisible(true);
+        ui->customPlot->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignTop|Qt::AlignHCenter);
+        ui->customPlot->legend->setBrush(QColor("#fff"));
+        ui->customPlot->legend->setBorderPen(Qt::NoPen);
+        QFont legendFont = font();
+        legendFont.setPointSize(15);
+        ui->customPlot->legend->setFont(legendFont);
+        ui->customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
+
+    }
+}

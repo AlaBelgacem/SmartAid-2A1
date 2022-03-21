@@ -27,6 +27,7 @@ SOURCES += \
     mainwindow.cpp \
     necessiteux.cpp \
     $$PWD/cpp/qrcodegen.cpp \
+    qcustomplot.cpp \
     rendezvous.cpp
 
 HEADERS += \
@@ -34,6 +35,7 @@ HEADERS += \
     mainwindow.h \
     necessiteux.h \
     $$PWD/cpp/qrcodegen.hpp \
+    qcustomplot.h \
     rendezvous.h
 
 FORMS += \

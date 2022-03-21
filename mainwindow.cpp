@@ -93,6 +93,7 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
     Employes e;
     ui->table2->setModel(e.Afficher_em());
     ui->table1->setModel(e.Afficher_em());
+    ui->table3->setModel(e.Afficher_Salaire());
     //--------------------------------------------
 
     //prototype login
@@ -144,7 +145,7 @@ void MainWindow::on_listWidget_itemClicked()
 //Bouton Ajouter
 void MainWindow::on_Ajouter_clicked()
 {
-    bool check;
+    bool check,check2;
     //Control assure le control de saisie
     if(control())
     {
@@ -166,6 +167,7 @@ void MainWindow::on_Ajouter_clicked()
         {
         Employes e(0,ui->Champs_Nom->text(),ui->Champs_Prenom->text(),ui->Champs_Date->date().toString("ddd MMM M yyyy"),ui->Champs_Email->text(),ui->Champ_Adresse->text(),ui->Champ_Telephone->text(),image,type,sexe);
         check=e.Ajouter_em();
+        check2=e.Ajouter_sa_em();
         if(check)
         {
             //Afficher apres l'insertion
@@ -181,6 +183,7 @@ void MainWindow::on_Ajouter_clicked()
             check=e.Ajouter_em();
             users u(e,ui->Champs_Email->text(),ui->champ_mdp->text());
             check=u.Ajouter_user();
+            check2=e.Ajouter_sa_em();
             if(check)
             {
                 //Afficher apres l'insertion
@@ -625,3 +628,36 @@ void MainWindow::profil()
     QDate date = QDate::fromString(dates,"ddd MMM M yyyy");
     ui->profil_date->setDate(date);
 }
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    Employes e;
+    e.Modifier_Salaire( ui->id_sa->text().toInt(), ui->sa->text().toInt(), ui->sa_hr->text().toInt(), ui->disc->currentIndex());
+    e.Calculer_salaire();
+    ui->table3->setModel(e.Afficher_Salaire());
+    ui->sa->setText("");
+    ui->sa_hr->setText("");
+    ui->disc->setCurrentIndex(0);
+}
+
+void MainWindow::on_table3_activated(const QModelIndex &index)
+{
+    QString value=ui->table3->model()->data(index).toString();
+    connection c;
+    c.closeconnection();
+    QSqlQuery qry;
+
+    qry.prepare("select salaire,nb_heures,disc from salaires where id='"+value+"'");
+    if(qry.exec())
+    {
+        while(qry.next())
+        {
+
+            ui->sa->setText(qry.value(0).toString());
+            ui->sa_hr->setText(qry.value(1).toString());
+            ui->disc->setCurrentIndex(qry.value(2).toInt());
+            ui->id_sa->setText(value);
+        }
+    }
+}
+

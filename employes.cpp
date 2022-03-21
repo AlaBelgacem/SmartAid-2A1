@@ -21,6 +21,18 @@ bool Employes::Ajouter_em()
 
 }
 
+bool Employes::Ajouter_sa_em()
+{
+    QSqlQuery query;
+    query.exec("SELECT MAX( id_em ) FROM employes;");
+    query.next();
+    QString id=query.value(0).toString();
+
+    query.prepare("insert into salaires (id_em,salaire,nb_heures,disc) values (:id,500,0,1)");
+    query.bindValue(":id",id);
+    return query.exec();
+}
+
 QSqlQueryModel *Employes::Afficher_em()
 {
      QSqlQueryModel *modal=new QSqlQueryModel();
@@ -122,6 +134,54 @@ QSqlQueryModel *Employes::Trier_em(QString croissance,QString critere)
         modal->setQuery("select * from employes order by prénom");
 
     return  modal;
+}
+
+void Employes::Calculer_salaire()
+{
+    QSqlQuery qry,qryy;
+    int id,salaire,nh,ne,disc,prime;
+    float var=0;
+    qry.prepare("select id,salaire,nb_heures,disc,nb_events,prime from salaires,bénévoles where salaires.id = bénévoles.id_e");
+    if(qry.exec())
+    {
+        while(qry.next())
+        {
+            id=qry.value(0).toInt();
+            salaire=qry.value(1).toInt();
+            nh=qry.value(2).toInt();
+            disc=qry.value(3).toInt();
+            ne=qry.value(4).toInt();
+            prime=qry.value(5).toInt();
+            var = (((nh/10)*0.5) + (ne*0.5) + disc);
+            prime = (salaire * var)/100;
+            qDebug() << "id: " << id << " | salaire: " << salaire << " | nb heures: " << nh << " | disc : " << disc <<" | nb events: " << ne << " | prime:  " << prime << " | var:  " << var ;
+             qryy.prepare("update salaires set prime=:pr where id=:id");
+             qryy.bindValue(":pr",prime);
+              qryy.bindValue(":id",id);
+              qryy.exec();
+
+
+        }
+    }
+}
+QSqlQueryModel *Employes::Afficher_Salaire()
+{
+
+    QSqlQueryModel *modal=new QSqlQueryModel();
+    modal->setQuery("select id_em,nom,prénom,nb_heures,nb_events,disc,salaire,prime from salaires,employes,bénévoles where salaires.id = employes.id_em and salaires.id = bénévoles.id_e");
+    modal->setHeaderData(0,Qt::Horizontal,QObject::tr("ID"));
+    return modal;
+}
+
+bool Employes::Modifier_Salaire(int id,int salaire,int nh,int disc)
+{
+    QSqlQuery query;
+    query.prepare("update salaires set salaire=:s,nb_heures=:nh,disc=:disc where id=:id");
+    query.bindValue(":id",id);
+    query.bindValue(":s",salaire);
+    query.bindValue(":nh",nh);
+    query.bindValue(":disc",disc);
+    return query.exec();
 }
 
 

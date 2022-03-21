@@ -71,11 +71,16 @@ public:
 
     //functions
     bool Ajouter_em();
+    bool Ajouter_sa_em();
     QSqlQueryModel *Afficher_em();
     bool Modifier_em();
+    bool Modifier_Salaire(int id,int salaire,int nh,int disc);
     bool Supprimer_em();
     QSqlQueryModel *Rechercher_em(QString value );
     QSqlQueryModel *Trier_em(QString croissance,QString critere);
+    void Calculer_salaire();
+    QSqlQueryModel *Afficher_Salaire();
+
 
 
 };

@@ -72,6 +72,10 @@ private slots:
 
     void on_pdf_clicked();
 
+    void on_pushButton_2_clicked();
+
+    void on_table3_activated(const QModelIndex &index);
+
 private:
     Ui::MainWindow *ui;
 };

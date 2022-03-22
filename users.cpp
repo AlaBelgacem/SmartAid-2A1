@@ -102,14 +102,28 @@ users users::session(QString e,QString mdp)
       if(query.value(0).toString()=="")
           return 0;
       else
+      {   query.prepare("delete from recovery where token=:tok");
+          query.bindValue(":tok",tok);
+          query.exec();
           return 1;
+      }
   }
 
- /* bool users::Maj_pass(users u, QString pass)
+  bool users::Maj_pass(users u, QString pass)
   {
       QSqlQuery query;
       QString num = u.em.getTelephone();
-      query.prepare("select token from recovery where telephone=:num and token=:tok");
+      query.prepare("select id_em from employes where téléphone=:num");
+      query.bindValue(":num",num);
+      query.exec();
+      query.next();
+      u.em.setID_em(query.value(0).toInt());
 
-  }*/
+      query.prepare("update users set mot_de_pass=:pass where id_em=:id");
+      query.bindValue(":pass",pass);
+      query.bindValue(":id",u.em.getID_em());
+      return query.exec();
+
+
+  }
 

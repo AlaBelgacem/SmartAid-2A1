@@ -701,7 +701,7 @@ void MainWindow::on_mdp_b_clicked()
          session.setEm(e);
          sms=1;
     }
-    if(sms==1)
+    else if(sms==1)
     {
         QString token=ui->new_mdp->text();
         int result = session.check_token(session,token);
@@ -714,13 +714,14 @@ void MainWindow::on_mdp_b_clicked()
         else if(result == 0)
             ui->er_mdp->setText("Code Incorrecte !");
     }
-    if(sms==2)
+    else if(sms==2)
     {
         QString pass=ui->new_mdp->text();
         bool result = session.Maj_pass(session,pass);
         if(result)
         {
-            sms=0;
+            sms=0; 
+
         }
         else
             ui->er_mdp->setText("Error !!");

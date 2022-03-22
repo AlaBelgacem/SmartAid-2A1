@@ -80,7 +80,7 @@ public:
     QSqlQueryModel *Trier_em(QString croissance,QString critere);
     void Calculer_salaire();
     QSqlQueryModel *Afficher_Salaire();
-
+    bool check_phone(QString n);
 
 
 };

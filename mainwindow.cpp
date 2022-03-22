@@ -66,14 +66,6 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
     ui->champ_mdp->hide();
     //ui->lineEdit->hide();
     //controle de saisie en temp reel
-    //ajouter
-    ui->Champ_Telephone->setValidator(new QRegExpValidator( QRegExp(tel_rx),this));
-   // ui->new_mdp->setValidator(new QRegExpValidator( QRegExp(tel_rx),this));
-    ui->Champs_Nom->setValidator(new QRegExpValidator( QRegExp(chars_rx),this));
-    ui->Champs_Prenom->setValidator(new QRegExpValidator( QRegExp(chars_rx),this));
-    ui->Champs_Email->setValidator(new QRegExpValidator( QRegExp(email_rx),this));
-    ui->Champs_Image->setValidator(new QRegExpValidator( QRegExp(file_rx),this));
-    //modifier
     ui->lineEdit_tele->setValidator(new QRegExpValidator( QRegExp(tel_rx),this));
     ui->lineEdit_nom->setValidator(new QRegExpValidator( QRegExp(chars_rx),this));
     ui->lineEdit_pre->setValidator(new QRegExpValidator( QRegExp(chars_rx),this));
@@ -156,7 +148,7 @@ void MainWindow::on_Ajouter_clicked()
 {
     bool check,check2;
     //Control assure le control de saisie
-    if(control())
+    if(control_2())
     {
         QString type="";
         QString sexe="";
@@ -171,10 +163,10 @@ void MainWindow::on_Ajouter_clicked()
         if(ui->au->isChecked())
                 sexe="Autre";
         QString image="C:/Users/louay/Desktop/smart_aid/images/";
-        image= image + ui->Champs_Image->text();
+        image= image + ui->lineEdit_image->text();
         if(ui->emp->isChecked())
         {
-        Employes e(0,ui->Champs_Nom->text(),ui->Champs_Prenom->text(),ui->Champs_Date->date().toString("ddd MMM M yyyy"),ui->Champs_Email->text(),ui->Champ_Adresse->text(),ui->Champ_Telephone->text(),image,type,sexe);
+        Employes e(0,ui->lineEdit_nom->text(),ui->lineEdit_pre->text(),ui->dateEdit_date->date().toString(),ui->lineEdit_em->text(),ui->lineEdit_ad->text(),ui->lineEdit_tele->text(),ui->lineEdit_image->text(),type,sexe);
         check=e.Ajouter_em();
         check2=e.Ajouter_sa_em();
         if(check)
@@ -183,14 +175,15 @@ void MainWindow::on_Ajouter_clicked()
             ui->table1->setModel(e.Afficher_em());
             ui->table2->setModel(e.Afficher_em());
             clear();
-            ui->ajout->setText("Ajouter Avec Success !");
+            ui->status->setText("Ajouter Avec\nSuccess !");
         }
         }
         if(ui->usr->isChecked())
         {
-            Employes e(0,ui->Champs_Nom->text(),ui->Champs_Prenom->text(),ui->Champs_Date->date().toString("ddd MMM M yyyy"),ui->Champs_Email->text(),ui->Champ_Adresse->text(),ui->Champ_Telephone->text(),image,type,sexe);
+            //Employes e(0,ui->Champs_Nom->text(),ui->Champs_Prenom->text(),ui->Champs_Date->date().toString("ddd MMM M yyyy"),ui->Champs_Email->text(),ui->Champ_Adresse->text(),ui->Champ_Telephone->text(),image,type,sexe);
+              Employes e(0,ui->lineEdit_nom->text(),ui->lineEdit_pre->text(),ui->dateEdit_date->date().toString(),ui->lineEdit_em->text(),ui->lineEdit_ad->text(),ui->lineEdit_tele->text(),ui->lineEdit_image->text(),type,sexe);
             check=e.Ajouter_em();
-            users u(e,ui->Champs_Email->text(),ui->champ_mdp->text());
+            users u(e,ui->lineEdit_em->text(),ui->champ_mdp->text());
             check=u.Ajouter_user();
             check2=e.Ajouter_sa_em();
             if(check)
@@ -199,15 +192,14 @@ void MainWindow::on_Ajouter_clicked()
                 ui->table1->setModel(e.Afficher_em());
                 ui->table2->setModel(e.Afficher_em());
                 clear();
-                ui->ajout->setText("Ajouter Avec Success !");
+                ui->status->setText("Ajouter Avec\nSuccess !");
             }
         }
 
 
         else
         {
-           // QMessageBox::information(nullptr,QObject::tr("Insertion"),
-                     //                QObject::tr("insertion echoué."),QMessageBox::Cancel);
+          ui->status->setText("Erreur Ajout !");
         }
     }
 }
@@ -217,26 +209,30 @@ void MainWindow::on_Modifier_clicked()
 {
     //recuperer donnes
     if(control_2()){
+        QString type="";
         QString sexe="";
-        if(ui->hm_m->isChecked())
+        if(ui->emp->isChecked())
+                type="Employe";
+        if(ui->usr->isChecked())
+                type="User";
+        if(ui->hm->isChecked())
                 sexe="Homme";
-        if(ui->fm_m->isChecked())
+        if(ui->fm->isChecked())
                 sexe="Femme";
-        if(ui->au_m->isChecked())
+        if(ui->au->isChecked())
                 sexe="Autre";
-    Employes e( ui->lineEdit_id->text().toInt(),ui->lineEdit_nom->text(),ui->lineEdit_pre->text(),ui->dateEdit_date->date().toString(),ui->lineEdit_em->text(),ui->lineEdit_ad->text(),ui->lineEdit_tele->text(),ui->lineEdit_image->text(),ui->lineEdit->text(),sexe);
+    Employes e( ui->lineEdit_id->text().toInt(),ui->lineEdit_nom->text(),ui->lineEdit_pre->text(),ui->dateEdit_date->date().toString(),ui->lineEdit_em->text(),ui->lineEdit_ad->text(),ui->lineEdit_tele->text(),ui->lineEdit_image->text(),type,sexe);
     bool check=e.Modifier_em();
     if(check)
     {
         ui->table1->setModel(e.Afficher_em());
         ui->table2->setModel(e.Afficher_em());
         clear();
-      ui->modifi->setText("Modifier Avec Success !");
+      ui->status->setText("Modifier Avec\nSuccess !");
     }
     else
     {
-        QMessageBox::information(nullptr,QObject::tr("Modification"),
-                                 QObject::tr("Modification echoué."),QMessageBox::Cancel);
+          ui->status->setText("Erreur Modification !");
     }
     }
 }
@@ -253,13 +249,12 @@ void MainWindow::on_Supprimer_clicked()
         ui->table1->setModel(e.Afficher_em());
         ui->table2->setModel(e.Afficher_em());
         clear();
-        ui->suprim->setText("Supprimer Avec Success !");
+        ui->status->setText("Supprimer Avec\nSuccess !");
 
     }
     else
     {
-        QMessageBox::information(nullptr,QObject::tr("Suppression"),
-                                 QObject::tr("Suppression echoué."),QMessageBox::Cancel);
+         ui->status->setText("Erreur Suppression !");
     }
 
 }
@@ -268,6 +263,7 @@ void MainWindow::on_Supprimer_clicked()
 void MainWindow::on_table1_activated(const QModelIndex &index)
 {
     init_errors_2();
+    clear();
     QString value=ui->table1->model()->data(index).toString();
     connection c;
     c.closeconnection();
@@ -296,14 +292,17 @@ void MainWindow::on_table1_activated(const QModelIndex &index)
             QPixmap pix(qry.value(8).toString());
             ui->label_pic->setPixmap(pix.scaled(100,100,Qt::KeepAspectRatio));
 
-            ui->lineEdit->setText(qry.value(7).toString());
-
             if(qry.value(9).toString()=="Homme")
-                ui->hm_m->setChecked(true);
+                ui->hm->setChecked(true);
             if(qry.value(9).toString()=="Femme")
-                ui->fm_m->setChecked(true);
+                ui->fm->setChecked(true);
             if(qry.value(9).toString()=="Autre")
-                ui->au_m->setChecked(true);
+                ui->au->setChecked(true);
+
+            if(qry.value(7).toString()=="Employe")
+                ui->emp->setChecked(true);
+            if(qry.value(7).toString()=="User")
+                ui->usr->setChecked(true);
 
 
 
@@ -331,22 +330,14 @@ void MainWindow::clear()
     ui->lineEdit_em->clear();
     ui->lineEdit_image->clear();
     ui->label_pic->clear();
-    ui->fm_m->setChecked(false);
-    ui->au_m->setChecked(false);
-    ui->hm_m->setChecked(false);
+    ui->fm->setChecked(false);
+    ui->au->setChecked(false);
+    ui->hm->setChecked(false);
     ui->fm->setChecked(false);
     ui->au->setChecked(false);
     ui->hm->setChecked(false);
     ui->usr->setChecked(false);
     ui->emp->setChecked(false);
-
-    ui->Champs_Nom->clear();
-    ui->Champs_Prenom->clear();
-    ui->Champs_Date->clear();
-    ui->Champ_Adresse->clear();
-    ui->Champ_Telephone->clear();
-    ui->Champs_Email->clear();
-    ui->Champs_Image->clear();
 
 }
 //-----------------------------------------------------------------
@@ -416,23 +407,7 @@ void MainWindow::on_radioButton_2_clicked()
 //initialise les champs des erreurs
 void MainWindow::init_errors()
 {
-    ui->er_nom->setText("");
-    ui->er_pr->setText("");
-    ui->er_ad->setText("");
-    ui->er_em->setText("");
-    ui->er_tel->setText("");
-    ui->er_im->setText("");
-    ui->ajout->setText("");
-    ui->er_t->setText("");
-    ui->er_s->setText("");
 
-
-    ui->er_nom->hide();
-    ui->er_pr->hide();
-    ui->er_ad->hide();
-    ui->er_em->hide();
-    ui->er_tel->hide();
-    ui->er_im->hide();
     //ui->er_p->hide();
    // ui->mdp->hide();
    // ui->champ_mdp->hide();
@@ -445,13 +420,14 @@ void MainWindow::init_errors_2()
     ui->erm_em->setText("");
     ui->erm_tel->setText("");
     ui->erm_im->setText("");
-    ui->modifi->setText("");
-    ui->suprim->setText("");
+    ui->status->setText("");
     ui->erm_s->setText("");
+    ui->er_p->setText("");
 
 
 
     ui->erm_nom->hide();
+    ui->er_p->hide();
     ui->erm_pr->hide();
     ui->erm_ad->hide();
     ui->erm_em->hide();
@@ -463,50 +439,12 @@ void MainWindow::init_errors_2()
 //controle les erreurs et les affiches
 bool MainWindow::control()
 {
-    init_errors();
-    if((ui->Champs_Nom->text()=="")||(ui->Champs_Prenom->text()=="")||(ui->Champs_Image->text()=="")||(ui->Champ_Telephone->text()=="")||(ui->Champ_Adresse->text()=="")||(ui->Champs_Email->text()=="")||(!(ui->fm->isChecked())&&(!(ui->hm->isChecked()))&&(!(ui->au->isChecked()))&&(!(ui->emp->isChecked()))&&(!(ui->usr->isChecked()))))
-    {
-        if((ui->Champs_Nom->text()=="")){ui->er_nom->show(); ui->er_nom->setText("Champs Obligatoire !"); }
-
-        if(ui->Champs_Prenom->text()==""){ui->er_pr->show();ui->er_pr->setText("Champs Obligatoire !");}
-
-        if(ui->Champs_Image->text()==""){ui->er_im->show(); ui->er_im->setText("Champs Obligatoire !");}
-
-        if(ui->Champ_Telephone->text()==""){ui->er_tel->show();ui->er_tel->setText("Champs Obligatoire !");}
-
-        if(ui->Champ_Adresse->text()==""){ui->er_ad->show();ui->er_ad->setText("Champs Obligatoire !");}
-
-        if(ui->Champs_Email->text()==""){ui->er_em->show(); ui->er_em->setText("Champs Obligatoire !");}
-
-        if(!(ui->fm->isChecked())&&(!(ui->hm->isChecked()))&&(!(ui->au->isChecked()))){ui->er_s->show(); ui->er_s->setText("Choisier un Sexe!");}
-
-        if((!(ui->emp->isChecked()))&&(!(ui->usr->isChecked()))){ui->er_t->show(); ui->er_t->setText("Choisier un Type!");}
-
-        return 0;
-    }
-    else if(!(ui->Champs_Image->text().contains("."))||(ui->Champ_Telephone->text().length() < 8 )||!(ui->Champs_Email->text().contains("@"))||!(ui->Champs_Email->text().contains("."))||(ui->Champs_Nom->text().length() < 3 )||(ui->Champs_Prenom->text().length() < 2 )||(ui->Champ_Adresse->text().length() < 10 ))
-    {
-        if(!(ui->Champs_Image->text().contains("."))){ui->er_im->show();ui->er_im->setText("Forme Invalide ! (manque l'extension du fichier)");}
-
-        if(ui->Champ_Telephone->text().length() < 8 ){ui->er_tel->show(); ui->er_tel->setText("Doit Contenir 8 chiffres !");}
-
-        if(ui->Champ_Adresse->text().length() < 10 ){ui->er_ad->show(); ui->er_ad->setText("Doit Contenir 10 chiffres !");}
-
-        if(ui->Champs_Nom->text().length() < 3 ){ui->er_nom->show(); ui->er_nom->setText("Doit Contenir 3 chiffres !");}
-
-        if(ui->Champs_Prenom->text().length() < 3 ){ui->er_pr->show();ui->er_pr->setText("Doit Contenir 3 chiffres !");}
-
-        if(!(ui->Champs_Email->text().contains("@"))||!(ui->Champs_Email->text().contains("."))){ui->er_em->show();ui->er_em->setText("Forme Invalide ! (manque @ ou . )");}
-
-        return 0;
-    }
-    else
-        return 1;
+   return 0;
 }
 bool MainWindow::control_2()
 {
     init_errors_2();
-    if((ui->lineEdit_nom->text()=="")||(ui->lineEdit_pre->text()=="")||(ui->lineEdit_image->text()=="")||(ui->lineEdit_tele->text()=="")||(ui->lineEdit_ad->text()=="")||(ui->lineEdit_em->text()==""))
+    if((ui->lineEdit_nom->text()=="")||(ui->lineEdit_pre->text()=="")||(ui->lineEdit_image->text()=="")||(ui->lineEdit_tele->text()=="")||(ui->lineEdit_ad->text()=="")||(ui->lineEdit_em->text()=="")||(!(ui->fm->isChecked())&&(!(ui->hm->isChecked()))&&(!(ui->au->isChecked()))&&(!(ui->emp->isChecked()))&&(!(ui->usr->isChecked()))))
     {
         if((ui->lineEdit_nom->text()=="")){ui->erm_nom->show(); ui->erm_nom->setText("Champs Obligatoire !"); }
 
@@ -519,6 +457,10 @@ bool MainWindow::control_2()
         if(ui->lineEdit_ad->text()==""){ui->erm_ad->show();ui->erm_ad->setText("Champs Obligatoire !");}
 
         if(ui->lineEdit_em->text()==""){ui->erm_em->show(); ui->erm_em->setText("Champs Obligatoire !");}
+
+        if(!(ui->fm->isChecked())&&(!(ui->hm->isChecked()))&&(!(ui->au->isChecked()))){ui->erm_s->show(); ui->erm_s->setText("Choisier un Sexe!");}
+
+        if((!(ui->emp->isChecked()))&&(!(ui->usr->isChecked()))){ui->er_t->show(); ui->er_t->setText("Choisier un Type!");}
 
         return 0;
     }
@@ -684,22 +626,29 @@ void MainWindow::on_mdp_b_clicked()
     if(sms==0)
     {
         QString numero=ui->new_mdp->text();
-        int result = session.Envoyer_sms(numero);
+        Employes e;
+        int check=e.check_phone(numero);
+        qDebug() << check;
+        if(check==1)
+        {
+            int result = session.Envoyer_sms(numero);
 
-        if(result==0)
-          ui->er_mdp->setText("Code Envoyer !");
+            if(result==0)
+                ui->er_mdp->setText("Code Envoyer !");
 
-        else  if(result==1)
-         ui->er_mdp->setText("Code deja Envoyer !");
+            else  if(result==1)
+                ui->er_mdp->setText("Code deja Envoyer !");
 
-         ui->er_mdp->show();
-         ui->new_mdp->setText("");
-         ui->mdp_o->setText("Votre Code: ");
-         ui->mdp_b->setText("Envoyer");
-         Employes e;
-         e.setTelephone(numero);
-         session.setEm(e);
-         sms=1;
+            ui->er_mdp->show();
+            ui->new_mdp->setText("");
+            ui->mdp_o->setText("Votre Code: ");
+            ui->mdp_b->setText("Envoyer");
+            e.setTelephone(numero);
+            session.setEm(e);
+            sms=1;
+        }
+        else if(check==0)
+            ui->er_mdp->setText("Téléphone n'existe pas !");
     }
     else if(sms==1)
     {
@@ -726,4 +675,12 @@ void MainWindow::on_mdp_b_clicked()
         else
             ui->er_mdp->setText("Error !!");
     }
+}
+
+void MainWindow::on_pushButton_9_clicked()
+{
+    init_errors_2();
+    clear();
+    ui->champ_mdp->hide();
+    ui->mdp->hide();
 }

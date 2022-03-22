@@ -182,5 +182,19 @@ bool Employes::Modifier_Salaire(int id,int salaire,int nh,int disc)
     return query.exec();
 }
 
+bool Employes::check_phone(QString n)
+{
+    QSqlQuery query;
+    query.prepare("select téléphone from employes where téléphone=:num and type=:ty");
+    query.bindValue(":num",n);
+    query.bindValue(":ty","User");
+    query.exec();
+    query.next();
+    QString id=query.value(0).toString();
+    if(id=="")
+        return 0;
+    else
+        return 1;
+}
 
 

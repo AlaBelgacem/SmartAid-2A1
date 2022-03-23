@@ -82,6 +82,8 @@ private slots:
 
     void on_pushButton_9_clicked();
 
+    void on_mdp_b_2_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

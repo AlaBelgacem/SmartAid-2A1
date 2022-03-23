@@ -100,10 +100,8 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
     }
     if(s==0)
     {
-        ui->mdp_b->hide();
-        ui->mdp_o->hide();
-        ui->new_mdp->hide();
-        ui->er_mdp->hide();
+        ui->bull_code->hide();
+         ui->bull_mdp->hide();
     }
 }
 
@@ -616,9 +614,9 @@ void MainWindow::on_table3_activated(const QModelIndex &index)
 void MainWindow::on_mdp_oub_clicked()
 {
     s=1;
-    ui->mdp_b->show();
-    ui->mdp_o->show();
-    ui->new_mdp->show();
+    ui->mdp_o->setText("Votre téléphone: ");
+    ui->er_mdp->setText("");
+    ui->bull_code->show();
 }
 
 void MainWindow::on_mdp_b_clicked()
@@ -632,7 +630,7 @@ void MainWindow::on_mdp_b_clicked()
         if(check==1)
         {
             int result = session.Envoyer_sms(numero);
-
+            //int result = 0;
             if(result==0)
                 ui->er_mdp->setText("Code Envoyer !");
 
@@ -654,27 +652,20 @@ void MainWindow::on_mdp_b_clicked()
     {
         QString token=ui->new_mdp->text();
         int result = session.check_token(session,token);
+        //int result = 1;
         if(result==1)
         {
-            ui->new_mdp->setText("");
-            ui->mdp_o->setText("nouveau mot de pass: ");
+            //ui->new_mdp->setText("");
+            //ui->mdp_o->setText("nouveau mot de pass: ");
             sms=2;
+            ui->bull_code->hide();
+            ui->bull_mdp->move(40,540);
+            ui->bull_mdp->show();
         }
         else if(result == 0)
             ui->er_mdp->setText("Code Incorrecte !");
     }
-    else if(sms==2)
-    {
-        QString pass=ui->new_mdp->text();
-        bool result = session.Maj_pass(session,pass);
-        if(result)
-        {
-            sms=0; 
 
-        }
-        else
-            ui->er_mdp->setText("Error !!");
-    }
 }
 
 void MainWindow::on_pushButton_9_clicked()
@@ -683,4 +674,33 @@ void MainWindow::on_pushButton_9_clicked()
     clear();
     ui->champ_mdp->hide();
     ui->mdp->hide();
+}
+
+void MainWindow::on_mdp_b_2_clicked()
+{
+        if(sms==2)
+        {
+            QString pass=ui->mdp1->text();
+            QString pass2=ui->mdp2->text();
+            if((pass==pass2)&&(pass.length()>=8))
+            {
+                bool result = session.Maj_pass(session,pass);
+                if(result)
+                {
+                    ui->bull_mdp->hide();
+                    ui->mdp1->setText("");
+                    ui->mdp2->setText("");
+                    ui->ermdp->setText("Utilisez au moins huit caractères !");
+                    ui->bull_mdp->move(40,680);
+                    sms=0;
+
+                }
+                else
+                    ui->ermdp->setText("Error !!");
+            }
+            else if(pass!=pass2)  ui->ermdp->setText("Les mots de passe\nne correspondent pas !");
+            else if(pass.length()<8) ui->ermdp->setText("Utilisez 8 caractères ou plus !");
+
+
+        }
 }

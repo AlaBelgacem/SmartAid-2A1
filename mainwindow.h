@@ -36,11 +36,9 @@ private slots:
 
     void clear();
 
-    bool control();
+    bool control(int n);
 
     void init_errors();
-
-    bool control_2();
 
     void init_errors_2();
 
@@ -68,13 +66,11 @@ private slots:
 
     void profil();
 
-    void on_usr_clicked();
-
     void on_pdf_clicked();
 
     void on_pushButton_2_clicked();
 
-    void on_table3_activated(const QModelIndex &index);
+    void on_table4_activated(const QModelIndex &index);
 
     void on_mdp_oub_clicked();
 
@@ -83,6 +79,14 @@ private slots:
     void on_pushButton_9_clicked();
 
     void on_mdp_b_2_clicked();
+
+    void on_Ajouter_2_clicked();
+
+    void on_table3_activated(const QModelIndex &index);
+
+    void on_Modifier_2_clicked();
+
+    void on_Supprimer_2_clicked();
 
 private:
     Ui::MainWindow *ui;

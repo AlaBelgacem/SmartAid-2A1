@@ -40,7 +40,7 @@ public:
 
     //functions
     bool Ajouter_user();
-    bool Login(QString e,QString mdp);
+    int Login(QString e,QString mdp);
     users session(QString e,QString mdp);
     int Envoyer_sms(QString num);
      int check_token(users u,QString tok);

@@ -28,17 +28,32 @@ bool Employes::Ajouter_sa_em()
     query.next();
     QString id=query.value(0).toString();
 
-    query.prepare("insert into salaires (id_em,salaire,nb_heures,disc) values (:id,500,0,1)");
+    query.prepare("insert into salaires (id,salaire,nb_heures,disc) values (:id,500,0,1)");
     query.bindValue(":id",id);
     return query.exec();
 }
 
-QSqlQueryModel *Employes::Afficher_em()
+QSqlQueryModel *Employes::Afficher(int set)
 {
      QSqlQueryModel *modal=new QSqlQueryModel();
-     modal->setQuery("select * from employes");
-     modal->setHeaderData(0,Qt::Horizontal,QObject::tr("ID_EM"));
-     return modal;
+     if(set == 1)
+     {
+         modal->setQuery("select * from employes where type='Employe'");
+         modal->setHeaderData(0,Qt::Horizontal,QObject::tr("ID_EM"));
+         return modal;
+     }
+     if(set == 2)
+     {
+         modal->setQuery("select * from employes where type='User'");
+         modal->setHeaderData(0,Qt::Horizontal,QObject::tr("ID_EM"));
+         return modal;
+     }
+     if(set == 3)
+     {
+         modal->setQuery("select * from employes");
+         modal->setHeaderData(0,Qt::Horizontal,QObject::tr("ID_EM"));
+         return modal;
+     }
 
 }
 
@@ -162,11 +177,15 @@ void Employes::Calculer_salaire()
         }
     }
 }
-QSqlQueryModel *Employes::Afficher_Salaire()
+QSqlQueryModel *Employes::Afficher_Salaire(int q)
 {
 
     QSqlQueryModel *modal=new QSqlQueryModel();
+    if(q==1)
     modal->setQuery("select id_em,nom,prénom,nb_heures,nb_events,disc,salaire,prime from salaires,employes,bénévoles where salaires.id = employes.id_em and salaires.id = bénévoles.id_e");
+    if(q==2)
+    modal->setQuery("select id_em,nom,prénom,nb_heures,nb_events,disc,salaire,prime from salaires,employes,bénévoles where salaires.id = employes.id_em and salaires.id = bénévoles.id_e and employes.type='Employe'");
+
     modal->setHeaderData(0,Qt::Horizontal,QObject::tr("ID"));
     return modal;
 }

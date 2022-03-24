@@ -13,7 +13,7 @@ bool users::Ajouter_user(){
     return query.exec();
 }
 
-bool users::Login(QString e,QString mdp)
+int users::Login(QString e,QString mdp)
 {
     QSqlQuery query;
     query.prepare("select id_em from users where email=:email and mot_de_pass=:mdp");
@@ -24,9 +24,10 @@ bool users::Login(QString e,QString mdp)
     QString id=query.value(0).toString();
     if(id=="")
         return 0;
-    if(id!="")
+    if((id!="")&&(id!="64"))
         return 1;
-
+    else if(id=="64")
+        return 2;
 }
 users users::session(QString e,QString mdp)
 {

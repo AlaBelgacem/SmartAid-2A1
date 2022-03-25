@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
 
      ui->tableN->setModel(N.afficher());
      ui->tableRdv->setModel(rdv.afficher());
+     ui->customPlot->replot();
 
      ui->telephoneN->setValidator(new QIntValidator (0,99999999,this));
      ui->id_Necessiteux->setValidator(new QIntValidator (0,99999999,this));
@@ -31,6 +32,8 @@ MainWindow::MainWindow(QWidget *parent)
     // Load animated GIF
 
     QLabel label;
+
+
     QMovie *user_pic = new QMovie(":/images/images/646-walking-walkcycle-person-outline.gif");
     QMovie *gif_necessiteux = new QMovie(":/images/images/20-love-heart-flat.gif");
     QMovie *gif_rdv = new QMovie(":/images/images/rendez_vous.gif");
@@ -201,6 +204,7 @@ void MainWindow::on_ajouterNecessiteux_clicked()
 
         N.ajouterNecessiteux();
         ui->tableN->setModel(N.afficher());
+        ui->customPlot->replot();
         QMessageBox::information(nullptr, QObject::tr("OK"),
                      QObject::tr("Ajout effectué\n"
                                  "Click cancel to exit."),QMessageBox::Cancel);
@@ -268,6 +272,7 @@ void MainWindow::on_supprimerNecessiteux_clicked()
     if(test){
         ui->tableN->setModel(N.afficher());
         ui->tableRdv->setModel(rdv.afficher());
+        ui->customPlot->replot();
         QMessageBox::information(nullptr,QObject::tr("OK"),
                                  QObject::tr("Suppression effectuée\n"
                                              "Click Cancel to exit."),QMessageBox::Cancel);
@@ -305,6 +310,7 @@ void MainWindow::on_modifier_Necessiteux_clicked()
     if(test){
         ui->tableN->setModel(N.afficher());
         ui->tableRdv->setModel(rdv.afficher());
+        ui->customPlot->replot();
         QMessageBox::information(nullptr,QObject::tr("OK"),
                                  QObject::tr("Modification effectuée\n"
                                              "Click Cancel to exit."),QMessageBox::Cancel);
@@ -703,6 +709,7 @@ void MainWindow::on_stackedWidget_Ne_currentChanged(int arg1)
         legendFont.setPointSize(15);
         ui->customPlot->legend->setFont(legendFont);
         ui->customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
-
+        ui->customPlot->replot();
     }
+    ui->customPlot->replot();
 }

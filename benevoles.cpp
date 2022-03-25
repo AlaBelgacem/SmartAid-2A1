@@ -3,28 +3,50 @@
 bool benevoles::ajouter()
 {
   QSqlQuery query;
+
+  //prepare() prend la requete en paramètre à l'exécution
+
     query.prepare("insert into benevoles (NOM,PRENOM,DATE_NAISSANCE,ADRESSE,TELEPHONE,EMAIL) values(:NOM,:PRENOM,:DATE_NAISSANCE,:ADRESSE,:TELEPHONE,:EMAIL)");
+
+  //Création des variables liées
+
     query.bindValue(":DATE_NAISSANCE",date_naissance);
     query.bindValue(":NOM",nom);
     query.bindValue(":PRENOM",prenom);
-
     query.bindValue(":ADRESSE",adresse);
     query.bindValue(":TELEPHONE",tel);
     query.bindValue(":EMAIL",email);
 
-    return query.exec();
+    return query.exec(); //exec envoie la requete pour l'exécuter
 }
+
 
 QSqlQueryModel * benevoles::afficher()
 {
-    //TO DO
+    QSqlQueryModel * model=new QSqlQueryModel();
+
+    model->setQuery("select * from benevoles");
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("ID_BE"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("NOM"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("PRENOM"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("DATE_NAISSANCE"));
+    model->setHeaderData(4, Qt::Horizontal, QObject::tr("ADRESSE"));
+    model->setHeaderData(5, Qt::Horizontal, QObject::tr("TELEPHONE"));
+    model->setHeaderData(6, Qt::Horizontal, QObject::tr("EMAIL"));
+
+    qDebug()<< model;
+
+    return model;
 }
+
 
 bool benevoles::supprimer()
 {
     QSqlQuery query;
+
         query.prepare("delete from benevoles where id_be=:id");
         query.bindValue(":id",id_be);
+
         return query.exec();
 }
 
@@ -42,4 +64,13 @@ bool benevoles::modifier()
 
       return query.exec();
   }
+
+    QSqlQueryModel* benevoles::chercher(QString nom)
+    {
+       QSqlQueryModel* model = new QSqlQueryModel();
+       QString search = "%"+nom+"%";
+        model->setQuery("SELECT * FROM BENEVOLES WHERE NOM like '"+search+"'");
+
+        return model ;
+}
 

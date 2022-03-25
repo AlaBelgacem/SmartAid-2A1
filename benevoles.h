@@ -4,6 +4,7 @@
 #include<QtSql/QSqlQuery>
 #include<QtSql/QSqlQueryModel>
 #include<QDate>
+#include<QDebug>
 #include"connection.h"
 
 class benevoles
@@ -40,12 +41,12 @@ public:
     void setDateNaissance(QString dn){date_naissance=dn ;}
     bool setType(bool t){type=t ;}
 
-    //Fonctionnalités de Base relatibes à l'entité benevole
+    //Fonctionnalités de Base relatives à l'entité benevole
     bool ajouter();
     QSqlQueryModel * afficher();
-
     bool supprimer();
     bool modifier();
+    QSqlQueryModel*chercher(QString nom);
 
 };
 #endif // BENEVOLES_H

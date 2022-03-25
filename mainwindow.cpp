@@ -14,6 +14,14 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    ui->tel->setValidator(new QIntValidator (0,99999999,this));
+    ui->nom->setValidator(new QRegExpValidator(  QRegExp("[A-z]*")  ));
+    ui->prenom->setValidator(new QRegExpValidator(  QRegExp("[A-z]*")  ));
+    ui->email->setValidator(new QRegExpValidator(  QRegExp("[a-z]{1,10}@[a-z]{1,4}\\.[a-z]{1,4}")  ));
+
+    QPixmap pixx("C:/Users/salma/OneDrive/Bureau/2A1/Projet C++/icons/directeur.png");
+    ui->label_pic->setPixmap(pixx.scaled(100,100));
+
     QPixmap pix(":/images/images/copy.jpg");
     //ui->user_pic->setPixmap(pix.scaled(501,451,Qt::KeepAspectRatio));
     // Load animated GIF
@@ -48,7 +56,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     ui->listWidget->setCurrentItem(item0);
-
+    ui->tableView->setModel(Be.afficher());
 
 }
 
@@ -86,9 +94,11 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item)
 
 }
 
-void MainWindow::on_pushButton_5_clicked()
+void MainWindow::on_pushButton_ajouter_clicked()
 {
-    benevoles b;
+    benevoles b;//Instancier un objet de la classe benevoles
+
+    //Récupération des informations saisies dans les 6 champs
     b.setNom(ui->nom->text());
     b.setPrenom(ui->prenom->text());
     b.setDateNaissance(ui->daten->text());
@@ -96,22 +106,24 @@ void MainWindow::on_pushButton_5_clicked()
     b.setTel(ui->tel->text());
     b.setAdresse(ui->adresse->text());
 
-    bool check=b.ajouter();
+    bool check=b.ajouter();//Insérer l'objet benevoles instancié dans la table benevoles
+                           //et récupérer la valeur de retour de query.exec()
 
-    if (check)
+    if (check)//Si requete executée ==> QMessageBox::information
     {
-        QMessageBox::information(nullptr, QObject::tr("Ajout"),
-        QObject::tr("ajout avec succés.\n"
+        QMessageBox::information(nullptr, QObject::tr("OK"),
+                     QObject::tr("ajout effectué.\n"
                                 "Click Cancel to exit."), QMessageBox::Cancel);
     }
-    else{
-        QMessageBox::information(nullptr, QObject::tr("Ajout"),
-        QObject::tr("Ajout échoué.\n"
+    else//Si requete non executée ==> QMessageBox::critical
+    {
+        QMessageBox::critical(nullptr, QObject::tr("NOT OK"),
+                     QObject::tr("Ajout non effectué.\n"
                                 "Click Cancel to exit."), QMessageBox::Cancel);
     }
 }
 
-void MainWindow::on_pushButton_6_clicked()
+void MainWindow::on_pushButton_actualiser_clicked()
 {
     Connection c;
         QSqlQueryModel *modal=new QSqlQueryModel();
@@ -137,15 +149,15 @@ void MainWindow::on_tableView_activated(const QModelIndex &index)
          qry.prepare("select * from benevoles where id_be='"+value+"'");
          if(qry.exec())
          {
-             while(qry.next()){
-                ui->lineEdit_id->setText(qry.value(0).toString());
-             ui->lineEdit_nom->setText(qry.value(1).toString());
+             while(qry.next())
+             {
+              ui->lineEdit_id->setText(qry.value(0).toString());
+              ui->lineEdit_nom->setText(qry.value(1).toString());
               ui->lineEdit_prenom->setText(qry.value(2).toString());
               ui->lineEdit_date->setText(qry.value(3).toString());
               ui->lineEdit_ad->setText(qry.value(4).toString());
               ui->lineEdit_tel->setText(qry.value(5).toString());
               ui->lineEdit_email->setText(qry.value(6).toString());
-
 
              }
 
@@ -154,26 +166,30 @@ void MainWindow::on_tableView_activated(const QModelIndex &index)
 
 }
 
-void MainWindow::on_pushButton_4_clicked()
+void MainWindow::on_pushButton_supprimer_clicked()
 {
     int id=ui->lineEdit_id->text().toInt();
+
         benevoles e;
         e.setId(id);
         bool check=e.supprimer();
         if(check)
         {
-            QMessageBox::information(nullptr,QObject::tr("Suppression"),
-                QObject::tr("Suppression avec succes."),QMessageBox::Cancel);
+            QMessageBox::information(nullptr,QObject::tr("OK"),
+                         QObject::tr("Suppression effectuée\n"
+                                     "Click Cancel to exit ."),QMessageBox::Cancel);
         }
-    else {
-            QMessageBox::information(nullptr,QObject::tr("Suppression"),
-                QObject::tr("Suppression echoué."),QMessageBox::Cancel);
+    else
+        {
+            QMessageBox::critical(nullptr,QObject::tr("NOT OK"),
+                         QObject::tr("Suppression non effectué\n"
+                                     "Click Cancel to exit."),QMessageBox::Cancel);
         }
 
 
 }
 
-void MainWindow::on_pushButton_3_clicked()
+void MainWindow::on_pushButton_modifier_clicked()
 {
     benevoles b;
     b.setNom(ui->lineEdit_nom->text());
@@ -197,4 +213,13 @@ void MainWindow::on_pushButton_3_clicked()
         QObject::tr("Modification échoué.\n"
                                 "Click Cancel to exit."), QMessageBox::Cancel);
     }
+}
+
+
+
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    QString nom = ui->lineEdit_chercher->text();
+        ui->tableView->setModel(Be.chercher(nom));
 }

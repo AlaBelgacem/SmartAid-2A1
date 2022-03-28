@@ -112,7 +112,7 @@ void MainWindow::on_pushButton_ajouter_clicked()
 
     bool check=b.ajouter();//Insérer l'objet benevoles instancié dans la table benevoles
                            //et récupérer la valeur de retour de query.exec()
-
+ui->tableView->setModel(b.afficher());
     if (check)//Si requete executée ==> QMessageBox::information
     {
         QMessageBox::information(nullptr, QObject::tr("OK"),
@@ -205,6 +205,7 @@ void MainWindow::on_pushButton_modifier_clicked()
     b.setId(ui->lineEdit_id->text().toInt());
 
     bool check=b.modifier();
+    ui->tableView->setModel(b.afficher());
 
     if (check)
     {
@@ -235,5 +236,13 @@ void MainWindow::on_pushButton_clicked()
     //Excel.open("test.csv");
 
     //Excel << "fdfgf" << endl ;
+  benevoles Be ;
+  Be.generer();
+}
 
+void MainWindow::on_comboBox_currentIndexChanged(const QString &arg1)
+{
+    benevoles Be;
+
+            ui->tableView->setModel(Be.trier(ui->comboBox->currentText()));
 }

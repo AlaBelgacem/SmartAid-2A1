@@ -743,9 +743,9 @@ font-family : century gothic;</string>
             <colorrole role="WindowText">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
-               <red>0</red>
-               <green>0</green>
-               <blue>0</blue>
+               <red>194</red>
+               <green>199</green>
+               <blue>213</blue>
               </color>
              </brush>
             </colorrole>
@@ -761,18 +761,18 @@ font-family : century gothic;</string>
             <colorrole role="Text">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
-               <red>8</red>
-               <green>8</green>
-               <blue>9</blue>
+               <red>194</red>
+               <green>199</green>
+               <blue>213</blue>
               </color>
              </brush>
             </colorrole>
             <colorrole role="ButtonText">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
-               <red>0</red>
-               <green>0</green>
-               <blue>0</blue>
+               <red>194</red>
+               <green>199</green>
+               <blue>213</blue>
               </color>
              </brush>
             </colorrole>
@@ -808,9 +808,9 @@ font-family : century gothic;</string>
             <colorrole role="WindowText">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
-               <red>0</red>
-               <green>0</green>
-               <blue>0</blue>
+               <red>194</red>
+               <green>199</green>
+               <blue>213</blue>
               </color>
              </brush>
             </colorrole>
@@ -826,18 +826,18 @@ font-family : century gothic;</string>
             <colorrole role="Text">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
-               <red>8</red>
-               <green>8</green>
-               <blue>9</blue>
+               <red>194</red>
+               <green>199</green>
+               <blue>213</blue>
               </color>
              </brush>
             </colorrole>
             <colorrole role="ButtonText">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
-               <red>0</red>
-               <green>0</green>
-               <blue>0</blue>
+               <red>194</red>
+               <green>199</green>
+               <blue>213</blue>
               </color>
              </brush>
             </colorrole>
@@ -891,9 +891,9 @@ font-family : century gothic;</string>
             <colorrole role="Text">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
-               <red>0</red>
-               <green>0</green>
-               <blue>0</blue>
+               <red>194</red>
+               <green>199</green>
+               <blue>213</blue>
               </color>
              </brush>
             </colorrole>
@@ -984,19 +984,6 @@ font-family : century gothic;</string>
           <string>Trier par</string>
          </property>
         </widget>
-        <widget class="QRadioButton" name="radioButton">
-         <property name="geometry">
-          <rect>
-           <x>390</x>
-           <y>50</y>
-           <width>141</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Ordre Alphabétique</string>
-         </property>
-        </widget>
         <widget class="QPushButton" name="pushButton">
          <property name="geometry">
           <rect>
@@ -1075,18 +1062,35 @@ background-color:#D46A6A;
           <string/>
          </property>
         </widget>
-        <widget class="QRadioButton" name="radioButton_2">
+        <widget class="QComboBox" name="comboBox">
          <property name="geometry">
           <rect>
-           <x>530</x>
+           <x>390</x>
            <y>50</y>
-           <width>61</width>
-           <height>20</height>
+           <width>121</width>
+           <height>22</height>
           </rect>
          </property>
-         <property name="text">
-          <string>Age</string>
-         </property>
+         <item>
+          <property name="text">
+           <string>Choisir</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Nom</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>ID</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Prénom</string>
+          </property>
+         </item>
         </widget>
        </widget>
        <widget class="QGroupBox" name="groupBox_2">
@@ -1688,156 +1692,6 @@ font-color:#black
           <string>Evaluer</string>
          </property>
         </widget>
-        <widget class="QRadioButton" name="radioButton_3">
-         <property name="geometry">
-          <rect>
-           <x>270</x>
-           <y>450</y>
-           <width>21</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-        <widget class="QRadioButton" name="radioButton_4">
-         <property name="geometry">
-          <rect>
-           <x>110</x>
-           <y>450</y>
-           <width>21</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="styleSheet">
-          <string notr="true"> QRadioButton::indicator::checked {
-     image: url(:/images/radiobutton_checked.png);
- }</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-        <widget class="QRadioButton" name="radioButton_5">
-         <property name="geometry">
-          <rect>
-           <x>130</x>
-           <y>450</y>
-           <width>21</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="styleSheet">
-          <string notr="true"> QRadioButton::indicator::checked {
-     image: url(:/images/radiobutton_checked.png);
- }</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-        <widget class="QRadioButton" name="radioButton_6">
-         <property name="geometry">
-          <rect>
-           <x>150</x>
-           <y>450</y>
-           <width>21</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="styleSheet">
-          <string notr="true"> QRadioButton::indicator::checked {
-     image: url(:/images/radiobutton_checked.png);
- }</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-        <widget class="QRadioButton" name="radioButton_7">
-         <property name="geometry">
-          <rect>
-           <x>170</x>
-           <y>450</y>
-           <width>21</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="styleSheet">
-          <string notr="true"> QRadioButton::indicator::checked {
-     image: url(:/images/radiobutton_checked.png);
- }</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-        <widget class="QRadioButton" name="radioButton_8">
-         <property name="geometry">
-          <rect>
-           <x>190</x>
-           <y>450</y>
-           <width>21</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-        <widget class="QRadioButton" name="radioButton_9">
-         <property name="geometry">
-          <rect>
-           <x>210</x>
-           <y>450</y>
-           <width>21</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-        <widget class="QRadioButton" name="radioButton_10">
-         <property name="geometry">
-          <rect>
-           <x>230</x>
-           <y>450</y>
-           <width>21</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-        <widget class="QRadioButton" name="radioButton_11">
-         <property name="geometry">
-          <rect>
-           <x>250</x>
-           <y>450</y>
-           <width>16</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-        <widget class="QRadioButton" name="radioButton_12">
-         <property name="geometry">
-          <rect>
-           <x>290</x>
-           <y>450</y>
-           <width>21</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
         <widget class="QLabel" name="label_pic">
          <property name="geometry">
           <rect>
@@ -1853,6 +1707,71 @@ font-color:#black
          <property name="text">
           <string/>
          </property>
+        </widget>
+        <widget class="QComboBox" name="comboBox_2">
+         <property name="geometry">
+          <rect>
+           <x>120</x>
+           <y>450</y>
+           <width>161</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <item>
+          <property name="text">
+           <string>Evaluer</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>1</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>2</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>3</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>4</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>5</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>6</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>7</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>8</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>9</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>10</string>
+          </property>
+         </item>
         </widget>
        </widget>
        <widget class="QTableView" name="tableView">

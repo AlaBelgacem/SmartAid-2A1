@@ -69,28 +69,50 @@ bool benevoles::modifier()
       return query.exec();
   }
 
-    QSqlQueryModel* benevoles::chercher(QString nom)
+    QSqlQueryModel* benevoles::chercher(QString value)
     {
        QSqlQueryModel* model = new QSqlQueryModel();
-       QString search = "%"+nom+"%";
-        model->setQuery("SELECT * FROM BENEVOLES WHERE NOM like '"+search+"'");
+
+        model->setQuery("SELECT * FROM BENEVOLES WHERE NOM like '%"+value+"%' or prenom like '%"+value+"%' or email like '%"+value+"%'");
 
         return model ;
 }
 
     void benevoles::generer()
     {
-         QSqlQuery query;
-         query.prepare("SELECT * FROM benevoles");
-         if(query.exec())
+         QSqlQuery qry;
+         qry.prepare("SELECT * FROM benevoles");
+         if(qry.exec())
          {
-             QFile file("C:/Users/salma/OneDrive/Documents/GitHub/SmartAid-2A1/BENEVOLES.xlsx");
+             QFile file("C:/Users/salma/OneDrive/Documents/GitHub/SmartAid-2A1/BENEVOLES.xls");
                    file.open(QIODevice::WriteOnly | QIODevice::Text);
                    QTextStream out(&file);
 
-             while(query.next())
+             while(qry.next())
              {
-                  out << "Test , hhhh \n ggggg";
+                 out << qry.value(0).toInt() << "," << qry.value(1).toString()<< "," << qry.value(2).toString()<< "," << qry.value(3).toString()<< "," << qry.value(4).toString()<< "," << qry.value(5).toString()<< "," << qry.value(6).toString()<< "," << qry.value(7).toString() << "\n" ;
+
+
              }
          }
+
+
+    }
+
+    QSqlQueryModel* benevoles::trier(QString critere)
+    {
+
+        QSqlQueryModel *modal= new QSqlQueryModel();
+        if (critere != "Choisir")
+        {
+            if(critere =="Nom")
+                modal ->setQuery("select * from benevoles order by nom");
+            else if (critere=="ID")
+                modal ->setQuery("select * from benevoles order by id_be");
+            else if (critere=="Prénom")
+                modal ->setQuery("select * from benevoles order by prenom");
+            return modal;
+        }
+
+
     }

@@ -85,7 +85,7 @@ bool Employes::Supprimer_em()
 QSqlQueryModel *Employes::Rechercher_em(QString value )
 {
      QSqlQueryModel *modal=new QSqlQueryModel();
-     modal->setQuery("select * from employes where nom='"+value+"' or prénom='"+value+"' or email='"+value+"'");
+     modal->setQuery("select * from employes where nom like '%"+value+"%' or prénom like '%"+value+"%' or email like '%"+value+"%'");
      return modal;
 }
 
@@ -181,6 +181,7 @@ QSqlQueryModel *Employes::Afficher_Salaire(int q)
 {
 
     QSqlQueryModel *modal=new QSqlQueryModel();
+    Calculer_salaire();
     if(q==1)
     modal->setQuery("select id_em,nom,prénom,nb_heures,nb_events,disc,salaire,prime from salaires,employes,bénévoles where salaires.id = employes.id_em and salaires.id = bénévoles.id_e");
     if(q==2)

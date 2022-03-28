@@ -10,6 +10,9 @@
 #include <QRegExpValidator>
 #include <QPainter>
 #include <QPdfWriter>
+#include <QFile>
+#include <QCoreApplication>
+#include <QTextStream>
 
 
 #define chars_rx "[A-Za-z]{3,10}"
@@ -323,13 +326,14 @@ void MainWindow::clear()
 //-----------------------------------------------------------------
 
 //Initialiser le tab de recherche
-void MainWindow::on_rechercher_returnPressed()
+void MainWindow::on_rechercher_textChanged(const QString &arg1)
 {
     QString value=ui->rechercher->text();
     Employes e;
     if(value!=NULL) ui->table2->setModel(e.Rechercher_em(value));
     else  ui->table2->setModel(e.Afficher(3));
 }
+
 
 //choisir critere de tri
 void MainWindow::on_comboBox_highlighted(const QString &arg1)
@@ -875,3 +879,13 @@ void MainWindow::on_Supprimer_2_clicked()
          ui->status->setText("Erreur Suppression !");
     }
 }
+
+void MainWindow::on_pushButton_13_clicked()
+{
+    QFile file("C:/Users/louay/Desktop/smart_aid/out.xls");
+      file.open(QIODevice::WriteOnly | QIODevice::Text);
+      QTextStream out(&file);
+      out << "Test , hhhh \n ggggg";
+}
+
+

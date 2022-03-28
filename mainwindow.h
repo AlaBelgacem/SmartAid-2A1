@@ -42,8 +42,6 @@ private slots:
 
     void init_errors_2();
 
-    void on_rechercher_returnPressed();
-
     void on_comboBox_highlighted(const QString &arg1);
 
     void on_radioButton_clicked();
@@ -87,6 +85,10 @@ private slots:
     void on_Modifier_2_clicked();
 
     void on_Supprimer_2_clicked();
+
+    void on_pushButton_13_clicked();
+
+    void on_rechercher_textChanged(const QString &arg1);
 
 private:
     Ui::MainWindow *ui;

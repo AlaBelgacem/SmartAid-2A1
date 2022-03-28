@@ -1,4 +1,8 @@
 #include "benevoles.h"
+#include <QFile>
+#include <QCoreApplication>
+#include <QTextStream>
+
 
 bool benevoles::ajouter()
 {
@@ -53,7 +57,7 @@ bool benevoles::supprimer()
 bool benevoles::modifier()
 {
     QSqlQuery query;
-      query.prepare("update benevoles set NOM=:nom,PRENOM=:prenom,DATE_NAISSANCE=:date_naissance,ADRESSE=:adresse,TELEPHONE=:tel,EMAIL=:email where id_be=:id");
+    query.prepare("update benevoles set NOM=:nom,PRENOM=:prenom,DATE_NAISSANCE=:date_naissance,ADRESSE=:adresse,TELEPHONE=:tel,EMAIL=:email where id_be=:id");
       query.bindValue(":date_naissance",date_naissance);
       query.bindValue(":nom",nom);
       query.bindValue(":prenom",prenom);
@@ -74,3 +78,19 @@ bool benevoles::modifier()
         return model ;
 }
 
+    void benevoles::generer()
+    {
+         QSqlQuery query;
+         query.prepare("SELECT * FROM benevoles");
+         if(query.exec())
+         {
+             QFile file("C:/Users/salma/OneDrive/Documents/GitHub/SmartAid-2A1/BENEVOLES.xlsx");
+                   file.open(QIODevice::WriteOnly | QIODevice::Text);
+                   QTextStream out(&file);
+
+             while(query.next())
+             {
+                  out << "Test , hhhh \n ggggg";
+             }
+         }
+    }

@@ -7,6 +7,10 @@
 #include <QPixmap>
 #include <QMovie>
 #include <QDebug>
+#include <fstream>
+#include <QFile>
+#include <QCoreApplication>
+#include <QTextStream>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -222,4 +226,14 @@ void MainWindow::on_pushButton_3_clicked()
 {
     QString nom = ui->lineEdit_chercher->text();
         ui->tableView->setModel(Be.chercher(nom));
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+//using namespace std;
+  //  ofstream Excel ;
+    //Excel.open("test.csv");
+
+    //Excel << "fdfgf" << endl ;
+
 }

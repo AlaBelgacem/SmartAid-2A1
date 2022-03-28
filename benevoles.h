@@ -47,6 +47,6 @@ public:
     bool supprimer();
     bool modifier();
     QSqlQueryModel*chercher(QString nom);
-
+    void generer();
 };
 #endif // BENEVOLES_H

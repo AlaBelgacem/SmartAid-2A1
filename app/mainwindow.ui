@@ -1289,6 +1289,15 @@ border-bottom:1px solid #333;</string>
         <property name="text">
          <string>Croissant</string>
         </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+        <property name="autoExclusive">
+         <bool>true</bool>
+        </property>
        </widget>
        <widget class="QRadioButton" name="radioButton_5">
         <property name="geometry">

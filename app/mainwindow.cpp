@@ -112,20 +112,26 @@ void MainWindow::on_pushButton_ajouter_clicked()
     }
 
     Crises C(nom,adresse,niveau,description,date_cr,etat);
-    bool test=C.ajouter();
 
-    if(test)
+
+    if(nom.isEmpty() || adresse.isEmpty() || description.isEmpty()|| date_cr.isEmpty() || etat.isEmpty())
     {
+    QMessageBox::critical(0,qApp->tr("erreur"),qApp->tr("veillez remplir les champs vides"),QMessageBox::Cancel);
+    }
+   else {
+        C.ajouter();
         //refresh
         ui->tableView->setModel(Cr.afficher());
         QMessageBox::information(nullptr, QObject::tr("OK"),
                 QObject::tr("Ajout effectué\n"
                             "Click Cancel to exit."), QMessageBox::Cancel);
+
+        ui->lineEdit_nom->clear();
+        ui->lineEdit_Adresse->clear();
+        ui->lineEdit_description->clear();
+        ui->dateEdit_datec->clear();
     }
-    else
-        QMessageBox::critical(nullptr, QObject::tr("Not OK"),
-                             QObject::tr("Ajout non effectué.\n"
-                                         "Click Cancel to exit."), QMessageBox::Cancel);
+
 }
 
 
@@ -141,6 +147,15 @@ void MainWindow::on_pushButton_supp_clicked()
          QMessageBox::information(nullptr, QObject::tr("OK"),
                  QObject::tr("Suppression effectuée\n"
                              "Click Cancel to exit."), QMessageBox::Cancel);
+
+
+         ui->lineEdit_ID_mod->clear();
+         ui->lineEdit_nom_mod->clear();
+         ui->lineEdit_Adresse_mod->clear();
+         ui->lineEdit_description_mod->clear();
+         ui->dateEdit_datec_mod->clear();
+         ui->lineEdit_etat->clear();
+
      }
      else
          QMessageBox::critical(nullptr, QObject::tr("Not OK"),
@@ -172,7 +187,17 @@ void MainWindow::on_pushButton_modif_clicked()
         QMessageBox::information(nullptr, QObject::tr("OK"),
         QObject::tr("update effectué\n"
                     "Click to Cancel."),
-                                 QMessageBox::Cancel);     }
+                                 QMessageBox::Cancel);
+
+        ui->lineEdit_ID_mod->clear();
+        ui->lineEdit_nom_mod->clear();
+        ui->lineEdit_Adresse_mod->clear();
+        ui->lineEdit_description_mod->clear();
+        ui->dateEdit_datec_mod->clear();
+        ui->lineEdit_etat->clear();
+
+
+    }
     else         QMessageBox::critical  (nullptr, QObject::tr("not OK"),
                  QObject::tr("update non effectué\n"
                              "Click to Cancel."), QMessageBox::Cancel);

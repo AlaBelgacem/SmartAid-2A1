@@ -258,9 +258,11 @@ void MainWindow::on_comboBox_currentIndexChanged(const QString &arg1)
 
 void MainWindow::on_evaluer_clicked()
 {
-    int evaluer = ui->comboBox_2->currentText().toInt();
+
+    QString evaluer = ui->comboBox_2->currentText();
     QString id = ui->lineEdit_id->text();
-   Be.evaluer(evaluer,id);
+    if (evaluer == "choisir")
+   Be.evaluer(1,id);
    ui->tableView->setModel(Be.afficher());
   qDebug()<<id<<evaluer;
 }

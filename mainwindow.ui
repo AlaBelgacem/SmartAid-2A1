@@ -1719,7 +1719,7 @@ font-color:#black
          </property>
          <item>
           <property name="text">
-           <string/>
+           <string>Choisir</string>
           </property>
          </item>
          <item>

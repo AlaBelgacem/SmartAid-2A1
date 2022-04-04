@@ -38,6 +38,7 @@ QSqlQueryModel * benevoles::afficher()
     model->setHeaderData(5, Qt::Horizontal, QObject::tr("TELEPHONE"));
     model->setHeaderData(6, Qt::Horizontal, QObject::tr("EMAIL"));
 
+
     qDebug()<< model;
 
     return model;
@@ -119,7 +120,7 @@ bool benevoles::modifier()
     bool benevoles::evaluer(int evaluation, QString id)
     {
         QSqlQuery query;
-            query.prepare("update BENEVOLES set EVALUATION = :review WHERE ID_BE = :id");
+            query.prepare("update benevoles set EVALUATION = :review WHERE ID_BE = :id");
             query.bindValue(":ID_BE", id);
             query.bindValue(":review", evaluation);
 
@@ -129,11 +130,11 @@ bool benevoles::modifier()
 
     QChartView * benevoles::stat()
     {
-        int OneStar = 0;
-        int TwoStar = 0;
-        int ThreeStar = 0;
-        int FourStar = 0;
-        int FiveStar = 0;
+        int one = 0;
+        int two = 0;
+        int three = 0;
+        int four = 0;
+        int five = 0;
 
         QSqlQuery query,query2,query3,query4,query5;
         query.prepare("SELECT * FROM BENEVOLES where EVALUATION=1");
@@ -152,30 +153,27 @@ bool benevoles::modifier()
         query5.exec();
 
         while(query.next())
-            OneStar++;
+            one++;
 
         while(query2.next())
-            TwoStar++;
+            two++;
 
         while(query3.next())
-            ThreeStar++;
+            three++;
 
         while(query4.next())
-            FourStar++;
+            four++;
 
         while(query5.next())
-            FiveStar++;
+            five++;
 
-
-        //qDebug()<<row_count<<row_count1;
-        //qDebug()<<row_count;
 
         QPieSeries *series = new QPieSeries();
-        series->append("1 etoile", OneStar);
-        series->append("2 etoile", TwoStar);
-        series->append("3 etoile", ThreeStar);
-        series->append("4 etoile", FourStar);
-        series->append("5 etoile", FiveStar);
+        series->append("1 ", one);
+        series->append("2 ", two);
+        series->append("3 ", three);
+        series->append("4 ", four);
+        series->append("5 ", five);
 
         QChart *chart = new QChart();
         chart->addSeries(series);
@@ -184,6 +182,7 @@ bool benevoles::modifier()
         chart->legend()->setBackgroundVisible(true);
         chart->legend()->setBrush(QBrush(QColor(0,31,38,1)));
         chart->legend()->setPen(QPen(QColor(192, 192, 192, 192)));
+        chart->legend()->setColor(QColor(212, 106, 106, 1));
         series->setLabelsVisible();
 
         QChartView*chartView = new QChartView(chart);

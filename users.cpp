@@ -86,7 +86,7 @@ users users::session(QString e,QString mdp)
          query.bindValue(":tok",number);
          query.exec();
          QString token = QString::number(number);
-          QProcess::startDetached("C:\\cygwin64\\bin\\mintty.exe", QStringList() << "/home/louay/sms.sh" << num << token );
+         QProcess::startDetached("C:\\cygwin64\\bin\\mintty.exe", QStringList() << "/home/louay/sms.sh" << num << token );
          return 0 ;
      }
      else return 1 ;

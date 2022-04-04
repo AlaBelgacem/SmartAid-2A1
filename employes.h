@@ -6,7 +6,12 @@
 #include<QMessageBox>
 #include"connection.h"
 #include<QDate>
-
+#include <QtCharts/QChartView>
+#include <QtCharts/QPieSeries>
+#include <QtCharts/QPieSlice>
+#include <QGridLayout>
+#include <QChartView>
+QT_CHARTS_USE_NAMESPACE
 
 class Employes
 {
@@ -81,6 +86,8 @@ public:
     void Calculer_salaire();
     QSqlQueryModel *Afficher_Salaire(int q);
     bool check_phone(QString n);
+    QChartView *stat_gender();
+
 
 
 };

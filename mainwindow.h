@@ -90,6 +90,8 @@ private slots:
 
     void on_rechercher_textChanged(const QString &arg1);
 
+
+
 private:
     Ui::MainWindow *ui;
 };

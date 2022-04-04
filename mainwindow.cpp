@@ -13,6 +13,7 @@
 #include <QFile>
 #include <QCoreApplication>
 #include <QTextStream>
+#include <QLineEdit>
 
 
 #define chars_rx "[A-Za-z]{3,10}"
@@ -106,7 +107,7 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
         ui->bull_code->hide();
          ui->bull_mdp->hide();
     }
-
+    ui->stat->addWidget(e.stat_gender(), 0, 1);
 
 }
 
@@ -885,7 +886,6 @@ void MainWindow::on_pushButton_13_clicked()
     QFile file("C:/Users/louay/Desktop/smart_aid/out.xls");
       file.open(QIODevice::WriteOnly | QIODevice::Text);
       QTextStream out(&file);
+
       out << "Test , hhhh \n ggggg";
 }
-
-

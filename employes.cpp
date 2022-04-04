@@ -94,7 +94,7 @@ QSqlQueryModel *Employes::Trier_em(QString croissance,QString critere)
     QSqlQueryModel *modal=new QSqlQueryModel();
 
     if(critere == "ID" && croissance == "ASC")
-        modal->setQuery("select * from employes order by ID_EM ASC ");
+        modal->setQuery("select * from employes order by ID _EM ASC ");
     else if(critere == "ID" && croissance == "DESC")
         modal->setQuery("select * from employes order by ID_EM DESC ");
 
@@ -217,4 +217,53 @@ bool Employes::check_phone(QString n)
         return 1;
 }
 
+  QChartView *Employes::stat_gender()
+  {
+      int homme=0;
+      int femme=0;
+      int autre=0;
+
+      QSqlQuery query;
+      query.prepare("select * from employes where sexe='Homme'");
+      query.exec();
+
+      while(query.next())
+          homme++;
+
+      query.prepare("select * from employes where sexe='Femme'");
+      query.exec();
+
+      while(query.next())
+          femme++;
+
+      query.prepare("select * from employes where sexe='Autre'");
+      query.exec();
+
+      while(query.next())
+          autre++;
+
+      qDebug() << homme << femme << autre ;
+
+      QPieSeries *series = new QPieSeries();
+          series->append("Homme", homme);
+          series->append("Femme", femme);
+          series->append("Aure", autre);
+
+          QChart *chart = new QChart();
+          chart->addSeries(series);
+          chart->setTitle("Gender statistics");
+          chart->legend()->setAlignment(Qt::AlignRight);
+          chart->legend()->setBackgroundVisible(true);
+          chart->legend()->setBrush(QBrush(QColor(128, 128, 128, 128)));
+          chart->legend()->setPen(QPen(QColor(192, 192, 192, 192)));
+          series->setLabelsVisible();
+
+          QChartView *chartView = new QChartView(chart);
+          chartView->setRenderHint(QPainter::Antialiasing);
+
+          return chartView;
+
+
+
+  }
 

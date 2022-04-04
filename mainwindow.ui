@@ -1634,9 +1634,6 @@ font-family : century gothic;
           <item row="2" column="1">
            <widget class="QLineEdit" name="lineEdit_pre_2"/>
           </item>
-          <item row="0" column="1">
-           <widget class="QLineEdit" name="lineEdit_nom_2"/>
-          </item>
           <item row="0" column="3">
            <widget class="QLabel" name="label_29">
             <property name="text">
@@ -1751,6 +1748,9 @@ font-family : century gothic;
           </item>
           <item row="0" column="4">
            <widget class="QLineEdit" name="lineEdit_tele_2"/>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="lineEdit_nom_2"/>
           </item>
          </layout>
         </widget>
@@ -1911,63 +1911,20 @@ QHeaderView::section
 </string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="rechercher">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>90</y>
-          <width>401</width>
-          <height>26</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QLineEdit {  
-border: 0.5px solid grey;
-border-radius: 5px;
-background-color:white;
-}</string>
-        </property>
-        <property name="placeholderText">
-         <string>Search...</string>
-        </property>
-       </widget>
        <widget class="QGroupBox" name="gridGroupBox_2">
         <property name="geometry">
          <rect>
-          <x>440</x>
-          <y>70</y>
-          <width>231</width>
-          <height>61</height>
+          <x>0</x>
+          <y>60</y>
+          <width>1041</width>
+          <height>101</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout_2">
          <item row="0" column="1">
-          <widget class="QRadioButton" name="radioButton_2">
-           <property name="text">
-            <string>Descendant</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QRadioButton" name="radioButton">
-           <property name="text">
-            <string>Ascendant</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QComboBox" name="comboBox">
-        <property name="geometry">
-         <rect>
-          <x>690</x>
-          <y>90</y>
-          <width>131</width>
-          <height>22</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QComboBox
+          <widget class="QComboBox" name="comboBox">
+           <property name="styleSheet">
+            <string notr="true">QComboBox
 {
  
 border: 0.5px solid grey;
@@ -1975,37 +1932,81 @@ border-radius: 5px;
 background-color:white;
 
 }</string>
-        </property>
-        <item>
-         <property name="text">
-          <string>Séléctionner</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Nom</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Prenom</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ID</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Adresse</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Email</string>
-         </property>
-        </item>
+           </property>
+           <item>
+            <property name="text">
+             <string>Séléctionner</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Nom</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Prenom</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>ID</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Adresse</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Email</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="0" column="3">
+          <widget class="QRadioButton" name="radioButton_2">
+           <property name="text">
+            <string>Descendant</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLineEdit" name="rechercher">
+           <property name="styleSheet">
+            <string notr="true">QLineEdit {  
+border: 0.5px solid grey;
+border-radius: 5px;
+background-color:white;
+}</string>
+           </property>
+           <property name="placeholderText">
+            <string>Search...</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QRadioButton" name="radioButton">
+           <property name="text">
+            <string>Ascendant</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="4">
+          <spacer name="horizontalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
        </widget>
        <widget class="QPushButton" name="Afficher_Emp_HOME">
         <property name="geometry">
@@ -2345,6 +2346,17 @@ font-family : century gothic;
        <attribute name="title">
         <string>Statistique</string>
        </attribute>
+       <widget class="QWidget" name="gridLayoutWidget_2">
+        <property name="geometry">
+         <rect>
+          <x>210</x>
+          <y>100</y>
+          <width>681</width>
+          <height>501</height>
+         </rect>
+        </property>
+        <layout class="QGridLayout" name="stat"/>
+       </widget>
       </widget>
      </widget>
     </widget>

@@ -463,8 +463,8 @@ void MainWindow::on_tabstat_tabBarClicked(int index)
             Mod->setQuery(qry);
             table1.setModel(Mod);
 
-            q2.prepare("select QUANTITE_DON, NOM_DON from DONS"
-                                   "GROUP BY NOM_DON");
+            q2.prepare("select AVG(QUANTITE_DON) from DONS group by NOM_DON");
+
             q2.exec();
             Mod2->setQuery(q2);
             table2.setModel(Mod2);
@@ -495,7 +495,7 @@ void MainWindow::on_tabstat_tabBarClicked(int index)
 
            // set names and colors:
 
-           besoin->setName("Categorie");
+           besoin->setName("Nom Dons");
            besoin->setPen(QPen(QColor("#D5E7F2").lighter(130)));
            besoin->setBrush(QColor("#D5E7F2"));
            // stack bars on top of each other:
@@ -528,7 +528,7 @@ void MainWindow::on_tabstat_tabBarClicked(int index)
            // prepare y axis:
            ui->customPlot->yAxis->setRange(0, 12.1);
            ui->customPlot->yAxis->setPadding(5); // a bit more space to the left border
-           ui->customPlot->yAxis->setLabel("Nombre des dons\n par Categorie");
+           ui->customPlot->yAxis->setLabel("Quantite\n par Dons");
            ui->customPlot->yAxis->setBasePen(QPen(Qt::black));
            ui->customPlot->yAxis->setTickPen(QPen(Qt::black));
            ui->customPlot->yAxis->setSubTickPen(QPen(Qt::black));

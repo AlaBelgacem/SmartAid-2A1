@@ -114,5 +114,81 @@ bool benevoles::modifier()
             return modal;
         }
 
-
     }
+
+    bool benevoles::evaluer(int evaluation, QString id)
+    {
+        QSqlQuery query;
+            query.prepare("update BENEVOLES set EVALUATION = :review WHERE ID_BE = :id");
+            query.bindValue(":ID_BE", id);
+            query.bindValue(":review", evaluation);
+
+            return  query.exec();
+    }
+
+
+    QChartView * benevoles::stat()
+    {
+        int OneStar = 0;
+        int TwoStar = 0;
+        int ThreeStar = 0;
+        int FourStar = 0;
+        int FiveStar = 0;
+
+        QSqlQuery query,query2,query3,query4,query5;
+        query.prepare("SELECT * FROM BENEVOLES where EVALUATION=1");
+        query.exec();
+
+        query2.prepare("SELECT * FROM BENEVOLES where EVALUATION=2");
+        query2.exec();
+
+        query3.prepare("SELECT * FROM BENEVOLES where EVALUATION=3");
+        query3.exec();
+
+        query4.prepare("SELECT * FROM BENEVOLES where EVALUATION=4");
+        query4.exec();
+
+        query5.prepare("SELECT * FROM BENEVOLES where EVALUATION=5");
+        query5.exec();
+
+        while(query.next())
+            OneStar++;
+
+        while(query2.next())
+            TwoStar++;
+
+        while(query3.next())
+            ThreeStar++;
+
+        while(query4.next())
+            FourStar++;
+
+        while(query5.next())
+            FiveStar++;
+
+
+        //qDebug()<<row_count<<row_count1;
+        //qDebug()<<row_count;
+
+        QPieSeries *series = new QPieSeries();
+        series->append("1 etoile", OneStar);
+        series->append("2 etoile", TwoStar);
+        series->append("3 etoile", ThreeStar);
+        series->append("4 etoile", FourStar);
+        series->append("5 etoile", FiveStar);
+
+        QChart *chart = new QChart();
+        chart->addSeries(series);
+        chart->setTitle("statistique sure les evaluations des benevoles");
+        chart->legend()->setAlignment(Qt::AlignRight);
+        chart->legend()->setBackgroundVisible(true);
+        chart->legend()->setBrush(QBrush(QColor(0,31,38,1)));
+        chart->legend()->setPen(QPen(QColor(192, 192, 192, 192)));
+        series->setLabelsVisible();
+
+        QChartView*chartView = new QChartView(chart);
+        chartView->setRenderHint(QPainter::Antialiasing,true);
+
+        return chartView;
+    }
+

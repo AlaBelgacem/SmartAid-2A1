@@ -62,6 +62,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->listWidget->setCurrentItem(item0);
     ui->tableView->setModel(Be.afficher());
 
+    ui->verticalLayout->addWidget(Be.stat());
 }
 
 MainWindow::~MainWindow()
@@ -245,4 +246,21 @@ void MainWindow::on_comboBox_currentIndexChanged(const QString &arg1)
     benevoles Be;
 
             ui->tableView->setModel(Be.trier(ui->comboBox->currentText()));
+}
+
+/*void MainWindow::on_comboBox_2_activated(const QString &arg1)
+{
+     int id = ui->lineEdit_id->text().toInt();
+    Be.evaluer(arg1,id);
+    ui->tableView->setModel(Be.afficher());
+    qDebug()<<id<<arg1;
+}*/
+
+void MainWindow::on_evaluer_clicked()
+{
+    int evaluer = ui->comboBox_2->currentText().toInt();
+    QString id = ui->lineEdit_id->text();
+   Be.evaluer(evaluer,id);
+   ui->tableView->setModel(Be.afficher());
+  qDebug()<<id<<evaluer;
 }

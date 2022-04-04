@@ -41,6 +41,10 @@ private slots:
 
     void on_comboBox_currentIndexChanged(const QString &arg1);
 
+    void on_comboBox_2_activated(const QString &arg1);
+
+    void on_evaluer_clicked();
+
 private:
     Ui::MainWindow *ui;
     benevoles Be;

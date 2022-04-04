@@ -6,6 +6,12 @@
 #include<QDate>
 #include<QDebug>
 #include"connection.h"
+#include <QtCharts/QChartView>
+#include <QtCharts/QPieSeries>
+#include <QtCharts/QPieSlice>
+#include <QGridLayout>
+#include <QChartView>
+QT_CHARTS_USE_NAMESPACE
 
 class benevoles
 {
@@ -49,5 +55,7 @@ public:
     QSqlQueryModel*chercher(QString value);
     void generer();
     QSqlQueryModel*trier(QString critere);
+    bool evaluer(int evaluation, QString id);
+    QChartView*stat();
 };
 #endif // BENEVOLES_H

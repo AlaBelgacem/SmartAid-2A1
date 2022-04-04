@@ -693,7 +693,7 @@ font-family : century gothic;</string>
  }</string>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="Afficher">
        <attribute name="title">
@@ -1713,13 +1713,13 @@ font-color:#black
           <rect>
            <x>120</x>
            <y>450</y>
-           <width>161</width>
+           <width>71</width>
            <height>22</height>
           </rect>
          </property>
          <item>
           <property name="text">
-           <string>Evaluer</string>
+           <string/>
           </property>
          </item>
          <item>
@@ -1747,31 +1747,19 @@ font-color:#black
            <string>5</string>
           </property>
          </item>
-         <item>
-          <property name="text">
-           <string>6</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>7</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>8</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>9</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>10</string>
-          </property>
-         </item>
+        </widget>
+        <widget class="QPushButton" name="evaluer">
+         <property name="geometry">
+          <rect>
+           <x>200</x>
+           <y>450</y>
+           <width>81</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>evaluer</string>
+         </property>
         </widget>
        </widget>
        <widget class="QTableView" name="tableView">
@@ -2102,6 +2090,17 @@ border:1px solid grey;
        <attribute name="title">
         <string>Statistique</string>
        </attribute>
+       <widget class="QWidget" name="verticalLayoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>971</width>
+          <height>641</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout"/>
+       </widget>
       </widget>
      </widget>
     </widget>

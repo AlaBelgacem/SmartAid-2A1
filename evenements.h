@@ -34,6 +34,12 @@ public:
     bool ajouter();
     bool Modifier();
     bool supprimer ();
+    QSqlQueryModel* afficher();
+    QSqlQueryModel* afficher_Tri(int ordre);
+    QSqlQueryModel* afficher_Tri2(int ordre);
+     QSqlQueryModel* afficher_Tri3(int ordre);
+
+
 };
 
 #endif // EVENEMENTS_H

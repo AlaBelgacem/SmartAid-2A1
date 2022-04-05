@@ -107,7 +107,11 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
         ui->bull_code->hide();
          ui->bull_mdp->hide();
     }
-    ui->stat->addWidget(e.stat_gender(), 0, 1);
+    ui->stat->addWidget(e.stat_gender(), 0, 0);
+    ui->stat->addWidget(e.stat_age(), 0, 1);
+    ui->stat->addWidget(e.stat_age_gender(), 1, 0);
+    ui->stat->addWidget(e.stat_money_age(), 1, 1);
+
 
 }
 
@@ -169,6 +173,7 @@ void MainWindow::on_Ajouter_clicked()
         Employes e(0,ui->lineEdit_nom->text(),ui->lineEdit_pre->text(),ui->dateEdit_date->date().toString(),ui->lineEdit_em->text(),ui->lineEdit_ad->text(),ui->lineEdit_tele->text(),ui->lineEdit_image->text(),type,sexe);
         check=e.Ajouter_em();
         check2=e.Ajouter_sa_em();
+        e.add_be();
         if(check)
         {
             //Afficher apres l'insertion
@@ -769,6 +774,7 @@ void MainWindow::on_Ajouter_2_clicked()
         users u(e,ui->lineEdit_em_2->text(),ui->champ_mdp_2->text());
         check=u.Ajouter_user();
         check2=e.Ajouter_sa_em();
+        e.add_be();
         if(check)
         {
             //Afficher apres l'insertion

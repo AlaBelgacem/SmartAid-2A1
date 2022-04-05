@@ -24,9 +24,9 @@ int users::Login(QString e,QString mdp)
     QString id=query.value(0).toString();
     if(id=="")
         return 0;
-    if((id!="")&&(id!="64"))
+    if((id!="")&&(id!="1"))
         return 1;
-    else if(id=="64")
+    else if(id=="1")
         return 2;
 }
 users users::session(QString e,QString mdp)

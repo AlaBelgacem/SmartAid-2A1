@@ -2349,10 +2349,10 @@ font-family : century gothic;
        <widget class="QWidget" name="gridLayoutWidget_2">
         <property name="geometry">
          <rect>
-          <x>210</x>
-          <y>100</y>
-          <width>681</width>
-          <height>501</height>
+          <x>30</x>
+          <y>10</y>
+          <width>1011</width>
+          <height>601</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="stat"/>

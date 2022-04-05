@@ -28,7 +28,7 @@ bool Employes::Ajouter_sa_em()
     query.next();
     QString id=query.value(0).toString();
 
-    query.prepare("insert into salaires (id,salaire,nb_heures,disc) values (:id,500,0,1)");
+    query.prepare("insert into salaires (id,salaire,nb_heures,disc,prime) values (:id,500,0,1,7)");
     query.bindValue(":id",id);
     return query.exec();
 }
@@ -216,7 +216,20 @@ bool Employes::check_phone(QString n)
     else
         return 1;
 }
+bool Employes::add_be()
+{
+    QSqlQuery query;
+    query.exec("SELECT MAX( id_em ) FROM employes;");
+    query.next();
+    QString id=query.value(0).toString();
 
+    query.prepare("insert into bénévoles (id_e,nb_events) values (:id,1)");
+    query.bindValue(":id",id);
+    return query.exec();
+
+
+
+}
   QChartView *Employes::stat_gender()
   {
       int homme=0;
@@ -251,11 +264,8 @@ bool Employes::check_phone(QString n)
 
           QChart *chart = new QChart();
           chart->addSeries(series);
-          chart->setTitle("Gender statistics");
-          chart->legend()->setAlignment(Qt::AlignRight);
-          chart->legend()->setBackgroundVisible(true);
-          chart->legend()->setBrush(QBrush(QColor(128, 128, 128, 128)));
-          chart->legend()->setPen(QPen(QColor(192, 192, 192, 192)));
+          chart->setTitle("Statistique du Sexe");
+
           series->setLabelsVisible();
 
           QChartView *chartView = new QChartView(chart);
@@ -263,7 +273,286 @@ bool Employes::check_phone(QString n)
 
           return chartView;
 
+  }
+  QChartView *Employes::stat_age()
+  {
 
+
+      QSqlQuery query;
+      int g1=0;
+      int g2=0;
+      int g3=0;
+
+      query.prepare("select date_nai from employes");
+      if(query.exec())
+      {
+          while(query.next())
+          {
+              QString dates =query.value(0).toString();
+              QDate date = QDate::fromString(dates,"ddd MMM M yyyy");
+              dates = date.toString("yyyy");
+              int year = dates.toInt();
+
+              if(((2022-year) >= 20) && ((2022-year) <= 30) )
+              g1++;
+              if(((2022-year) >= 30) && ((2022-year) <= 40) )
+              g2++;
+              if(((2022-year) >= 40) && ((2022-year) <= 50) )
+              g3++;
+          }
+
+      }
+
+      QPieSeries *series = new QPieSeries();
+          series->append("20-30 ans", g1);
+          series->append("30-40 ans", g2);
+          series->append("40-50 ans", g3);
+
+          QChart *chart = new QChart();
+          chart->addSeries(series);
+          chart->setTitle("Statistique d'Age");
+
+          series->setLabelsVisible();
+
+          QChartView *chartView = new QChartView(chart);
+          chartView->setRenderHint(QPainter::Antialiasing);
+
+          return chartView;
 
   }
+QChartView *Employes::stat_age_gender()
+{
 
+    QSqlQuery query;
+    int flous=0;
+    //nombre 3bed men kol jens
+    int h1=0;
+    int h2=0;
+    int h3=0;
+
+    int f1=0;
+    int f2=0;
+    int f3=0;
+
+    int a1=0;
+    int a2=0;
+    int a3=0;
+
+    query.prepare("select id_em,date_nai,sexe,salaire,prime from salaires,employes where salaires.id = employes.id_em");
+    if(query.exec())
+    {
+        while(query.next())
+        {
+            int id=query.value(0).toInt();
+            QString sexe=query.value(2).toString();
+            int salaire=query.value(3).toInt();
+            int prime=query.value(4).toInt();
+            QString dates =query.value(1).toString();
+            QDate date = QDate::fromString(dates,"ddd MMM M yyyy");
+            dates = date.toString("yyyy");
+            int year = dates.toInt();
+            qDebug() << id << year << sexe << salaire << prime << "\n" ;
+            flous+=salaire+prime;
+            if(((2022-year) >= 20) && ((2022-year) <= 30) )
+            {
+                if(sexe == "Homme")
+                h1++;
+
+                if(sexe == "Femme")
+                f1++;
+
+                if(sexe == "Autre")
+                 a1++;
+
+            }
+            if(((2022-year) >= 30) && ((2022-year) <= 40) )
+            {
+                if(sexe == "Homme")
+                h2++;
+
+                if(sexe == "Femme")
+                 f2++;
+
+                if(sexe == "Autre")
+                a2++;
+
+            }
+            if(((2022-year) >= 40) && ((2022-year) <= 50) )
+            {
+                if(sexe == "Homme")
+                h3++;
+
+                if(sexe == "Femme")
+                f3++;
+
+                if(sexe == "Autre")
+                a3++;
+
+            }
+
+
+
+        }
+
+    }
+
+    QBarSet *set1 = new QBarSet("Homme");
+    QBarSet *set2 = new QBarSet("Femme");
+    QBarSet *set3 = new QBarSet("Autre");
+
+    *set1 << h1 << h2 << h3;
+    *set2 << f1 << f2 << f3;
+    *set3 << a1 << a2 << a3;
+
+    QBarSeries *series = new QBarSeries();
+
+    series->append(set1);
+    series->append(set2);
+    series->append(set3);
+
+    QChart *chart = new QChart();
+    chart->addSeries(series);
+
+    chart->setTitle("Statistique Demographique");
+    QStringList cate;
+    cate << "20-30" << "30-40" << "40-50";
+
+    QBarCategoryAxis *axis = new QBarCategoryAxis();
+    axis->append(cate);
+    chart->createDefaultAxes();
+    chart->setAxisX(axis,series);
+    QChartView *chartView = new QChartView(chart);
+    //chartView->setRenderHint(QPainter::Antialiasing);
+
+    return chartView;
+}
+QChartView *Employes::stat_money_age()
+{
+
+    QSqlQuery query;
+    int flous=0;
+    //nombre 3bed men kol jens
+    int h1=0;
+    int h2=0;
+    int h3=0;
+
+    int f1=0;
+    int f2=0;
+    int f3=0;
+
+    int a1=0;
+    int a2=0;
+    int a3=0;
+
+    //kol 3bed men kol jens 9adeh edakhel flous
+    float ah1=0;
+    float ah2=0;
+    float ah3=0;
+
+    float af1=0;
+    float af2=0;
+    float af3=0;
+
+    float aa1=0;
+    float aa2=0;
+    float aa3=0;
+    query.prepare("select id_em,date_nai,sexe,salaire,prime from salaires,employes where salaires.id = employes.id_em");
+    if(query.exec())
+    {
+        while(query.next())
+        {
+            int id=query.value(0).toInt();
+            QString sexe=query.value(2).toString();
+            int salaire=query.value(3).toInt();
+            int prime=query.value(4).toInt();
+            QString dates =query.value(1).toString();
+            QDate date = QDate::fromString(dates,"ddd MMM M yyyy");
+            dates = date.toString("yyyy");
+            int year = dates.toInt();
+            qDebug() << id << year << sexe << salaire << prime << "\n" ;
+            flous+=salaire+prime;
+            if(((2022-year) >= 20) && ((2022-year) <= 30) )
+            {
+                if(sexe == "Homme")
+                {h1++;
+                ah1+=salaire+prime;
+                }
+                if(sexe == "Femme")
+                {f1++;
+                af1+=salaire+prime;
+                }
+                if(sexe == "Autre")
+                { a1++;
+                aa1+=salaire+prime;
+                }
+            }
+            if(((2022-year) > 30) && ((2022-year) <= 40) )
+            {
+                if(sexe == "Homme")
+                {h2++;
+                ah2+=salaire+prime;
+                }
+                if(sexe == "Femme")
+                { f2++;
+                af2+=salaire+prime;
+                }
+                if(sexe == "Autre")
+                {a2++;
+                aa2+=salaire+prime;
+                }
+            }
+            if(((2022-year) > 40) && ((2022-year) <= 50) )
+            {
+                if(sexe == "Homme")
+                {
+                    h3++;
+                    ah3+=salaire+prime;
+                }
+                if(sexe == "Femme")
+                {
+                    f3++;
+                    af3+=salaire+prime;
+                }
+                if(sexe == "Autre")
+                {
+                    a3++;
+                    aa3+=salaire+prime;
+                }
+            }
+
+
+
+        }
+
+    }
+
+    QBarSet *set1 = new QBarSet("Homme");
+    QBarSet *set2 = new QBarSet("Femme");
+    QBarSet *set3 = new QBarSet("Autre");
+
+    *set1 << 100*ah1/flous << 100*ah2/flous << 100*ah3/flous;
+    *set2 << 100*af1/flous << 100*af2/flous << 100*af3/flous;
+    *set3 << 100*aa1/flous << 100*aa2/flous << 100*aa3/flous;
+
+    QBarSeries *series = new QBarSeries();
+
+    series->append(set1);
+    series->append(set2);
+    series->append(set3);
+
+    QChart *chart = new QChart();
+    chart->addSeries(series);
+
+    chart->setTitle("Statistique Du la Distribution du paiments");
+    QStringList cate;
+    cate << "20-30" << "30-40" << "40-50";
+
+    QBarCategoryAxis *axis = new QBarCategoryAxis();
+    axis->append(cate);
+    chart->createDefaultAxes();
+    chart->setAxisX(axis,series);
+    QChartView *chartView = new QChartView(chart);
+    chartView->setRenderHint(QPainter::Antialiasing);
+
+    return chartView;
+}

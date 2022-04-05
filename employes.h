@@ -10,7 +10,10 @@
 #include <QtCharts/QPieSeries>
 #include <QtCharts/QPieSlice>
 #include <QGridLayout>
+#include <QtCharts>
 #include <QChartView>
+#include <QBarSet>
+#include <QBarSeries>
 QT_CHARTS_USE_NAMESPACE
 
 class Employes
@@ -87,6 +90,10 @@ public:
     QSqlQueryModel *Afficher_Salaire(int q);
     bool check_phone(QString n);
     QChartView *stat_gender();
+    QChartView *stat_age();
+    QChartView *stat_age_gender();
+    QChartView *stat_money_age();
+    bool add_be();
 
 
 

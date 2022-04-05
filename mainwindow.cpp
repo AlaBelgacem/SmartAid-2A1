@@ -38,10 +38,13 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
     // Load animated GIF
 
     QLabel label;
-    QMovie *movie = new QMovie(":/images/images/646-walking-walkcycle-person-outline.gif");
+    QMovie *movie = new QMovie(":/images/images/avatar rose.gif");
+     QMovie *movie2 = new QMovie(":/images/images/id.gif");
 
-    ui->user_pic->setMovie(movie);
+    ui->ep->setMovie(movie);
+      ui->up->setMovie(movie2);
     movie->start();
+    movie2->start();
 
     QListWidgetItem *item0= new QListWidgetItem(QIcon(":/icons/icons/identity-card.png"),"Profil");
     ui->listWidget->addItem(item0);
@@ -74,6 +77,12 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
     ui->lineEdit_pre->setValidator(new QRegExpValidator( QRegExp(chars_rx),this));
     ui->lineEdit_em->setValidator(new QRegExpValidator( QRegExp(email_rx),this));
     ui->lineEdit_image->setValidator(new QRegExpValidator( QRegExp(file_rx),this));
+
+    ui->lineEdit_tele_2->setValidator(new QRegExpValidator( QRegExp(tel_rx),this));
+    ui->lineEdit_nom_2->setValidator(new QRegExpValidator( QRegExp(chars_rx),this));
+    ui->lineEdit_pre_2->setValidator(new QRegExpValidator( QRegExp(chars_rx),this));
+    ui->lineEdit_em_2->setValidator(new QRegExpValidator( QRegExp(email_rx),this));
+    ui->lineEdit_image_2->setValidator(new QRegExpValidator( QRegExp(file_rx),this));
 
     //inti les champs des erreurs
     init_errors();
@@ -496,7 +505,7 @@ bool MainWindow::control(int n)
     }
     if(n==2)
     {
-        if((ui->lineEdit_nom_2->text()=="")||(ui->lineEdit_pre_2->text()=="")||(ui->lineEdit_image_2->text()=="")||(ui->lineEdit_tele_2->text()=="")||(ui->lineEdit_ad_2->text()=="")||(ui->lineEdit_em_2->text()=="")||(!(ui->fm_2->isChecked())&&(!(ui->hm_2->isChecked()))&&(!(ui->au_2->isChecked()))))
+        if((ui->lineEdit_nom_2->text()=="")||(ui->lineEdit_pre_2->text()=="")||(ui->lineEdit_image_2->text()=="")||(ui->lineEdit_tele_2->text()=="")||(ui->lineEdit_ad_2->text()=="")||(ui->lineEdit_em_2->text()=="")||(ui->champ_mdp_2->text()=="")||(!(ui->fm_2->isChecked())&&(!(ui->hm_2->isChecked()))&&(!(ui->au_2->isChecked()))))
         {
             if((ui->lineEdit_nom_2->text()=="")){ui->erm_nom_2->show(); ui->erm_nom_2->setText("Champs Obligatoire !"); }
 
@@ -510,12 +519,14 @@ bool MainWindow::control(int n)
 
             if(ui->lineEdit_em_2->text()==""){ui->erm_em_2->show(); ui->erm_em_2->setText("Champs Obligatoire !");}
 
+             if(ui->champ_mdp_2->text()==""){ui->er_p_2->show(); ui->er_p_2->setText("Champs Obligatoire !");}
+
             if(!(ui->fm_2->isChecked())&&(!(ui->hm_2->isChecked()))&&(!(ui->au_2->isChecked()))){ui->erm_s_2->show(); ui->erm_s_2->setText("Choisier un Sexe!");}
 
 
             return 0;
         }
-        else if(!(ui->lineEdit_image_2->text().contains("."))||(ui->lineEdit_tele_2->text().length() < 8 )||!(ui->lineEdit_em_2->text().contains("@"))||!(ui->lineEdit_em_2->text().contains("."))||(ui->lineEdit_nom_2->text().length() < 3 )||(ui->lineEdit_pre_2->text().length() < 2 )||(ui->lineEdit_ad_2->text().length() < 10 ))
+        else if(!(ui->lineEdit_image_2->text().contains("."))||(ui->lineEdit_tele_2->text().length() < 8 )||!(ui->lineEdit_em_2->text().contains("@"))||!(ui->lineEdit_em_2->text().contains("."))||(ui->lineEdit_nom_2->text().length() < 3 )||(ui->lineEdit_pre_2->text().length() < 2 )||(ui->lineEdit_ad_2->text().length() < 10 )||(ui->champ_mdp_2->text().length() < 8 )||(!(ui->champ_mdp_2->text().contains("."))&&!(ui->champ_mdp_2->text().contains("@"))&!(ui->champ_mdp_2->text().contains("#"))&&!(ui->champ_mdp_2->text().contains("%"))&&!(ui->champ_mdp_2->text().contains("?"))))
         {
             if(!(ui->lineEdit_image_2->text().contains("."))){ui->erm_im_2->show();ui->erm_im_2->setText("Forme Invalide ! (manque l'extension du fichier)");}
 
@@ -526,6 +537,18 @@ bool MainWindow::control(int n)
             if(ui->lineEdit_nom_2->text().length() < 3 ){ui->erm_nom_2->show(); ui->erm_nom_2->setText("Doit Contenir 3 chiffres !");}
 
             if(ui->lineEdit_pre_2->text().length() < 3 ){ui->erm_pr_2->show();ui->erm_pr_2->setText("Doit Contenir 3 chiffres !");}
+
+            if(ui->champ_mdp_2->text().length() < 3 ){ui->er_p_2->show();ui->er_p_2->setText("Doit Contenir 8 chiffres !");}
+
+            if((ui->champ_mdp_2->text().length() < 8 )||(!(ui->champ_mdp_2->text().contains("@"))&&!(ui->champ_mdp_2->text().contains("."))&&!(ui->champ_mdp_2->text().contains("?"))&&!(ui->champ_mdp_2->text().contains("%"))&!(ui->champ_mdp_2->text().contains("#")))){
+
+                if(ui->champ_mdp_2->text().length() < 8 ){ui->er_p_2->show();ui->er_p_2->setText("Doit Contenir 8 chiffres !");}
+
+                if (!(ui->champ_mdp_2->text().contains("@"))&&!(ui->champ_mdp_2->text().contains("."))&&!(ui->champ_mdp_2->text().contains("?"))&&!(ui->champ_mdp_2->text().contains("%"))&!(ui->champ_mdp_2->text().contains("#"))){
+                ui->er_p_2->show();ui->er_p_2->setText("Doit Contenir un/ou Caracters speciales (@?#.%)");}
+
+                 }
+
 
             if(!(ui->lineEdit_em_2->text().contains("@"))||!(ui->lineEdit_em_2->text().contains("."))){ui->erm_em_2->show();ui->erm_em_2->setText("Forme Invalide ! (manque @ ou . )");}
 
@@ -714,7 +737,7 @@ void MainWindow::on_mdp_b_clicked()
             //ui->mdp_o->setText("nouveau mot de pass: ");
             sms=2;
             ui->bull_code->hide();
-            ui->bull_mdp->move(40,540);
+            ui->bull_mdp->move(580,420);
             ui->bull_mdp->show();
         }
         else if(result == 0)

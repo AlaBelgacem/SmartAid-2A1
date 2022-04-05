@@ -6,7 +6,8 @@
 namespace Ui {
 class messenger;
 }
-
+namespace  duartecorporation
+{
 class messenger : public QDialog
 {
     Q_OBJECT
@@ -35,5 +36,5 @@ inline quint16 messenger::port()const
 {
     return mPort;
 }
-
+}
 #endif // MESSENGER_H

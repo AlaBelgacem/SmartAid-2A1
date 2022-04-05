@@ -38,7 +38,11 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QSpinBox" name="port"/>
+      <widget class="QSpinBox" name="port">
+       <property name="maximum">
+        <number>999999999</number>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -59,6 +63,22 @@
      </item>
      <item>
       <widget class="QPushButton" name="pb_accepter">
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+  background-color: #D46A6A;
+     border-style: allset;
+     border-width: 2px;
+     border-radius: 3px;
+     border: 1px solid grey;
+     font: bold 11px;
+     min-width: 5em;
+     padding: 3px;
+}
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #dadbde, stop: 1 #f6f7fa);
+ }</string>
+       </property>
        <property name="text">
         <string>Accepter</string>
        </property>
@@ -66,6 +86,22 @@
      </item>
      <item>
       <widget class="QPushButton" name="pb_cancel">
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+  background-color: #D46A6A;
+     border-style: allset;
+     border-width: 2px;
+     border-radius: 3px;
+     border: 1px solid grey;
+     font: bold 11px;
+     min-width: 5em;
+     padding: 3px;
+}
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #dadbde, stop: 1 #f6f7fa);
+ }</string>
+       </property>
        <property name="text">
         <string>Annuler</string>
        </property>

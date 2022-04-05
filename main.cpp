@@ -2,10 +2,12 @@
 #include"connection.h"
 #include <QApplication>
 
+using namespace duartecorporation;
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-
+a.setStyle("fusion");
     Connection c;//Une instance de la classe connection
 
     bool test=c.createconnection();//Etablir la connexion

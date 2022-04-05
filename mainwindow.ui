@@ -2101,19 +2101,6 @@ border:1px solid grey;
        <attribute name="title">
         <string>Chat</string>
        </attribute>
-       <widget class="QPushButton" name="pushButton_4">
-        <property name="geometry">
-         <rect>
-          <x>40</x>
-          <y>50</y>
-          <width>171</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Lancer le serveur</string>
-        </property>
-       </widget>
        <widget class="QLineEdit" name="lineEdit_surnom">
         <property name="geometry">
          <rect>
@@ -2179,6 +2166,24 @@ border:1px solid grey;
           <height>28</height>
          </rect>
         </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton{
+  background-color: #D46A6A;
+     border-style: outset;
+     border-width: 2px;
+     border-radius: 3px;
+     border:1px solid grey;
+     font: bold 11px;
+     min-width: 5em;
+     padding: 3px;
+
+
+
+} QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #dadbde, stop: 1 #f6f7fa);
+ }</string>
+        </property>
         <property name="text">
          <string>Envoyer</string>
         </property>
@@ -2191,6 +2196,24 @@ border:1px solid grey;
           <width>93</width>
           <height>28</height>
          </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton{
+  background-color: #D46A6A;
+     border-style: outset;
+     border-width: 2px;
+     border-radius: 3px;
+     border:1px solid grey;
+     font: bold 11px;
+     min-width: 5em;
+     padding: 3px;
+
+
+
+} QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #dadbde, stop: 1 #f6f7fa);
+ }</string>
         </property>
         <property name="text">
          <string>Connecter</string>

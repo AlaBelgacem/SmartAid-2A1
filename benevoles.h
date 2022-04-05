@@ -55,7 +55,7 @@ public:
     QSqlQueryModel*chercher(QString value);
     void generer();
     QSqlQueryModel*trier(QString critere);
-    bool evaluer(int evaluation, QString id);
+    bool evaluer(int evaluation);
     QChartView*stat();
 };
 #endif // BENEVOLES_H

@@ -15,6 +15,10 @@
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
+class QTcpSocket;
+
+namespace  duartecorporation {
+
 
 class MainWindow : public QMainWindow
 {
@@ -44,7 +48,7 @@ private slots:
 
     void on_comboBox_currentIndexChanged(const QString &arg1);
 
-    void on_comboBox_2_activated(const QString &arg1);
+    //void on_comboBox_2_activated(const QString &arg1);
 
     void on_evaluer_clicked();
 
@@ -52,11 +56,12 @@ private slots:
 
     void on_pb_connecter_clicked();
 
-    void on_pushButton_4_clicked();
+    //void on_pushButton_4_clicked();
 
 private:
     Ui::MainWindow *ui;
     benevoles Be;
     QTcpSocket *mSocket;
 };
+}
 #endif // MAINWINDOW_H

@@ -117,12 +117,14 @@ bool benevoles::modifier()
 
     }
 
-    bool benevoles::evaluer(int evaluation, QString id)
+    bool benevoles::evaluer(int evaluation)
     {
-        QSqlQuery query;
+            QSqlQuery query;
+            QString res = QString::number(evaluation);
+            //QString res2 = QString::number(id);
             query.prepare("update benevoles set EVALUATION = :review WHERE ID_BE = :id");
-            query.bindValue(":ID_BE", id);
-            query.bindValue(":review", evaluation);
+                query.bindValue(":id",id_be);
+                query.bindValue(":review",evaluation);
 
             return  query.exec();
     }

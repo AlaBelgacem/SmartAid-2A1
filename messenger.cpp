@@ -1,6 +1,9 @@
 #include "messenger.h"
 #include "ui_messenger.h"
 
+namespace duartecorporation {
+
+
 messenger::messenger(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::messenger)
@@ -23,4 +26,5 @@ void messenger::on_pb_accepter_clicked()
 void messenger::on_pb_cancel_clicked()
 {
     reject();
+}
 }

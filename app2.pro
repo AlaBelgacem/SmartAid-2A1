@@ -28,8 +28,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     benevoles.cpp \
-    chatserver.cpp \
-    chatsocket.cpp \
     connection.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -37,8 +35,6 @@ SOURCES += \
 
 HEADERS += \
     benevoles.h \
-    chatserver.h \
-    chatsocket.h \
     connection.h \
     mainwindow.h \
     messenger.h

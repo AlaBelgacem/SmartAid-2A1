@@ -11,11 +11,14 @@
 #include <QFile>
 #include <QCoreApplication>
 #include <QTextStream>
-#include "chatserver.h"
-#include "chatsocket.h"
+
 #include "messenger.h"
 #include <QTcpSocket>
 #include <QTextStream>
+
+namespace duartecorporation {
+
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -270,16 +273,16 @@ void MainWindow::on_comboBox_currentIndexChanged(const QString &arg1)
 
 void MainWindow::on_evaluer_clicked()
 {
-
-    QString evaluer = ui->comboBox_2->currentText();
-    QString id = ui->lineEdit_id->text();
-    if (evaluer == "choisir")
-   Be.evaluer(1,id);
-   ui->tableView->setModel(Be.afficher());
-  qDebug()<<id<<evaluer;
+    benevoles b;
+     b.setId(ui->lineEdit_id->text().toInt());
+    int evaluer = ui->comboBox_2->currentText().toInt();
+    int id = ui->lineEdit_id->text().toInt();
+    b.evaluer(evaluer);
+    ui->tableView->setModel(b.afficher());
+    qDebug()<<id<<evaluer;
 }
 
-void MainWindow::on_pushButton_4_clicked()
+/*void MainWindow::on_pushButton_4_clicked()
 {
 
     ChatServer* Server=new ChatServer();
@@ -291,7 +294,7 @@ void MainWindow::on_pushButton_4_clicked()
     qDebug()<<"Server   started ...";
     QMessageBox::information(nullptr,QObject::tr("OK"),QObject::tr("server started\n"
                                                                    "Click Cancel to exist."), QMessageBox::Cancel);
-}
+}*/
 
 void MainWindow::on_pb_envoyer_clicked()
 {
@@ -313,5 +316,5 @@ void MainWindow::on_pb_connecter_clicked()
     mSocket->connectToHost(D.hostname(), D.port());
 }
 
-
+}
 

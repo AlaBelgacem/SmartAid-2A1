@@ -1,6 +1,17 @@
-QT       += core gui sql charts
-
+QT       += core gui sql
+QT       +=charts
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+QT += network
+
+DEPENDPATH += .
+INCLUDEPATH += .
+
+TARGET = app2
+TEMPLATE = app
+
+
+QMAKE_CXXFLAGS +=-std=gnu++11
 
 CONFIG += c++11
 
@@ -17,17 +28,24 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     benevoles.cpp \
+    chatserver.cpp \
+    chatsocket.cpp \
     connection.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    messenger.cpp
 
 HEADERS += \
     benevoles.h \
+    chatserver.h \
+    chatsocket.h \
     connection.h \
-    mainwindow.h
+    mainwindow.h \
+    messenger.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    messenger.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

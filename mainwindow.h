@@ -8,6 +8,9 @@
 #include <QDebug>
 #include <QListWidget>
 #include <QMessageBox>
+#include <QCompleter>
+#include<QTcpSocket>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -45,8 +48,15 @@ private slots:
 
     void on_evaluer_clicked();
 
+    void on_pb_envoyer_clicked();
+
+    void on_pb_connecter_clicked();
+
+    void on_pushButton_4_clicked();
+
 private:
     Ui::MainWindow *ui;
     benevoles Be;
+    QTcpSocket *mSocket;
 };
 #endif // MAINWINDOW_H

@@ -647,7 +647,7 @@ font-family : century gothic;</string>
     <widget class="QWidget" name="page_7"/>
     <widget class="QWidget" name="page_8"/>
     <widget class="QWidget" name="page_9">
-     <widget class="QTabWidget" name="tabWidget">
+     <widget class="QTabWidget" name="pb_server">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -693,7 +693,7 @@ font-family : century gothic;</string>
  }</string>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="Afficher">
        <attribute name="title">
@@ -1757,6 +1757,22 @@ font-color:#black
            <height>21</height>
           </rect>
          </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+  background-color: #D46A6A;
+     border-style: allset;
+     border-width: 2px;
+     border-radius: 3px;
+     border: 1px solid grey;
+     font: bold 11px;
+     min-width: 5em;
+     padding: 3px;
+}
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #dadbde, stop: 1 #f6f7fa);
+ }</string>
+         </property>
          <property name="text">
           <string>evaluer</string>
          </property>
@@ -2085,6 +2101,101 @@ border:1px solid grey;
        <attribute name="title">
         <string>Chat</string>
        </attribute>
+       <widget class="QPushButton" name="pushButton_4">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>50</y>
+          <width>171</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Lancer le serveur</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_surnom">
+        <property name="geometry">
+         <rect>
+          <x>180</x>
+          <y>120</y>
+          <width>221</width>
+          <height>22</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_21">
+        <property name="geometry">
+         <rect>
+          <x>110</x>
+          <y>120</y>
+          <width>56</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Surnom</string>
+        </property>
+       </widget>
+       <widget class="QTextEdit" name="textEdit">
+        <property name="geometry">
+         <rect>
+          <x>100</x>
+          <y>160</y>
+          <width>771</width>
+          <height>311</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_22">
+        <property name="geometry">
+         <rect>
+          <x>120</x>
+          <y>490</y>
+          <width>56</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Message</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_mssage_2">
+        <property name="geometry">
+         <rect>
+          <x>190</x>
+          <y>490</y>
+          <width>391</width>
+          <height>22</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pb_envoyer">
+        <property name="geometry">
+         <rect>
+          <x>660</x>
+          <y>490</y>
+          <width>93</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Envoyer</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pb_connecter">
+        <property name="geometry">
+         <rect>
+          <x>770</x>
+          <y>490</y>
+          <width>93</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Connecter</string>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="Statistique">
        <attribute name="title">

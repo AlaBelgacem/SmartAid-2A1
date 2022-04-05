@@ -1,8 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include"connection.h"
-#include"benevoles.h"
-#include<QMessageBox>
+#include "connection.h"
+#include "benevoles.h"
+#include <QMessageBox>
 #include <QLabel>
 #include <QPixmap>
 #include <QMovie>
@@ -10,6 +10,11 @@
 #include <fstream>
 #include <QFile>
 #include <QCoreApplication>
+#include <QTextStream>
+#include "chatserver.h"
+#include "chatsocket.h"
+#include "messenger.h"
+#include <QTcpSocket>
 #include <QTextStream>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -63,6 +68,13 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tableView->setModel(Be.afficher());
 
     ui->verticalLayout->addWidget(Be.stat());
+
+    mSocket=new QTcpSocket(this);
+    connect(mSocket,&QTcpSocket::readyRead,[&]()
+    { QTextStream T(mSocket);
+       auto text = T.readAll();
+       ui->textEdit->append(text);
+ });
 }
 
 MainWindow::~MainWindow()
@@ -266,3 +278,40 @@ void MainWindow::on_evaluer_clicked()
    ui->tableView->setModel(Be.afficher());
   qDebug()<<id<<evaluer;
 }
+
+void MainWindow::on_pushButton_4_clicked()
+{
+
+    ChatServer* Server=new ChatServer();
+    if(!Server->startServer(3333)){
+        qDebug()<<"Error:"<<Server->errorString();
+        QMessageBox::information(this," ERREUR "," probleme le serveur ne ce lance pas!!!!") ;
+       // return 1;
+    }
+    qDebug()<<"Server   started ...";
+    QMessageBox::information(nullptr,QObject::tr("OK"),QObject::tr("server started\n"
+                                                                   "Click Cancel to exist."), QMessageBox::Cancel);
+}
+
+void MainWindow::on_pb_envoyer_clicked()
+{
+    QTextStream T(mSocket);
+    T<<ui->lineEdit_surnom->text()<<": "<<ui->lineEdit_mssage_2->text();
+    mSocket->flush();
+    ui->lineEdit_mssage_2->clear();
+}
+
+void MainWindow::on_pb_connecter_clicked()
+{
+    qDebug()<<"connecting to server ...";
+    messenger D(this);
+
+    if(D.exec() == QDialog::Rejected)
+    {
+        return;
+    }
+    mSocket->connectToHost(D.hostname(), D.port());
+}
+
+
+

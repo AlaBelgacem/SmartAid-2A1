@@ -769,7 +769,7 @@ font-family : century gothic;
        <string notr="true">font: 8pt &quot;Century Gothic&quot;;</string>
       </property>
       <property name="currentIndex">
-       <number>5</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -1349,9 +1349,9 @@ font-family : century gothic;
          <property name="geometry">
           <rect>
            <x>620</x>
-           <y>-20</y>
-           <width>91</width>
-           <height>20</height>
+           <y>-31</y>
+           <width>111</width>
+           <height>31</height>
           </rect>
          </property>
         </widget>

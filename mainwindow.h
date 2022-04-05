@@ -90,7 +90,9 @@ private slots:
 
     void on_rechercher_textChanged(const QString &arg1);
 
+    void on_tab_ge_currentChanged(int index);
 
+    void update_stat();
 
 private:
     Ui::MainWindow *ui;

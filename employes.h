@@ -14,6 +14,7 @@
 #include <QChartView>
 #include <QBarSet>
 #include <QBarSeries>
+#include <QPieSlice>
 QT_CHARTS_USE_NAMESPACE
 
 class Employes

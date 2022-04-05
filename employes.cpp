@@ -94,7 +94,7 @@ QSqlQueryModel *Employes::Trier_em(QString croissance,QString critere)
     QSqlQueryModel *modal=new QSqlQueryModel();
 
     if(critere == "ID" && croissance == "ASC")
-        modal->setQuery("select * from employes order by ID _EM ASC ");
+        modal->setQuery("select * from employes order by ID_EM ASC ");
     else if(critere == "ID" && croissance == "DESC")
         modal->setQuery("select * from employes order by ID_EM DESC ");
 
@@ -147,6 +147,7 @@ QSqlQueryModel *Employes::Trier_em(QString croissance,QString critere)
         modal->setQuery("select * from employes order by prénom");
     else if(critere == "Prenom" && croissance == "")
         modal->setQuery("select * from employes order by prénom");
+
 
     return  modal;
 }
@@ -260,7 +261,15 @@ bool Employes::add_be()
       QPieSeries *series = new QPieSeries();
           series->append("Homme", homme);
           series->append("Femme", femme);
-          series->append("Aure", autre);
+          series->append("Autre", autre);
+
+          QPieSlice *slice = series->slices().at(0);
+          slice->setExploded(true);
+          slice->setColor("#f55d11");
+          QPieSlice *slice2 = series->slices().at(1);
+          slice2->setColor("#ff8b52");
+          QPieSlice *slice3 = series->slices().at(2);
+          slice3->setColor("#e6a88a");
 
           QChart *chart = new QChart();
           chart->addSeries(series);
@@ -270,7 +279,8 @@ bool Employes::add_be()
 
           QChartView *chartView = new QChartView(chart);
           chartView->setRenderHint(QPainter::Antialiasing);
-
+chartView->chart()->setAnimationOptions(QChart::AllAnimations);
+ chartView->chart()->legend()->hide();
           return chartView;
 
   }
@@ -308,6 +318,18 @@ bool Employes::add_be()
           series->append("30-40 ans", g2);
           series->append("40-50 ans", g3);
 
+          QPieSlice *slice = series->slices().at(0);
+          slice->setExploded(true);
+          slice->setColor("#092cdb");
+          QPieSlice *slice2 = series->slices().at(1);
+          slice2->setColor("#4360f0");
+          QPieSlice *slice3 = series->slices().at(2);
+          slice3->setColor("#303a6e");
+         /* series->setLabelsVisible();
+          series->setLabelsPosition(QPieSlice::LabelInsideHorizontal);
+          for(auto slice : series->slices())
+              slice->setLabel(QString("%1%").arg(100*slice->percentage(), 0, 'f', 1));*/
+
           QChart *chart = new QChart();
           chart->addSeries(series);
           chart->setTitle("Statistique d'Age");
@@ -316,7 +338,8 @@ bool Employes::add_be()
 
           QChartView *chartView = new QChartView(chart);
           chartView->setRenderHint(QPainter::Antialiasing);
-
+chartView->chart()->setAnimationOptions(QChart::AllAnimations);
+ chartView->chart()->legend()->hide();
           return chartView;
 
   }
@@ -422,8 +445,8 @@ QChartView *Employes::stat_age_gender()
     chart->createDefaultAxes();
     chart->setAxisX(axis,series);
     QChartView *chartView = new QChartView(chart);
-    //chartView->setRenderHint(QPainter::Antialiasing);
-
+    chartView->setRenderHint(QPainter::Antialiasing);
+chartView->chart()->setAnimationOptions(QChart::AllAnimations);
     return chartView;
 }
 QChartView *Employes::stat_money_age()
@@ -553,6 +576,6 @@ QChartView *Employes::stat_money_age()
     chart->setAxisX(axis,series);
     QChartView *chartView = new QChartView(chart);
     chartView->setRenderHint(QPainter::Antialiasing);
-
+chartView->chart()->setAnimationOptions(QChart::AllAnimations);
     return chartView;
 }

@@ -189,6 +189,7 @@ void MainWindow::on_Ajouter_clicked()
           ui->status->setText("Erreur Ajout !");
         }
     }
+    update_stat();
 }
 
 //Bouton Modifier
@@ -218,6 +219,7 @@ void MainWindow::on_Modifier_clicked()
           ui->status->setText("Erreur Modification !");
     }
     }
+    update_stat();
 }
 
 //Bouton Supprimer
@@ -226,6 +228,7 @@ void MainWindow::on_Supprimer_clicked()
     init_errors_2();
     Employes e;
     e.setID_em(ui->lineEdit_id->text().toInt());
+    qDebug() << ui->lineEdit_id->text().toInt();
     bool check=e.Supprimer_em();
     if(check)
     {
@@ -239,6 +242,7 @@ void MainWindow::on_Supprimer_clicked()
     {
          ui->status->setText("Erreur Suppression !");
     }
+    update_stat();
 
 }
 
@@ -365,6 +369,7 @@ void MainWindow::on_radioButton_clicked()
     Employes e;
     QString type="";
 
+
     if(ui->radioButton->isChecked())
         type="ASC";
     else if(ui->radioButton_2->isChecked())
@@ -390,6 +395,7 @@ void MainWindow::on_radioButton_2_clicked()
 
     if(ui->comboBox->currentText() != "Choisir")
         ui->table2->setModel(e.Trier_em(type,ui->comboBox->currentText()));
+
 
     else  ui->table2->setModel(e.Afficher(3));
 }
@@ -790,6 +796,7 @@ void MainWindow::on_Ajouter_2_clicked()
           ui->status_2->setText("Erreur Ajout !");
         }
     }
+    update_stat();
 
 }
 
@@ -865,6 +872,7 @@ void MainWindow::on_Modifier_2_clicked()
           ui->status_2->setText("Erreur Modification !");
     }
     }
+    update_stat();
 }
 
 void MainWindow::on_Supprimer_2_clicked()
@@ -885,6 +893,7 @@ void MainWindow::on_Supprimer_2_clicked()
     {
          ui->status->setText("Erreur Suppression !");
     }
+    update_stat();
 }
 
 void MainWindow::on_pushButton_13_clicked()
@@ -894,4 +903,22 @@ void MainWindow::on_pushButton_13_clicked()
       QTextStream out(&file);
 
       out << "Test , hhhh \n ggggg";
+}
+
+void MainWindow::on_tab_ge_currentChanged(int index)
+{
+    if(index == 5)
+    update_stat();
+
+
+
+}
+
+void MainWindow::update_stat()
+{
+    Employes e;
+    ui->stat->addWidget(e.stat_gender(), 0, 0);
+    ui->stat->addWidget(e.stat_age(), 0, 1);
+    ui->stat->addWidget(e.stat_age_gender(), 1, 0);
+    ui->stat->addWidget(e.stat_money_age(), 1, 1);
 }

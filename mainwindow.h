@@ -10,6 +10,7 @@
 #include <QMessageBox>
 #include <QCompleter>
 #include<QTcpSocket>
+#include"arduino.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -62,6 +63,10 @@ private:
     Ui::MainWindow *ui;
     benevoles Be;
     QTcpSocket *mSocket;
+
+    //arduino
+    QByteArray data; // variable contenant les données reçues
+    Arduino A; // objet temporaire
 };
 }
 #endif // MAINWINDOW_H

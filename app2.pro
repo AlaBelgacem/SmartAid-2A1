@@ -2,6 +2,7 @@ QT       += core gui sql
 QT       +=charts
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+QT += serialport
 QT += network
 
 DEPENDPATH += .

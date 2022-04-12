@@ -176,10 +176,25 @@ bool benevoles::modifier()
         series->append("3 ", three);
         series->append("4 ", four);
         series->append("5 ", five);
+QPieSlice *slice = series->slices().at(0);
+
+slice->setColor("#D46A6A");
+QPieSlice *slice2 = series->slices().at(1);
+
+slice2->setColor("#bb3636");
+QPieSlice *slice3 = series->slices().at(2);
+
+slice3->setColor("#c94242");
+QPieSlice *slice4 = series->slices().at(3);
+
+slice4->setColor("#ce5656");
+QPieSlice *slice5 = series->slices().at(4);
+
+slice5->setColor("#bb3636");
 
         QChart *chart = new QChart();
         chart->addSeries(series);
-        chart->setTitle("statistique sure les evaluations des benevoles");
+        chart->setTitle("statistique sur les evaluations des benevoles");
         chart->legend()->setAlignment(Qt::AlignRight);
         chart->legend()->setBackgroundVisible(true);
         chart->legend()->setBrush(QBrush(QColor(0,31,38,1)));

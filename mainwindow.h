@@ -58,7 +58,7 @@ private slots:
     void on_pb_connecter_clicked();
 
     //void on_pushButton_4_clicked();
-
+    void get_rfid();
 private:
     Ui::MainWindow *ui;
     benevoles Be;
@@ -66,6 +66,7 @@ private:
 
     //arduino
     QByteArray data; // variable contenant les données reçues
+    QString uid;
     Arduino A; // objet temporaire
 };
 }

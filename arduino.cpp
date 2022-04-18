@@ -63,14 +63,14 @@ QByteArray Arduino::read_from_arduino()
    }
 }
 
-int Arduino::write_to_arduino( QByteArray d)
+int Arduino::writeStringToArduino(const char * msg)
 {
-
-    if(serial->isWritable()){
-        serial->write(d);  // envoyer des donnés vers Arduino
-    }else{
-        qDebug() << "Couldn't write to serial!";
+    if (serial->isWritable())
+    {
+        serial->write(msg);
+         qDebug()<<msg;
     }
-
-
+    else
+        qDebug() << "Couldn't write to serial!";
+    return -1;
 }

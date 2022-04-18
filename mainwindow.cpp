@@ -36,7 +36,7 @@ MainWindow::MainWindow(QWidget *parent)
           break;
        case(-1):qDebug() << "arduino is not available";
        }
-        QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(update_label())); // permet de lancer
+        QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(get_rfid())); // permet de lancer
         //le slot update_label suite à la reception du signal readyRead (reception des données).
 
 
@@ -331,5 +331,53 @@ void MainWindow::on_pb_connecter_clicked()
     mSocket->connectToHost(D.hostname(), D.port());
 }
 
-}
+void MainWindow::get_rfid()
+{
+    bool found =false;
+            QString nom="",RFID,msg;
+            QString salaire;
+    data =A.read_from_arduino();
+    qDebug() <<"a=" << data;
+    if (data!="#")
+                uid+=data;
+    else {
 
+                qDebug()  << uid;
+                QTableView tableEmploye;
+                QSqlQueryModel * Mod=new  QSqlQueryModel();
+                QSqlQuery qry;
+                qry.prepare("select * from EMPLOYES");
+                qry.exec();
+                Mod->setQuery(qry);
+                tableEmploye.setModel(Mod);
+                const int ligne = tableEmploye.model()->rowCount();
+                for (int var = 0; var < ligne; var++) {
+                    if(tableEmploye.model()->data(tableEmploye.model()->index(var, 10))==uid)
+                    {
+                       nom= tableEmploye.model()->data(tableEmploye.model()->index(var, 1)).toString();
+                       RFID = tableEmploye.model()->data(tableEmploye.model()->index(var, 10)).toString();
+                       found=true;
+                       var=ligne;
+                    }
+                }
+                msg = tr("Nom = ")+nom;
+                const char * p= msg.toStdString().c_str();
+                //qDebug()<<(*p);
+
+
+                    if(found){
+                        A.writeStringToArduino(p);
+                        qDebug()<<"Bonjour "<<nom;
+
+
+                    }else{
+                        qDebug()<<"error";
+                        A.writeStringToArduino("ERROR");
+                    }
+                uid="";
+                found = false;
+                //qDebug() << uid;
+     }
+
+}
+}

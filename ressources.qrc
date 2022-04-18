@@ -22,6 +22,17 @@
         <file>images/avatar rose.gif</file>
         <file>images/646-walking-walkcycle-person-outline.gif</file>
         <file>images/walking man transparent.gif</file>
+ <file>images/sante.jpg</file>
+        <file>images/test.gif</file>
+<file>images/Design1.png</file>
+<file>images/Design2.png</file>
+<file>images/Design_second.png</file>
+<file>images/Design33.png</file>
+<file>images/Design_third.png</file>
+<file>images/Capt_des1.png</file>
+<file>images/Capt_des2.png</file>
+<file>images/Capt_des3.png</file>
+
     </qresource>
     <qresource prefix="/">
         <file>icons/employe128.ico</file>

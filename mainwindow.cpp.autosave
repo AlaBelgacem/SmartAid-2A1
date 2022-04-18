@@ -653,12 +653,7 @@ void MainWindow::on_bo_3_clicked()
     int check=u.Login(email,pass);
     if(check!=0)
     {
-        if(check==1)
-        {
-            ui->tab_ge->removeTab(2);
-            q=2;
-        }
-        else
+        
             q=1;
         qDebug() << q;
         ui->er_log->setText("");
@@ -667,9 +662,8 @@ void MainWindow::on_bo_3_clicked()
         //ui->box->move(0,-150);
         ui->box->hide();
         ui->er_log->hide();
-        session=u.session(email,pass);
-        profil();
-        ui->table4->setModel(e.Afficher_Salaire(q));
+       
+      
     }
     else if(!check)
     {

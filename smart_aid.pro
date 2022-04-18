@@ -1,7 +1,7 @@
-QT       += core gui sql charts
+QT+= core gui sql charts
 QT+= sql
-QT += printsupport
-QT += charts
+QT+= printsupport
+QT+= charts serialport
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
@@ -19,16 +19,28 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    arduino.cpp \
+    categories.cpp \
     connection.cpp \
+    dons.cpp \
     employes.cpp \
+    evenements.cpp \
     main.cpp \
+    maindon.cpp \
+    mainevenement.cpp \
     mainwindow.cpp \
+    qcustomplot.cpp \
     users.cpp
 
 HEADERS += \
+    arduino.h \
+    categories.h \
     connection.h \
+    dons.h \
     employes.h \
+    evenements.h \
     mainwindow.h \
+    qcustomplot.h \
     users.h
 
 FORMS += \

@@ -217,6 +217,22 @@ bool Employes::check_phone(QString n)
     else
         return 1;
 }
+ bool Employes::check_existance(QString mail , QString num)
+{
+
+         QSqlQuery query;
+         query.prepare("select téléphone,email from employes where téléphone=:num or email:=e");
+         query.bindValue(":num",num);
+         query.bindValue(":e",mail);
+         query.exec();
+         query.next();
+         QString id=query.value(0).toString();
+         QString e=query.value(1).toString();
+         if((id=="")||(e==""))
+             return 0;
+         else
+             return 1;
+}
 bool Employes::add_be()
 {
     QSqlQuery query;

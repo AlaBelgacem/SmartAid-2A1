@@ -95,6 +95,7 @@ public:
     QChartView *stat_age_gender();
     QChartView *stat_money_age();
     bool add_be();
+    bool check_existance(QString mail , QString num);
 
 
 

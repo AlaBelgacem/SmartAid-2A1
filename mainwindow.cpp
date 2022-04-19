@@ -23,6 +23,7 @@
 int q=2;
 int s=0;
 int sms=0;
+int coffre=0;
 users session;
 MainWindow::~MainWindow()
 {
@@ -653,12 +654,7 @@ void MainWindow::on_bo_3_clicked()
     int check=u.Login(email,pass);
     if(check!=0)
     {
-        if(check==1)
-        {
-            ui->tab_ge->removeTab(2);
-            q=2;
-        }
-        else
+
             q=1;
         qDebug() << q;
         ui->er_log->setText("");
@@ -667,9 +663,8 @@ void MainWindow::on_bo_3_clicked()
         //ui->box->move(0,-150);
         ui->box->hide();
         ui->er_log->hide();
-        session=u.session(email,pass);
-        profil();
-        ui->table4->setModel(e.Afficher_Salaire(q));
+
+
     }
     else if(!check)
     {
@@ -992,12 +987,16 @@ void MainWindow::update_stat()
 void MainWindow::on_pushButton_13_clicked()
 {
  A.write_to_arduino("1");
+  ui->label_35->setText("Etat: Ouvert");
+     coffre=1;
 }
 
 
 void MainWindow::on_pushButton_14_clicked()
 {
- A.write_to_arduino("0");
+ A.write_to_arduino("2");
+ ui->label_35->setText("Etat: Fermer");
+    coffre=0;
 }
 
 void MainWindow::on_logout_clicked()
@@ -1018,15 +1017,20 @@ void MainWindow::test()
     query.next();
     QString code=query.value(0).toString();
      QString code2="2";
-     QString code3="A";
+     QString code3="3";
     const char* c= code.toStdString().c_str();
     const char* c2= code2.toStdString().c_str();
-    const char* c3= code3.toStdString().c_str();
+    const char* c4= code3.toStdString().c_str();
+if(coffre==0)
+    ui->label_35->setText("Etat: Fermer");
+if(coffre==1)
+    ui->label_35->setText("Etat: Ouvert");
 
         if(data.contains(c))
         {
             A.write_to_arduino("1");
             ui->CODE->setText(data);
+            coffre=1;
 
         }
         else if(data.contains(c2))
@@ -1035,21 +1039,20 @@ void MainWindow::test()
             query.exec();
             query.next();
             QString flous=query.value(0).toString();
-            qDebug() << flous << flous.toUtf8();
-             A.write_to_arduino(flous.toUtf8());
+             const char* c3= flous.toStdString().c_str();
+             qDebug() << c3;
+             A.write_to_arduino(c3);
              ui->CODE->setText(data);
 
         }
-        else if(data.contains(c3))
+        else if(data.contains(c4))
         {
-
-            A.write_to_arduino("new moneyy");
-            ui->CODE->setText(data);
+           ui->label_35->setText("Etat: Fermer");
+           coffre=0;
         }
         else {
             A.write_to_arduino("0");
             ui->CODE->setText(data);
-
         }
        /* else if(data.contains("2"))
         {

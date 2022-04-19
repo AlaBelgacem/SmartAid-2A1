@@ -2439,7 +2439,7 @@ font-weight: normal;
 </string>
             </property>
             <property name="text">
-             <string>Etat: </string>
+             <string>Etat: Fermer</string>
             </property>
            </widget>
           </item>

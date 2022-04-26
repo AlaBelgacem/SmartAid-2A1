@@ -3,10 +3,17 @@
 #include <QMessageBox>
 #include "connection.h"
 #include <QApplication>
+#include "necessiteux.h"
+#include <windows.h>
+
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+
+
+
     connection c;
     bool test=c.createconnect();
     MainWindow w;

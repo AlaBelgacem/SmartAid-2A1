@@ -1,5 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
+
 #include <QMainWindow>
 #include <QStackedWidget>
 #include <QAbstractItemView>
@@ -7,11 +8,38 @@
 #include <QDebug>
 #include <QListWidget>
 #include <QMessageBox>
-#include "dons.h"
-#include "categories.h"
-#include "qcustomplot.h"
-#include <QSqlQuery>
+#include <QDebug>
+#include <QDate>
+#include <QDateEdit>
+#include <QDateTime>
+#include <QDateTimeEdit>
+#include <QCalendarWidget>
+#include <QTableWidget>
+#include <QTableView>
+#include <QPrinter>
+#include <QPrinterInfo>
+#include <QPrintDialog>
+#include <QTextStream>
+#include <QPainter>
+#include <QTextStream>
+#include <QFileDialog>
+#include <QTextDocument>
+#include <QtPrintSupport/QPrinter>
+#include <QFileDialog>
+#include <QTextDocument>
+//#include <strstream>
 #include <QSystemTrayIcon>
+#include <QRegExpValidator>
+#include <QDesktopServices>
+#include <QUrl>
+#include <vector>
+#include "qcustomplot.h"
+#include "connection.h"
+#include "necessiteux.h"
+#include "rendezvous.h"
+#include "arduino.h"
+#include "dons.h"
+#include <QTimer>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -28,44 +56,72 @@ public:
 private slots:
     void on_listWidget_itemClicked(QListWidgetItem *item);
 
-    void on_pushButton_ajouter_clicked();
+    void on_ajouterNecessiteux_clicked();
 
-    void on_pushButton_supprimer_clicked();
+    void on_tableN_activated(const QModelIndex &index);
 
-    void on_pushButton_modifier_clicked();
+    void on_supprimerNecessiteux_clicked();
 
-    void on_tableView_activated(const QModelIndex &index);
+    void on_modifier_Necessiteux_clicked();
 
-    void on_pushButton_ajouter_c_clicked();
+    void on_lineEdit_textChanged(const QString &arg1);
 
-    void on_pushButton_modifier_c_clicked();
+    void on_lineEdit_returnPressed();
 
-    void on_pushButton_supprimer_c_clicked();
+    void on_qrcode_button_clicked();
 
-    void on_tableView_2_activated(const QModelIndex &index);
+    void on_listWidget_Ne_itemClicked(QListWidgetItem *item);
 
-    void on_lineEdit_recherche_textChanged(const QString &arg1);
+    void on_comboBox_Ne_currentTextChanged(const QString &arg1);
 
-    void on_lineEdit_recherche_c_textChanged(const QString &arg1);
+    void on_ajouterRdv_clicked();
 
-    void on_radioButton_C_clicked();
+    void on_tableRdv_activated(const QModelIndex &index);
 
-    void on_radioButton_D_clicked();
+    void on_modifierRdv_clicked();
 
-    void on_radioButton_C_c_clicked();
+    void on_supprimerrDV_clicked();
 
-    void on_radioButton_D_c_clicked();
+    void on_recherche_rdv_textChanged(const QString &arg1);
 
-    void on_pushButton_PDF_clicked();
+    void on_comboBox_Rdv_currentTextChanged(const QString &arg1);
 
-    void on_pushButton_PDF_c_clicked();
+    void on_generatepdf_clicked();
 
-    void on_tabstat_tabBarClicked(int index);
+    void on_stackedWidget_Ne_currentChanged(int arg1);
+
+    void on_pushButton_clicked();
+
+    void on_pushButton_3_clicked();
+
+    void UserIsIdle();
+
+
+    ///////////////// SLOTS GESTION DONS /////////////////////////
+
+
+
+
+
+
+    //////////////////////////////////////////////////////////////
+
+
+
+
 
 private:
     Ui::MainWindow *ui;
-    Dons Etmp;
-    Categories Cat;
-};
 
+    necessiteux N;
+    rendezvous rdv;
+
+    //////// EMNA ///////////
+    Dons Etmp;
+    //Categories Cat;
+    ///
+
+    QByteArray data;
+    arduino A;
+};
 #endif // MAINWINDOW_H

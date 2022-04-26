@@ -11,7 +11,6 @@ public:
     connection();
     bool createconnect();
     void closeconnection();
-
 };
 
 #endif // CONNECTION_H

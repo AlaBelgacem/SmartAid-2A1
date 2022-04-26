@@ -1,4 +1,8 @@
-QT       += core gui sql printsupport
+QT       += core gui sql printsupport multimedia
+QT += widgets multimedia
+
+QT       += core gui
+QT += serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -15,20 +19,29 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+INCLUDEPATH +="C:\Users\Ala\Desktop\integration + emna\cpp"
+
+
 SOURCES += \
-    categrories.cpp \
+    arduino.cpp \
     connection.cpp \
     dons.cpp \
     main.cpp \
     mainwindow.cpp \
-    qcustomplot.cpp
+    necessiteux.cpp \
+    $$PWD/cpp/qrcodegen.cpp \
+    qcustomplot.cpp \
+    rendezvous.cpp
 
 HEADERS += \
-    categories.h \
+    arduino.h \
     connection.h \
     dons.h \
     mainwindow.h \
-    qcustomplot.h
+    necessiteux.h \
+    $$PWD/cpp/qrcodegen.hpp \
+    qcustomplot.h \
+    rendezvous.h
 
 FORMS += \
     mainwindow.ui
@@ -42,5 +55,7 @@ RESOURCES += \
     ressources.qrc
 
 QT+=sql
+
+CONFIG+=console
 
 

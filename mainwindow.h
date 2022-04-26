@@ -12,6 +12,12 @@
 #include "evenements.h"
 #include "dons.h"
 #include "categories.h"
+#include "benevoles.h"
+#include "necessiteux.h"
+#include "crises.h"
+#include "rendezvous.h"
+#include "qrcodegen.hpp"
+#include "qcustomplot.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -127,15 +133,15 @@ private slots:
     void on_Bouton_Vider_Champs_Page1_clicked();
     void on_line_id_returnPressed();
     void on_search_bar_textChanged(const QString &arg1);
-    void on_Tri_Croissant_clicked();
-    void on_Tri_Decroissant_clicked();
+
+
 
     void on_Bouton_Certifications_Menu_clicked();
     //ouverture pdf
 
    //Bouton Design
 
-    void on_pushButton_3_clicked();
+
 
     void on_Design1_clicked();
 
@@ -169,9 +175,9 @@ private slots:
 
     void test();
 
-    void on_pushButton_clicked();
 
-    void on_pushButton_4_clicked();
+
+
 
     void on_tri_id_clicked();
 
@@ -213,6 +219,99 @@ private slots:
     void on_pushButton_PDF_c_clicked();
 
     void on_tabstat_tabBarClicked(int index);
+//CRISES
+    void on_pushButtonc_ajouter_clicked();
+
+    void on_pushButton_supp_clicked();
+
+    void on_pushButton_modif_clicked();
+
+    void on_lineEditRecherche_textChanged(const QString &arg1);
+
+    void on_tableViewc_activated(const QModelIndex &index);
+
+    void on_radioButton_4_clicked();
+
+    void on_radioButton_5_clicked();
+
+    void on_pushButton_PDFc_clicked();
+
+    void on_browseBtn_clicked();
+
+    void on_sendBtn_clicked();
+
+    void mailSent(QString);
+
+    void on_boutonAller_clicked();
+
+    void afficherPosition(QString latitude, QString longitude);
+
+    void afficherInformations(QString adresse, QString coordonnee);
+    //benevoles
+    /*void on_pushButton_ajouter_benevole_clicked();
+
+    void on_pushButton_actualiser_clicked();
+
+    void on_tableView_benevole_activated(const QModelIndex &index);
+
+    void on_pushButton_supprimer_benevole_clicked();
+
+    void on_pushButton_modifier_benevole_clicked();
+
+
+    void on_pushButton_3_benevole_clicked();
+
+    void on_pushButton_benevole_clicked();
+
+    void on_comboBox_currentIndexChanged(const QString &arg1);
+
+    //void on_comboBox_2_activated(const QString &arg1);
+
+    void on_evaluer_clicked();
+
+    void on_pb_envoyer_clicked();
+
+    void on_pb_connecter_clicked();
+
+*/
+    //// NECESSITEUX ////////
+    void on_listWidget_itemClicked(QListWidgetItem *item);
+
+    void on_ajouterNecessiteux_clicked();
+
+    void on_tableN_activated(const QModelIndex &index);
+
+    void on_supprimerNecessiteux_clicked();
+
+    void on_modifier_Necessiteux_clicked();
+
+    void on_lineEdit_textChanged(const QString &arg1);
+
+    void on_lineEdit_returnPressed();
+
+    void on_qrcode_button_clicked();
+
+    void on_listWidget_Ne_itemClicked(QListWidgetItem *item);
+
+    void on_comboBox_Ne_currentTextChanged(const QString &arg1);
+
+    void on_ajouterRdv_clicked();
+
+    void on_tableRdv_activated(const QModelIndex &index);
+
+    void on_modifierRdv_clicked();
+
+    void on_supprimerrDV_clicked();
+
+    void on_recherche_rdv_textChanged(const QString &arg1);
+
+    void on_comboBox_Rdv_currentTextChanged(const QString &arg1);
+
+    void on_generatepdf_clicked();
+
+    void on_stackedWidget_Ne_currentChanged(int arg1);
+    //void UserIsIdle();
+
 
 private:
     Ui::MainWindow *ui;
@@ -226,5 +325,14 @@ private:
     Dons Etmp;
 
     Categories Cat;
+
+    benevoles Be;
+
+    //QTcpSocket *mSocket;
+    QStringList files;
+    Crises Cr; //object de type crises
+
+    necessiteux N;
+    rendezvous rdv;
 };
 #endif // MAINWINDOW_H

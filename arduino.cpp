@@ -15,6 +15,7 @@ QString Arduino::get_port_name(){
 QSerialPort* Arduino::getserial(){
     return serial;
 }
+
 int Arduino::close_arduino(){
     if(serial->isOpen()){
         serial->close();
@@ -25,7 +26,8 @@ int Arduino::close_arduino(){
 
 
 
-QByteArray Arduino::read_from_arduino(){
+QByteArray Arduino::read_from_arduino()
+{
     if(serial->isReadable()){
         data=serial->readAll();
         return data;

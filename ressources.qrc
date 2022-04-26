@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/icons">
         <file>icons/benevoles128.png</file>
-	<file>icons/batata.png</file>
+        <file>icons/batata.png</file>
         <file>icons/crises128.png</file>
         <file>icons/customer-service128.png</file>
         <file>icons/don128.png</file>
@@ -22,19 +22,25 @@
         <file>images/avatar rose.gif</file>
         <file>images/646-walking-walkcycle-person-outline.gif</file>
         <file>images/walking man transparent.gif</file>
- <file>images/sante.jpg</file>
+        <file>images/sante.jpg</file>
         <file>images/test.gif</file>
-<file>images/Design1.png</file>
-<file>images/Design2.png</file>
-<file>images/Design_second.png</file>
-<file>images/Design33.png</file>
-<file>images/Design_third.png</file>
-<file>images/Capt_des1.png</file>
-<file>images/Capt_des2.png</file>
-<file>images/Capt_des3.png</file>
-
+        <file>images/Design1.png</file>
+        <file>images/Design2.png</file>
+        <file>images/Design_second.png</file>
+        <file>images/Design33.png</file>
+        <file>images/Design_third.png</file>
+        <file>images/Capt_des1.png</file>
+        <file>images/Capt_des2.png</file>
+        <file>images/Capt_des3.png</file>
+        <file>images/20-love-heart-flat.gif</file>
+        <file>images/qrcode.gif</file>
+        <file>images/qrcode300px.gif</file>
+        <file>images/rendez_vous.gif</file>
     </qresource>
     <qresource prefix="/">
         <file>icons/employe128.ico</file>
+        <file>Fiche_Crises/21_crise.pdf</file>
+        <file>Fiche_Crises/3_crise.pdf</file>
+        <file>Fiche_Crises/4_crise.pdf</file>
     </qresource>
 </RCC>
